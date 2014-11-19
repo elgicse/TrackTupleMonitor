@@ -67,7 +67,7 @@ DECLARE_ALGORITHM_FACTORY( STEfficiency )
 //=============================================================================
 STEfficiency::STEfficiency( const std::string& name,
                             ISvcLocator* pSvcLocator)
-  : TrackMonitorTupleBase ( name , pSvcLocator ),
+  : TrackMonitorBase ( name , pSvcLocator ),
     m_totalExpected( 0u ),
     m_totalFound( 0u ),
     m_binSize( 10000. )
@@ -90,7 +90,6 @@ STEfficiency::STEfficiency( const std::string& name,
   declareProperty( "ResidualsPlot"      , m_resPlot = false );
   declareProperty( "TakeEveryHit"       , m_everyHit = true );
   declareProperty( "SingleHitPerSector" , m_singlehitpersector = false );
-  declareProperty( "TestProperty"       , m_test = true );
 }
 
 //=============================================================================
@@ -103,8 +102,8 @@ STEfficiency::~STEfficiency() {}
 //=============================================================================
 StatusCode STEfficiency::initialize()
 {
-  StatusCode sc( TrackMonitorTupleBase::initialize() ); // must be executed first
-  if ( sc.isFailure() ) return sc;  // error printed already by TrackMonitorTupleBase
+  StatusCode sc( TrackMonitorBase::initialize() ); // must be executed first
+  if ( sc.isFailure() ) return sc;  // error printed already by TrackMonitorBase
   if ( msgLevel(MSG::DEBUG) ) debug() << "==> Initialize" << endmsg;
   
   m_clustercollectorName = m_detType+"ClusterCollector";
@@ -165,14 +164,6 @@ StatusCode STEfficiency::execute()
 {
   if ( msgLevel(MSG::DEBUG) ) debug() << "==> Execute" << endmsg;
 
-  if (m_test){
-    info() << "Test property is activated in execution (verbose)"<< std::endl;
-    info() << endmsg;
-    //TupleTool::Tuple tup_test  = TupleTool::nTuple ( "TestTuple" ) ;
-    //tup_test -> column ('TupleExist', 1);
-  }
-
-
   Tracks* tracks = get< LHCb::Tracks >( inputContainer() );
   Tracks::const_iterator It, Begin( tracks -> begin() ),
     End( tracks -> end() );
@@ -196,7 +187,6 @@ StatusCode STEfficiency::execute()
   // Loop on tracks
   for (It = Begin; It != End; It++)
   {
-    //tup_test -> column ('TrackCounter', 1);
     // Clearing all the std::vectors !
     expectedHits.clear();
     prefoundHits.clear();
@@ -323,50 +313,8 @@ StatusCode STEfficiency::execute()
 	      }
       } // loop cuts
     } // loop expected
-    if (m_test){
-      //tup_test -> write () ;
-    }
-
-
-    //nt1  = self.nTuple ( "NTuple for mcBs-mesons")
-    //for bMC in mcBd :
-    //b=bMC
-    //mcrho=bMC.daughter(1)
-    //mcpion1=mcrho.daughter(1)
-    //mcpion2=mcrho.daughter(2)
-    //mcmuon1=bMC.daughter(2)
-    //mcmuon2=bMC.daughter(3)
-    //DiMuonMom=mcmuon1.momentum()
-    //DiMuonMom.SetPxPyPzE(mcmuon1.momentum().Px()+mcmuon2.momentum().Px(),
-    //mcmuon1.momentum().Py()+mcmuon2.momentum().Py(),
-    //mcmuon1.momentum().Pz()+mcmuon2.momentum().Pz(),
-    //mcmuon1.momentum().E()+mcmuon2.momentum().E())
-    //DiPionMom=mcpion1.momentum()
-    //DiPionMom.SetPxPyPzE(mcpion1.momentum().Px()+mcpion2.momentum().Px(),
-    //mcpion1.momentum().Py()+mcpion2.momentum().Py(),
-    //mcpion1.momentum().Pz()+mcpion2.momentum().Pz(),
-    //mcpion1.momentum().E()+mcpion2.momentum().E())
-    //Minv=DiMuonMom.M()/GeV
-    //Rhom=DiPionMom.M()/GeV
-    //Ang=(mcpion1.momentum().Px()*mcpion2.momentum().Px()+mcpion1.momentum().Py()*mcpion2.momentum().Py()+mcpion1.momentum().Pz()*mcpion2.momentum().Pz())/(mcpion1.p()*mcpion2.p())
-    //nt1.column('MinvInit',Minv)
-    //nt1.column('RhomInit',Rhom)
-    //nt1.column('MuppxInit',mcmuon1.momentum().Px())
-    //nt1.column('MumpxInit',mcmuon2.momentum().Px())
-    //nt1.column('MuppyInit',mcmuon1.momentum().Py())
-    //nt1.column('MumpyInit',mcmuon2.momentum().Py())
-    //nt1.column('MuppzInit',mcmuon1.momentum().Pz())
-    //nt1.column('MumpzInit',mcmuon2.momentum().Pz())
-    //nt1.column('PippxInit',mcpion1.momentum().Px())
-    //nt1.column('PimpxInit',mcpion2.momentum().Px())
-    //nt1.column('PippyInit',mcpion1.momentum().Py())
-    //nt1.column('PimpyInit',mcpion2.momentum().Py())
-    //nt1.column('PippzInit',mcpion1.momentum().Pz())
-    //nt1.column('PimpzInit',mcpion2.momentum().Pz())
-    //nt1.column('AngInit',Ang)
-    //nt1.write()
-
   } // loop tracks
+  
   return StatusCode::SUCCESS;
 }
 
@@ -425,10 +373,9 @@ StatusCode STEfficiency::finalize()
     for (unsigned int i( 0 ); i < m_wantedTypes.size(); i++)
       warning() << m_wantedTypes[ i ] << ' ';
     warning() << endmsg;
-    return TrackMonitorTupleBase::finalize();
+    return TrackMonitorBase::finalize();
   }
   
-
   std::map<unsigned int, DeSTSector*>::const_iterator iterS = m_nameMapSector.begin();
  
   std::vector<double>::const_iterator cutBegin( m_spacialCuts.begin() ),
@@ -478,7 +425,7 @@ StatusCode STEfficiency::finalize()
   IHistogram2D* histoNbFoundHits = book2D( propNbFoundHits->name() , propNbFoundHits->title(),
                                            propNbFoundHits->minBinX(), propNbFoundHits->maxBinX(), propNbFoundHits->nBinX(),
                                            propNbFoundHits->minBinY(), propNbFoundHits->maxBinY(), propNbFoundHits->nBinY());
-
+  
   for (; iterS != m_nameMapSector.end(); ++iterS )
   {
     channelID = iterS -> second -> elementID();
@@ -609,12 +556,13 @@ StatusCode STEfficiency::finalize()
     delete static_cast<ST::TTDetectorPlot*>(propNbFoundHits);
   }
   */
+
   delete prop;
   delete propSectorStatus;
   delete propNbHits;
   delete propNbFoundHits;
   
-  return TrackMonitorTupleBase::finalize();  // must be called after all other actions
+  return TrackMonitorBase::finalize();  // must be called after all other actions
 }
 
 /**

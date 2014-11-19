@@ -3,7 +3,7 @@
 # Maintainer : Wouter Hulsbergen
 #=====================================================================
 package           TrackMonitors
-version           v2r0
+version           v2r4
 
 # Structure, i.e. directories to process. 
 #=====================================================================
@@ -15,14 +15,15 @@ include_path      none
 use   GSL               v*    LCG_Interfaces
 use   GaudiAlg        	v*
 use   GaudiUtils        v*
-use   RecEvent		v*	Event
-use   MCEvent		v*	Event
-use   TrackEvent       	v*	Event
+use   RecEvent			v*		Event
+use   MCEvent			v*		Event
+use   TrackEvent       	v*		Event
 use   PatKernel         v*      Tf
-use   TrackFitEvent     v*	Tr
-use   TrackInterfaces 	v*	Tr
-use   TrackKernel	v*	Tr
+use   TrackFitEvent     v*		Tr
+use   TrackInterfaces 	v*		Tr
+use   TrackKernel		v*		Tr
 use   STKernel          v*      ST
+use   STTELL1Event		v*		ST
 use   PartProp          v*      Kernel
 use   CaloDet           v*      Det
 use   PhysEvent         v*      Event

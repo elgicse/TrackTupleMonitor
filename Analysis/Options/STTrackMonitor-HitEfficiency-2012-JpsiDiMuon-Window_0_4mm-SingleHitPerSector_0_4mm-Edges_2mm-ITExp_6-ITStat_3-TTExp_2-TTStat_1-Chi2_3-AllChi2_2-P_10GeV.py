@@ -222,7 +222,7 @@ ttMon.TracksInContainer = "/Event/Rec/Track/MyBest"
 # Dump all the plots
 ttMon.FullDetail = True
 # Minimum number of found hits on track
-ttMon.minNumITHits = 2
+ttMon.minNumTTHits = 2
 
 ########################################################################################
 ## Other tools required + DaVinci settings                                            ##
@@ -274,11 +274,11 @@ mainSeq.Members += [ inputFilter, filterSeq,
                      tracks,
                      #addhits,
                      #eventfitter, eventfitter2,
-                     cleaner,
+                     cleaner, itEff, ttEff,
                      #trackMon, itMon, ttMon, 
                      cleaner2
-                     ,itEff
-                     ,ttEff
+                     #,itEff
+                     #,ttEff
                       ]
 
 # Usual DaVinci stuff
@@ -291,6 +291,7 @@ DaVinci().DataType = "2012"
 #DaVinci().DDDBtag = "head-20111102"
 #DaVinci().CondDBtag = "head-20111111"
 #DaVinci().HistogramFile = "STTrackMonitor-HitEfficiency.root"
+DaVinci().HistogramFile = "DVnTuples.root"
 DaVinci().TupleFile = "DVnTuples.root"
 DaVinci().UserAlgorithms = [ mainSeq ]
 #DaVinci().Input = ["/afs/cern.ch/user/i/ikomarov/Service_Task/STTrackMonitor-HitEfficiency/DaVinci/00020198_00000007_1.dimuon.dst","/afs/cern.ch/user/i/ikomarov/Service_Task/STTrackMonitor-HitEfficiency/DaVinci/00020241_00000007_1.dimuon.dst"]

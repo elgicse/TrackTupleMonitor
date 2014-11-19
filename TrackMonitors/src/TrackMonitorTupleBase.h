@@ -22,8 +22,8 @@
  * 
  *  Base class for track monitoring: essentially a 'box' of common tools
 
- *  @author M. Needham.
- *  @date   6-5-2007
+ *  @author Ch. Elsasser
+ *  @date   16-7-2013
  */                 
                                                            
 class TrackMonitorTupleBase : public GaudiTupleAlg {

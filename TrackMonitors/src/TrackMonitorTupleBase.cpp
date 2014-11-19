@@ -7,7 +7,7 @@
 // Standard constructor, initializes variables
 //=============================================================================
 TrackMonitorTupleBase::TrackMonitorTupleBase( const std::string& name,
-                                    ISvcLocator* pSvcLocator ) :
+                                              ISvcLocator* pSvcLocator ) :
   GaudiTupleAlg( name , pSvcLocator ), m_poca(0), m_pIMF(0), m_extrapolator(0),
   m_allString("ALL"){
 
@@ -34,7 +34,7 @@ StatusCode TrackMonitorTupleBase::initialize()
   if ( "" == histoTopDir() ) setHistoTopDir(histoDir);
 
   // Mandatory initialization of GaudiAlgorithm
-  StatusCode sc = GaudiTupleAlg::initialize();
+  StatusCode sc = GaudiHistoAlg::initialize();
   if ( sc.isFailure() ) { return sc; }
 
   m_extrapolator = tool<ITrackExtrapolator>(m_extrapolatorName,this);

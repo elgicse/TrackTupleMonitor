@@ -2,7 +2,7 @@
 #define STEFFICIENCY_H 1
 
 // Include files
-#include "TrackMonitorTupleBase.h"
+#include "TrackMonitorBase.h"
 
 #include "TrackInterfaces/ISTClusterCollector.h"
 
@@ -22,7 +22,7 @@ class DeSTSector;
  *  @author Johan Luisier, Frederic Dupertuis
  *  @date   2009-06-16, 2010-07-27
  */
-class STEfficiency : public TrackMonitorTupleBase {
+class STEfficiency : public TrackMonitorBase {
 public: 
   /// Standard constructor
   STEfficiency( const std::string& name, ISvcLocator* pSvcLocator );
@@ -147,11 +147,6 @@ private:
   bool m_singlehitpersector;
   
   /**
-   * Test property
-   */
-  bool m_test;
-
-  /**
    * List of wanted track types that will be used to compute efficiency.
    * Default is only Long (type 3)
    */
@@ -192,4 +187,3 @@ private:
     
 };
 #endif // STEFFICIENCY_H
-
