@@ -9,12 +9,18 @@
 
 # The list of stripping candidates and selection to apply
 # Example of selection: (PT>1500.*MeV) & (INTREE( ('mu+'==ABSID) & (PT>800.*MeV)))
+
+#
+#import sys
+#sys.path.remove('/cvmfs/lhcb.cern.ch/lib/lhcb/DAVINCI/DAVINCI_v36r2/InstallArea/x86_64-slc6-gcc48-opt/python.zip')
+#sys.path.insert(0,'/home/hep/egraveri/cmtuser/DaVinci_v36r2/InstallArea/x86_64-slc6-gcc48-opt/python')
+#
+
+
 particlesAndCuts = { "/Event/Dimuon/Phys/FullDSTDiMuonJpsi2MuMuDetachedLine/Particles" : "ALL" }
 
 from PhysSelPython.Wrappers import Selection, SelectionSequence, AutomaticData
 from Configurables import FilterDesktop
-from Gaudi.Configuration  import *
-
 
 myInputParticlesList = []
 myParticlesFilterList = []
@@ -22,8 +28,14 @@ myParticlesList = []
 myParticlesSeqList = []
 myParticlesLocationList = []
 
+from Configurables import GaudiSequencer
+
 filterSeq = GaudiSequencer( 'FilterSeq' )
 filterSeq.ModeOR = True
+
+mainSeq = GaudiSequencer( 'MainSeq' )
+mainSeq.MeasureTime = True
+mainSeq.IgnoreFilterPassed = False
 
 codeIN = ""
 
@@ -55,6 +67,10 @@ from Configurables import LoKi__VoidFilter as EventFilter
 inputFilter = EventFilter( name = 'InputFilter',
                            Code = codeIN )
 
+# Warning/Error on DVv36r2 (method "lumi" not available for this job)
+#runnumberfilter = EventFilter ( 'RunNumberFilter' , Preambulo = [ "from LoKiCore.math import *" , "from LoKiNumbers.decorators import *" ] , Code = 'evtSvc["DAQ/ODIN"].runNumber()>131973')
+
+
 from Configurables import ChargedParticlesToTracks
 
 tracks = ChargedParticlesToTracks("ChargedParticlesToTracks")
@@ -77,28 +93,24 @@ from Configurables import TrackContainerCleaner, TrackSelector
 
 # Selection for hit resolution and signal-to-noise ratio:
 # P>10 GeV/c and track chi2 < 3
-cleaner = TrackContainerCleaner( 'GoodTracks' )
-cleaner.inputLocation = "/Event/Rec/Track/MyBest"
-cleaner.addTool( TrackSelector, name = 'Selector' )
-cleaner.Selector.MinPCut    = 10000.
-cleaner.Selector.MaxChi2Cut = 3.
-cleaner.Selector.TrackTypes = [ "Long" ]
+cleanerGoodTracks = TrackContainerCleaner( 'GoodTracks' )
+cleanerGoodTracks.inputLocation = "/Event/Rec/Track/MyBest"
+cleanerGoodTracks.addTool( TrackSelector, name = 'Selector' )
+cleanerGoodTracks.Selector.MinPCut    = 10000.
+cleanerGoodTracks.Selector.MaxChi2Cut = 3.
+cleanerGoodTracks.Selector.TrackTypes = [ "Long" ]
 
 # Additional selection for hit efficiency:
 # total track, T track, Velo segment and matching chi2 < 2
-cleaner2 = TrackContainerCleaner( 'ExcellentTracks' )
-cleaner2.inputLocation = "/Event/Rec/Track/MyBest"
-cleaner2.addTool( TrackSelector, name = 'Selector' )
-cleaner2.Selector.MaxChi2Cut = 2.
-cleaner2.Selector.MaxChi2PerDoFMatch = 2.
-cleaner2.Selector.MaxChi2PerDoFDownstream = 2.
-cleaner2.Selector.MaxChi2PerDoFVelo = 2.
-cleaner2.Selector.TrackTypes = [ "Long" ]
+cleanerExcellentTracks = TrackContainerCleaner( 'ExcellentTracks' )
+cleanerExcellentTracks.inputLocation = "/Event/Rec/Track/MyBest"
+cleanerExcellentTracks.addTool( TrackSelector, name = 'Selector' )
+cleanerExcellentTracks.Selector.MaxChi2Cut = 2.
+cleanerExcellentTracks.Selector.MaxChi2PerDoFMatch = 2.
+cleanerExcellentTracks.Selector.MaxChi2PerDoFDownstream = 2.
+cleanerExcellentTracks.Selector.MaxChi2PerDoFVelo = 2.
+cleanerExcellentTracks.Selector.TrackTypes = [ "Long" ]
 
-from Configurables import LoKi__ODINFilter as RunFilter
-runf = RunFilter ( 'RunFilter' , Preambulo = [ "from LoKiCore.math import *" , "from LoKiNumbers.decorators import *" ] , Code = "ODIN_RUNNUMBER(0, 131973)", Location = "DAQ/ODIN")
-#from Configurables import LoKi__VoidFilter as RunFilter
-#runf = RunFilter ( 'RunFilter' , Preambulo = [ "from LoKiCore.math import *" , "from LoKiNumbers.decorators import *" ] , Code = "ODIN_RUNNUMBER(131973)")
 ########################################################################################
 ## Calculating hit efficiency                                                         ##
 ########################################################################################
@@ -107,7 +119,7 @@ runf = RunFilter ( 'RunFilter' , Preambulo = [ "from LoKiCore.math import *" , "
 itwindow = 0.4
 # Search window (residual) for STClusterCollector
 itcollectorwindow = itwindow
-# Tolerance for X an Y in the first estimate of the track crossing the silicion position
+# Tolerance for X and Y in the first estimate of the track crossing the silicon position
 # and central position of the cluster
 itxTol = 1.
 ityTol = 0.
@@ -116,14 +128,14 @@ ityTol = 0.
 ttwindow = 0.4
 # Search window (residual) for STClusterCollector
 ttcollectorwindow = ttwindow
-# Tolerance for X an Y in the first estimate of the track crossing the silicion position
+# Tolerance for X and Y in the first estimate of the track crossing the silicon position
 # and central position of the cluster
 ttxTol = 1.
 ttyTol = 0.
 
 from Configurables import STEfficiency, STClusterCollector, STSelectChannelIDByElement, TrackTuple
 
-itEff = TrackTuple( "ITHitEfficiency" )
+itEff = STEfficiency( "ITHitEfficiency" )
 itEff.TracksInContainer  = "/Event/Rec/Track/MyBest"
 itEff.DetType            = "IT"
 # Steps for hit efficiency measurements as a function of search window
@@ -150,10 +162,38 @@ itEff.FullDetail         = True
 itEff.SingleHitPerSector = True
 # Take hits found by STClusterCollector
 itEff.TakeEveryHit       = True
-#itEff.TestProperty       = True
 itEff.OutputLevel        = 3
 
-ttEff = TrackTuple( "TTHitEfficiency" )
+itEffTuple = TrackTuple( "ITHitEfficiencyTuple" )
+itEffTuple.TracksInContainer  = "/Event/Rec/Track/MyBest"
+itEffTuple.DetType            = "IT"
+# Steps for hit efficiency measurements as a function of search window
+itEffTuple.Cuts               = [ 2.e-3, 5.e-3, 1.e-2, 2.e-2, 3.e-2, 4.e-2, 6.e-2, 8.e-2, 1.e-1, 1.5e-1, 2.e-1, 3.e-1, 4.e-1 ]
+# Search window (must be at least larger than the last value of Cuts property)
+itEffTuple.XLayerCut          = itwindow
+itEffTuple.StereoLayerCut     = itwindow
+# Minimum number of expected sectors required
+itEffTuple.MinExpectedSectors = 6
+# Maximum number of found - expected hits
+itEffTuple.MaxNbResSectors    = 10
+# Minimum number of stations where hits are on the track
+itEffTuple.MinStationPassed   = 3
+# Edge size excluded of the computation
+itEffTuple.MinDistToEdgeX     = 2.
+itEffTuple.MinDistToEdgeY     = 2.
+# Not dump the efficiency plot, because of the merging afterwards
+itEffTuple.EfficiencyPlot     = False
+# Dump all the biased residual histograms
+itEffTuple.ResidualsPlot      = True
+# Dump all the control histograms (for experts)
+itEffTuple.FullDetail         = True
+# No more than one found hit per sector
+itEffTuple.SingleHitPerSector = True
+# Take hits found by STClusterCollector
+itEffTuple.TakeEveryHit       = True
+itEffTuple.OutputLevel        = 3
+
+ttEff = STEfficiency( "TTHitEfficiency" )
 ttEff.TracksInContainer  = "/Event/Rec/Track/MyBest"
 ttEff.DetType            = "TT"
 ttEff.Cuts               = [ 2.e-3, 5.e-3, 1.e-2, 2.e-2, 3.e-2, 4.e-2, 6.e-2, 8.e-2, 1.e-1, 1.5e-1, 2.e-1, 3.e-1, 4.e-1 ]
@@ -180,6 +220,33 @@ ttEff.SingleHitPerSector = True
 ttEff.TakeEveryHit       = True
 ttEff.OutputLevel        = 3
 
+ttEffTuple = TrackTuple( "TTHitEfficiencyTuple" )
+ttEffTuple.TracksInContainer  = "/Event/Rec/Track/MyBest"
+ttEffTuple.DetType            = "TT"
+ttEffTuple.Cuts               = [ 2.e-3, 5.e-3, 1.e-2, 2.e-2, 3.e-2, 4.e-2, 6.e-2, 8.e-2, 1.e-1, 1.5e-1, 2.e-1, 3.e-1, 4.e-1 ]
+ttEffTuple.XLayerCut          = ttwindow
+ttEffTuple.StereoLayerCut     = ttwindow
+# Minimum number of expected sectors required
+ttEffTuple.MinExpectedSectors = 2
+# Maximum number of found - expected hits
+ttEffTuple.MaxNbResSectors    = 10
+# Minimum number of stations where hits are on the track
+itEffTuple.MinStationPassed   = 1
+# Edge size excluded of the computation
+ttEffTuple.MinDistToEdgeX     = 2.
+ttEffTuple.MinDistToEdgeY     = 2.
+# Not dump the efficiency plot, because of the merging afterwards
+ttEffTuple.EfficiencyPlot     = False
+# Dump all the biased residual histograms
+ttEffTuple.ResidualsPlot      = True
+# Dump all the control histograms (for experts)
+ttEffTuple.FullDetail         = True
+# Dump all the control histograms (for experts)
+ttEffTuple.SingleHitPerSector = True
+# Take hits found by STClusterCollector
+ttEffTuple.TakeEveryHit       = True
+ttEffTuple.OutputLevel        = 3
+
 # Collecting the ST clusters
 itClusterCollector = STClusterCollector( "ToolSvc.ITClusterCollector" )
 itClusterCollector.DetType           = "IT"
@@ -205,24 +272,82 @@ ttClusterCollector.dataLocation      = "/Event/Raw/TT/Clusters"
 
 from Configurables import ITTrackMonitor, TTTrackMonitor, TrackMonitor
 
-trackMon = TrackMonitor('TrackMonitor')
-trackMon.TracksInContainer = "/Event/Rec/Track/MyBest"
+# good tracks selected by cleaner
+trackMonitorGoodTracks = TrackMonitor('TrackMonitorGoodTracks')
+trackMonitorGoodTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
 
-itMon = ITTrackMonitor('ITTrackMonitor')
-itMon.TracksInContainer = "/Event/Rec/Track/MyBest"
+itTrackMonitorGoodTracks = ITTrackMonitor('ITTrackMonitorGoodTracks')
+itTrackMonitorGoodTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
 # Dump all the plots
-itMon.FullDetail = True
+itTrackMonitorGoodTracks.FullDetail = True
 # Dump all the plots per layers
-itMon.plotsByLayer = True
+itTrackMonitorGoodTracks.plotsByLayer = True
+itTrackMonitorGoodTracks.plotsBySector = True
 # Minimum number of found hits on track
-itMon.minNumITHits = 6
+itTrackMonitorGoodTracks.minNumITHits = 6
+# Comment to use all hits
+itTrackMonitorGoodTracks.HitsOnTrack = True
 
-ttMon = TTTrackMonitor('TTTrackMonitor')
-ttMon.TracksInContainer = "/Event/Rec/Track/MyBest"
+ttTrackMonitorGoodTracks = TTTrackMonitor('TTTrackMonitorGoodTracks')
+ttTrackMonitorGoodTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
 # Dump all the plots
-ttMon.FullDetail = True
+ttTrackMonitorGoodTracks.FullDetail = True
+ttTrackMonitorGoodTracks.plotsBySector = True
 # Minimum number of found hits on track
-ttMon.minNumTTHits = 2
+ttTrackMonitorGoodTracks.minNumTTHits = 2
+# Comment to use all hits
+ttTrackMonitorGoodTracks.HitsOnTrack = True
+
+# excellent tracks
+trackMonitorExcellentTracks = TrackMonitor('TrackMonitorExcellentTracks')
+trackMonitorExcellentTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
+
+itTrackMonitorExcellentTracks = ITTrackMonitor('ITTrackMonitorExcellentTracks')
+itTrackMonitorExcellentTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
+# Dump all the plots
+itTrackMonitorExcellentTracks.FullDetail = True
+# Dump all the plots per layers
+itTrackMonitorExcellentTracks.plotsByLayer = True
+itTrackMonitorExcellentTracks.plotsBySector = True
+# Minimum number of found hits on track
+itTrackMonitorExcellentTracks.minNumITHits = 6
+# Comment to use all hits
+itTrackMonitorExcellentTracks.HitsOnTrack = True
+
+ttTrackMonitorExcellentTracks = TTTrackMonitor('TTTrackMonitorExcellentTracks')
+ttTrackMonitorExcellentTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
+# Dump all the plots
+ttTrackMonitorExcellentTracks.FullDetail = True
+ttTrackMonitorExcellentTracks.plotsBySector = True
+# Minimum number of found hits on track
+ttTrackMonitorExcellentTracks.minNumTTHits = 2
+# Comment to use all hits
+ttTrackMonitorExcellentTracks.HitsOnTrack = True
+
+# Fast thing to check alignment:
+# look at tracks pointing towards the overlapping regions!
+
+ttTrackMonitorOverlapsGoodTracks = TTTrackMonitor('TTTrackMonitorOverlapsGoodTracks')
+ttTrackMonitorOverlapsGoodTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
+# Dump all the plots
+ttTrackMonitorOverlapsGoodTracks.FullDetail = True
+ttTrackMonitorOverlapsGoodTracks.plotsBySector = True
+# Minimum number of found hits on track is set to 5 in order to
+# collect only the tracks pointing into the TT overlapping regions
+ttTrackMonitorOverlapsGoodTracks.minNumTTHits = 5
+# Comment to use all hits
+ttTrackMonitorOverlapsGoodTracks.HitsOnTrack = True
+
+ttTrackMonitorOverlapsExcellentTracks = TTTrackMonitor('TTTrackMonitorOverlapsExcellentTracks')
+ttTrackMonitorOverlapsExcellentTracks.TracksInContainer = "/Event/Rec/Track/MyBest"
+# Dump all the plots
+ttTrackMonitorOverlapsExcellentTracks.FullDetail = True
+ttTrackMonitorOverlapsExcellentTracks.plotsBySector = True
+# Minimum number of found hits on track is set to 5 in order to
+# collect only the tracks pointing into the TT overlapping regions
+ttTrackMonitorOverlapsExcellentTracks.minNumTTHits = 5
+# Comment to use all hits
+ttTrackMonitorOverlapsExcellentTracks.HitsOnTrack = True
 
 ########################################################################################
 ## Other tools required + DaVinci settings                                            ##
@@ -258,40 +383,49 @@ itDecoder.DetType = 'IT'
 
 ttDecoder = RawBankToSTClusterAlg('TTDecoder')
 
-from Configurables import CondDB, CondDBAccessSvc
+#from Configurables import CondDB, CondDBAccessSvc
 # Adding an extra slice of the database (example: alignment constants)
 #mycalib = CondDBAccessSvc( 'myCalib' )
 #mycalib.ConnectionString = 'sqlite_file:/afs/cern.ch/user/m/mamartin/public/AlignDB/v6.2series.db/LHCBCOND'
 #CondDB().addLayer( mycalib )
 
-# Using latest databases tags
-CondDB().UseLatestTags = ["2012"]
+#In DV2012.py
+## Using latest databases tags
+#CondDB().UseLatestTags = ["2012"]
 
-mainSeq.Members += [ inputFilter, filterSeq, 
-                     #runf,
+mainSeq.Members += [ #runnumberfilter, 
+                     inputFilter, filterSeq,
                      UnpackTrack(), 
                      veloDecoder, ttDecoder, itDecoder,
                      tracks,
-                     #addhits,
-                     #eventfitter, eventfitter2,
-                     cleaner, itEff, ttEff,
-                     #trackMon, itMon, ttMon, 
-                     cleaner2
-                     #,itEff
-                     #,ttEff
-                      ]
+                     cleanerGoodTracks, trackMonitorGoodTracks, itTrackMonitorGoodTracks,
+                     ttTrackMonitorGoodTracks, ttTrackMonitorOverlapsGoodTracks,
+                     cleanerExcellentTracks, trackMonitorExcellentTracks, itTrackMonitorExcellentTracks,
+                     ttTrackMonitorExcellentTracks, ttTrackMonitorOverlapsExcellentTracks,
+                     itEff, ttEff,
+                     itEffTuple, ttEffTuple ]
 
 # Usual DaVinci stuff
 from Configurables import DaVinci
-DaVinci().EvtMax   = -1
+DaVinci().EvtMax   = 100
 #DaVinci().SkipEvents = 10000
-DaVinci().PrintFreq = 10000 
-DaVinci().DataType = "2012"
+DaVinci().PrintFreq = 1000
+#In DV2012.py
+#DaVinci().DataType = "2012"
 
 #DaVinci().DDDBtag = "head-20111102"
 #DaVinci().CondDBtag = "head-20111111"
-#DaVinci().HistogramFile = "STTrackMonitor-HitEfficiency.root"
-DaVinci().HistogramFile = "DVnHists.root"
-DaVinci().TupleFile = "DVnTuples.root"
+filename = "STTrackMonitor-HitEfficiency"
+DaVinci().HistogramFile = filename+"-Hists.root"
 DaVinci().UserAlgorithms = [ mainSeq ]
-#DaVinci().Input = ["/afs/cern.ch/user/i/ikomarov/Service_Task/STTrackMonitor-HitEfficiency/DaVinci/00020198_00000007_1.dimuon.dst","/afs/cern.ch/user/i/ikomarov/Service_Task/STTrackMonitor-HitEfficiency/DaVinci/00020241_00000007_1.dimuon.dst"]
+
+#from Configurables import DaVinci
+DaVinci().DataType = "2012"
+
+from Configurables import CondDB, CondDBAccessSvc
+CondDB().UseLatestTags = ["2012"]
+
+from Configurables import NTupleSvc
+itEffTuple.NTupleLUN = "TC"
+ttEffTuple.NTupleLUN = "TC"
+NTupleSvc().Output += ["TC DATAFILE='%s-NTuples.root' TYP='ROOT' OPT='NEW'"%filename]

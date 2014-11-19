@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+
+  <File ID="9A0BFD12-CE01-E211-9A5B-001EC9D7FA3C">
+     <physical>
+       <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000059_1.dimuon.dst"/>
+       <pfn filetype="ROOT_All" name="root://bw27-3.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000059_1.dimuon.dst"/>
+       <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000059_1.dimuon.dst"/>
+       <pfn filetype="ROOT_All" name="file:///storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000059_1.dimuon.dst"/>
+     </physical>
+     <logical>
+       <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000059_1.dimuon.dst"/>
+     </logical>
+   </File>
+
+</POOLFILECATALOG>
