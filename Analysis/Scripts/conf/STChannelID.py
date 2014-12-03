@@ -3,10 +3,9 @@
 STChannelID.py: retrieve ID and name of layers, sectors, etc. from an LHCb::STChannelID integer.
 
 Sample usage:
-In [1]: st = STNames()
-In [2]: id = STChannelID(10815631)
-In [3]: st.uniqueSectorName(id)
-Out[3]: 'IT1ASideX1Sector2'
+In [1]: id = STChannelID(10815631)
+In [2]: STNames().uniqueSectorName(id)
+Out[2]: 'IT1ASideX1Sector2'
 """
 __author__  = "Elena Graverini"
 __email__   = "elena.graverini@cern.ch"
