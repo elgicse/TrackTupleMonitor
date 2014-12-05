@@ -190,7 +190,7 @@ itEffTuple.FullDetail         = True
 # No more than one found hit per sector
 itEffTuple.SingleHitPerSector = True
 # Take hits found by STClusterCollector
-itEffTuple.TakeEveryHit       = True
+itEffTuple.TakeEveryHit       = False#True
 itEffTuple.OutputLevel        = 3
 
 ttEff = STEfficiency( "TTHitEfficiency" )
@@ -244,7 +244,7 @@ ttEffTuple.FullDetail         = True
 # Dump all the control histograms (for experts)
 ttEffTuple.SingleHitPerSector = True
 # Take hits found by STClusterCollector
-ttEffTuple.TakeEveryHit       = True
+ttEffTuple.TakeEveryHit       = False#True
 ttEffTuple.OutputLevel        = 3
 
 # Collecting the ST clusters
@@ -407,7 +407,7 @@ mainSeq.Members += [ #runnumberfilter,
 
 # Usual DaVinci stuff
 from Configurables import DaVinci
-DaVinci().EvtMax   = 100
+DaVinci().EvtMax   = 1000#300
 #DaVinci().SkipEvents = 10000
 DaVinci().PrintFreq = 1000
 #In DV2012.py
