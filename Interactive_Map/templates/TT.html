@@ -1,0 +1,37 @@
+<!doctype html>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
+{% for layer in tt %}
+    {% if tt[layer]['layer_info'] %}
+    <div id="TT_layer" align="center" style="
+                            {% for i in tt[layer]['layer_info'] %}
+                                {{ i }}:{{ tt[layer]['layer_info'][i] }};
+                            {% endfor %}">
+        <h1>{{ layer }}</h1>
+        <div style="width:90%;height:80%;position:absolute;top:15%;left:5%;">
+        {% for side in tt[layer] %}
+            {% if  tt[layer][side]['side_info'] %}
+                <div id="TT_side" align="center" style="
+                                {% for i in tt[layer][side]['side_info'] %}
+                                    {{ i }}:{{ tt[layer][side]['side_info'][i] }};
+                                {% endfor %}">
+                    {% for sector in tt[layer][side] %}
+                        {% if  tt[layer][side][sector]['div_info'] %}
+                        <a href="/{{ tt[layer][side][sector]['Name'] }}">
+                            <div id='TT_bin' style="
+                                {% for i in tt[layer][side][sector]['div_info'] %}
+                                    {{ i }}:{{ tt[layer][side][sector]['div_info'][i] }};
+                                {% endfor %}"
+                                >
+                                {{ sector }}
+                            </div>
+                        </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
