@@ -1,0 +1,89 @@
+<!doctype html>
+<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
+
+
+<div style="width:50%;height:100%;position:absolute;top:0%;left:0%;text-align:center;">
+    <h1><a href="/TT"> Detailed TT </a></h1>
+    <div style="width:100%;height:80%;position:absolute;top:20%;left:0%;">
+        {% for layer in tt %}
+            {% if tt[layer]['layer_info'] %}
+            <div id="TT_layer" align="center" style="
+                                    {% for i in tt[layer]['layer_info'] %}
+                                        {{ i }}:{{ tt[layer]['layer_info'][i] }};
+                                    {% endfor %}">
+                <h1>{{ layer }}</h1>
+                <div style="width:90%;height:80%;position:absolute;top:15%;left:5%;">
+                {% for side in tt[layer] %}
+                    {% if  tt[layer][side]['side_info'] %}
+                        <div id="TT_side" align="center" style="
+                                        {% for i in tt[layer][side]['side_info'] %}
+                                            {{ i }}:{{ tt[layer][side]['side_info'][i] }};
+                                        {% endfor %}">
+                            {% for sector in tt[layer][side] %}
+                                {% if  tt[layer][side][sector]['div_info'] %}
+                                <a href="/{{ tt[layer][side][sector]['Name'] }}">
+                                    <div id='TT_bin' style="
+                                        {% for i in tt[layer][side][sector]['div_info'] %}
+                                            {{ i }}:{{ tt[layer][side][sector]['div_info'][i] }};
+                                        {% endfor %}"
+                                        >
+                                        {{ sector }}
+                                    </div>
+                                </a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<div style="width:50%;height:100%;position:absolute;top:0%;left:50%;text-align:center">
+    <h1><a href="/IT"> Detailed IT </a></h1>
+    <div style="width:100%;height:80%;position:absolute;top:20%;left:0%;">
+        {% for station in it %}
+            {% if it[station]['station_info'] %}
+            <div id="IT_station" align="center" style="
+                                    {% for i in it[station]['station_info'] %}
+                                        {{ i }}:{{ it[station]['station_info'][i] }};
+                                    {% endfor %}">
+                {{ station }}
+                {% for side in it[station] %}
+                    {% if  it[station][side]['side_info'] %}
+                        <div id="IT_side" align="center" style="
+                                        {% for i in it[station][side]['side_info'] %}
+                                            {{ i }}:{{ it[station][side]['side_info'][i] }};
+                                        {% endfor %}">
+                        {% for layer in it[station][side] %}
+                            {% if  it[station][side][layer]['layer_info'] %}
+                                <div id="IT_side" align="center" style="
+                                                {% for i in it[station][side][layer]['layer_info'] %}
+                                                    {{ i }}:{{ it[station][side][layer]['layer_info'][i] }};
+                                                {% endfor %}">
+                                {% for sector in it[station][side][layer] %}
+                                    {% if  it[station][side][layer][sector]['div_info'] %}
+                                    <a href="/{{ it[station][side][layer][sector]['Name'] }}">
+                                        <div id='IT_bin' style="
+                                            {% for i in it[station][side][layer][sector]['div_info'] %}
+                                                {{ i }}:{{ it[station][side][layer][sector]['div_info'][i] }};
+                                            {% endfor %}"
+                                            >
+                                            {{ sector }}
+                                        </div>
+                                    </a>
+                                    {% endif %}
+                                {% endfor %}
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
