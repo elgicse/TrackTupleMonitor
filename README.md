@@ -14,7 +14,9 @@ This ntuple-making monitoring algorithm that comes in three versions:
 Ntuple layout in **BranchByTrack** mode:
 
 *General information:*
+
 - Run Number
+
 *Track information:*
 - p
 - pt
@@ -26,7 +28,9 @@ Ntuple layout in **BranchByTrack** mode:
 - number of IT hits
 - number of TT hits
 - for every ST layer, number of hits in layer
+
 *Hits information (track by track, arrays of hits information are filled):*
+
 - x,y,z position of the track extrapolation
 - x,y,z position of the cluster
 - ST channel ID of the cluster (can be used to retrieve the station/layer/sector)
