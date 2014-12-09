@@ -7,6 +7,10 @@
 #include "TrackInterfaces/ISTClusterCollector.h"
 
 #include "Event/STCluster.h"
+#include "Event/STMeasurement.h"
+
+#include "STDet/DeSTLayer.h"
+
 
 class ISTClusterCollector;
 class IHitExpectation;
@@ -43,6 +47,11 @@ private:
                          const double resCut,
                          const bool toplot ) const;
 
+  bool foundHitInLayer( const ISTClusterCollector::Hits& hits,
+                         LHCb::Track* const& track,
+                         const unsigned int testlayer,
+                         const double resCut) const;
+
   double foundResInSector( const ISTClusterCollector::Hits& hits,
                          LHCb::Track* const& track,
                          const unsigned int testsector,
@@ -51,6 +60,23 @@ private:
   std::string formatNumber( const double& nbr, const unsigned int& digits = 2u ) const;
 
   bool hasMinStationPassed(LHCb::Track* const&) const;
+
+  bool crossedLayer(LHCb::Track* const& aTrack,
+                                DeSTLayer * &aLayer) const;
+                                //unsigned int aLayer) const;
+  unsigned int hitsOnLayer(ISTClusterCollector::Hits hits,//LHCb::Track* const& aTrack,
+                                DeSTLayer * &aLayer) const;
+
+  unsigned int hitsOnLayer(std::vector<const LHCb::STMeasurement*> measVector,
+                                     DeSTLayer * &aLayer) const;
+
+  LHCb::LHCbID findHitId(LHCb::Track* const& aTrack,
+                          const LHCb::STMeasurement* aHit) const;
+                                //ISTClusterCollector::Hit aHit) const;
+  
+  double retrieveErrResidual2(LHCb::Track* const& aTrack,
+                                        LHCb::LHCbID aID) const;
+
 
   std::string m_clustercollectorName;
 
@@ -72,6 +98,10 @@ private:
   double m_xCut, /**< Applied cut to compute X layer efficiencies */
     m_stereoCut; /**< Applied cut to compute stereo layer
 		    efficiencies */
+  /**
+   * Default cut to check if hit exists in layer
+   */
+  double m_defaultCut;
   /**
    * Total number of expected hits
    */
@@ -165,6 +195,7 @@ private:
    * taken into account.
    */
   bool m_everyHit;
+  bool m_hitsOnTrack;
 
   /**
    * Cut on the active region X
@@ -190,7 +221,18 @@ private:
    * Plot residuals plot
    */
   bool m_resPlot;
-    
+  
+  /**
+   * Ntuple branched by sector names
+   */
+  bool m_branchBySector;
+  
+  /**
+   * Ntuple branched by track
+   */
+  bool m_branchByTrack;
+  
+
 };
 #endif // TRACKTUPLE_H
 
