@@ -43,6 +43,8 @@ Ntuple layout in **BranchByTrack** mode:
 - residual error (only in **HitsOnTrack** mode)
 - measurement error (only in **HitsOnTrack** mode)
 
+Example GaudiPython files to run the algorithm are provided in Analysis/Options.
+
 
 ST interactive monitor
 -------------------
