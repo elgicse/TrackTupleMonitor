@@ -12,6 +12,11 @@ for i in TT.values():
 
 """
 import pickle
+from DefineHistogram import GetAPlot
+from ROOT import *
+import re
+import sys
+
 
 def TT_reg_len(det,region):
     top = 25
@@ -247,14 +252,58 @@ def create_IT():
                     IT[st][s][l][str(n)]=Info
     return IT
 
-def Add_Histograms(det, hist_set, hist_name=''):
+def Add_Histograms(det, hist_set, hist_name='hist'):
     f = open('NameList.pkl')
     NameList = pickle.load(f) 
-    for k in hist_set:
+    print "Creating histograms for "+hist_name
+    print ""
+    for i, k in enumerate(hist_set):
+        p_name = Parse_Name(k)
         if k in NameList['TTNames']:
-            p_name = Parse_Name(k)
-            if p_name['station']:
-                det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
-            else:
-                det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]=GetAPlot(hist_set[k], histname = hist_name+"_"+k)
+        if k in NameList['ITNames']:
+            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=GetAPlot(hist_set[k], histname = hist_name+"_"+k)
+        sys.stdout.flush()
+        sys.stdout.write("Creating histograms for "+hist_name+":  "+str(i+1)+'/'+ str(len(hist_set))+' ('+ str(int(100*float(i+1)/float(len(hist_set))))+'%)\r')
+    print ""
+    print 'Stripping candidates done'
+
     return 
+
+def SniffInfo(f, dictionary, names):
+    for k in f.GetListOfKeys():
+        t = k.GetClassName()
+        n = k.GetName()
+        if t == 'TH1D':
+            for name in names['ITNames']:
+                if name == n[len(n) - len(name):]:
+                    naming_schema = 'IT_'+re.sub(name,'',n)
+                    if naming_schema not in dictionary.keys():
+                        dictionary[naming_schema] = {}
+                    dictionary[naming_schema][name] = f.Get(n)
+                    #print dictionary[naming_schema][name]
+            for name in names['TTNames']:
+                if name == n[len(n) - len(name):]:
+                    naming_schema = 'TT_'+re.sub(name,'',n)
+                    if naming_schema not in dictionary.keys():
+                        dictionary[naming_schema] = {}
+                    dictionary[naming_schema][name] = f.Get(n)
+                    #print dictionary[naming_schema][name]
+        if t == 'TDirectoryFile':
+            SniffInfo(f.Get(n), dictionary, names)
+    return dictionary
+
+def GetHistosFromNT(f_n):
+    nf = open('NameList.pkl')
+    names = pickle.load(nf)
+    f = TFile(f_n)
+    dictionary = {}
+    dictionary = SniffInfo(f, dictionary, names)
+    for d in dictionary:
+        output = open(d+'.pkl', 'wb')
+        pickle.dump(dictionary[d], output)
+        output.close()
+    return dictionary.keys()
+
+
+
