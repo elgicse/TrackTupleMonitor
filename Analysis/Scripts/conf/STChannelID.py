@@ -19,7 +19,7 @@ class STChannelID():
     and strip from an LHCb::STChannelID integer.
     """
     def __init__(self, m_channelID):
-        self.channelID           = m_channelID
+        self.channelID           = long(m_channelID)
         self.stripBits           = 0
         self.sectorBits          = 10
         self.detRegionBits       = 15

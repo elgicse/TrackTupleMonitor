@@ -5,8 +5,8 @@ import ROOT as r
 xmlOut = '/disk/data3/gangadir/egraveri/workspace/egraveri/LocalXML'
 rootFile = ['STTrackTuple-BranchByTrack-EveryHit-NTuples.root', 'STTrackTuple-BranchByTrack-HitsOnTrack-NTuples.root']
 
-#myjobs = jobs.select(87, 89)
-myjobs = jobs.select(92, 93)
+#myjobs = jobs.select(90, 91)
+myjobs = jobs.select(94, 95)
 
 filesToHadd = ['']*len(myjobs)
 completedSubjobs = 0
@@ -17,8 +17,8 @@ notFoundLog = file(os.getcwd()+'/out/missedOutputLog.txt', 'w')
 analysisPath = '/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/TrackTupleMonitor/Analysis/RootFiles/'
 
 #outFile = [os.getcwd()+'/out/%s.root'%j.name for j in myjobs]
-copyToAnalysis = [     analysisPath+'EveryHit/runs131973-133785-end2012-muEstimate.root',
-					analysisPath+'HitsOnTrack/runs131973-133785-end2012-muEstimate.root']
+copyToAnalysis = [	   analysisPath+'EveryHit/runs111183-131940-begin2012-muEstimate-firstHalf.root',
+					analysisPath+'HitsOnTrack/runs111183-131940-begin2012-muEstimate-firstHalf.root'	]
 
 print 'Selected jobs ID and name:'
 for j in myjobs:
@@ -46,29 +46,29 @@ print 'Retrieving files to HADD...'
 for (index, j) in enumerate(myjobs):
 	slen = len(j.subjobs)
 	for (subindex, sj) in enumerate(j.subjobs):
-		#if subindex < slen/2.:
-		totalSubJobs += 1
-		if (sj.status=="completed" or sj.status=="completing"):
-			outDir = '%s/%s/%s/output/'%(xmlOut, j.id, sj.id)
-			if os.path.exists(outDir+rootFile[index]):
-				f = r.TFile(outDir+rootFile[index], 'read')
-				if f:
-					if not f.IsZombie():
-						#print 'Found output for job %s.%s'%(j.id, sj.id)
-						filesToHadd[index] += (' '+outDir+rootFile[index])
-						completedSubjobs += 1
+		if subindex < slen/2.:
+			totalSubJobs += 1
+			if (sj.status=="completed" or sj.status=="completing"):
+				outDir = '%s/%s/%s/output/'%(xmlOut, j.id, sj.id)
+				if os.path.exists(outDir+rootFile[index]):
+					f = r.TFile(outDir+rootFile[index], 'read')
+					if f:
+						if not f.IsZombie():
+							#print 'Found output for job %s.%s'%(j.id, sj.id)
+							filesToHadd[index] += (' '+outDir+rootFile[index])
+							completedSubjobs += 1
+						else:
+							print >> notFoundLog, '%s.%s is zombie'%(j.id, sj.id)
+							print '%s.%s is zombie'%(j.id, sj.id)
+						f.Close()
+						del f
 					else:
-						print >> notFoundLog, '%s.%s is zombie'%(j.id, sj.id)
-						print '%s.%s is zombie'%(j.id, sj.id)
-					f.Close()
-					del f
+						print >> notFoundLog, '%s.%s is corrupted'%(j.id, sj.id)
+						print '%s.%s is corrupted'%(j.id, sj.id)
 				else:
-					print >> notFoundLog, '%s.%s is corrupted'%(j.id, sj.id)
-					print '%s.%s is corrupted'%(j.id, sj.id)
-			else:
-				print >> notFoundLog, '%s.%s not found'%(j.id, sj.id)
-				print '%s.%s not found'%(j.id, sj.id)
-				#continue
+					print >> notFoundLog, '%s.%s not found'%(j.id, sj.id)
+					print '%s.%s not found'%(j.id, sj.id)
+					#continue
 
 print filesToHadd
 ok = raw_input("Ok?\n")

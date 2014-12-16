@@ -56,3 +56,11 @@ def create_IT():
                     if i+s+x+'Sector'+str(n) in NameList['ITNames']:
                         IT[i][s][x][str(n)]=i+s+x+'Sector'+str(n)
     return IT
+
+def get_IT_layers(IT):
+    ITlayers = {}
+    for station in IT.keys():
+        for box in IT[station].keys():
+            for striptype in IT[station][box]:
+                ITlayers[station+box+striptype] = IT[station][box][striptype]
+    return ITlayers
