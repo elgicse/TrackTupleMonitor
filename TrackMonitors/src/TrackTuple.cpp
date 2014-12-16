@@ -407,14 +407,15 @@ StatusCode TrackTuple::execute()
         {
           const LHCb::FitNode* fNode = dynamic_cast<const LHCb::FitNode*>(*iNodes);
           if ( fNode->hasMeasurement() == false ) continue;
+          if ( m_hitsOnTrack && ( (*iNodes)->type() != LHCb::Node::HitOnTrack ) ) continue;
+          if ( (*iNodes)->errResidual2() <= TrackParameters::lowTolerance ) continue;
+          // Count number of TT and IT hits
+          if ( fNode->measurement().type() != LHCb::Measurement::TT ) numTTHits++;
+          if ( fNode->measurement().type() != LHCb::Measurement::IT ) numITHits++;
           if ( m_detType == "TT" && fNode->measurement().type() != LHCb::Measurement::TT ) continue;
           if ( m_detType == "IT" && fNode->measurement().type() != LHCb::Measurement::IT ) continue;
-          if ( m_hitsOnTrack && ( (*iNodes)->type() != LHCb::Node::HitOnTrack ) ) continue;
-          if( (*iNodes)->errResidual2() <= TrackParameters::lowTolerance ) continue;
           const STMeasurement* aHit = dynamic_cast<const STMeasurement*>(&fNode->measurement());
           measVector.push_back(aHit);
-          if (fNode->measurement().type() != LHCb::Measurement::TT) numTTHits++;
-          if (fNode->measurement().type() != LHCb::Measurement::IT) numITHits++;
           hit_residual.push_back( (*iNodes)->residual() );
           hit_errResidual.push_back( (*iNodes)->errResidual() );
           const LHCb::State & aState = (*iNodes)->state();
@@ -548,12 +549,13 @@ StatusCode TrackTuple::execute()
 
         BOOST_FOREACH(ISTClusterCollector::Hit aHit, foundHits)
         {
+          // Count number of TT and IT hits
+          if ( aHit.cluster->isTT() ) numTTHits++;
+          if ( aHit.cluster->isIT() ) numITHits++;
           if ( (aHit.cluster->isTT() && m_detType == "TT") || (aHit.cluster->isIT() && m_detType == "IT") )
           {
             // Fill vectors of cluster info
             //clusterSTchanID.push_back( int(aHit.cluster->channelID()) );
-            if ( aHit.cluster->isTT() ) numTTHits++;
-            if ( aHit.cluster->isIT() ) numITHits++;
             clusterSTchanID.push_back( (int)(aHit.cluster->channelID()) );
             clusterSize.push_back( aHit.cluster->size() );
             clusterStrip.push_back( aHit.cluster->strip() );
