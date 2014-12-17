@@ -8,6 +8,8 @@ import pickle
 f = open('NameList.pkl')
 NameList = pickle.load(f)
 
+gROOT.SetBatch(kTRUE)
+
 
 tt_d = create_TT()
 it_d = create_IT()
@@ -19,7 +21,7 @@ TT_hists = pickle.load(f)
 hname ='Efficiency_time_dependence'
 Add_Histograms(tt_d, TT_hists, hname)
 
-for h in GetHistosFromNT('STTrackMonitor-2012.root'):
+for h in GetHistosFromNT('data/STTrackMonitor-2012.root'):
     if h[0] == 'T':
         f = open(h+".pkl")
         TT_hists = pickle.load(f)
