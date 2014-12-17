@@ -38,7 +38,7 @@ if __name__ == '__main__':
         detector = CreateDetectors.create_IT()
     else:
         print 'ERROR: please select tracker (IT or TT).'
-        print 'Sample usage: python ntupleAnalysis.py TT ../RootFiles/EveryHit/runs131973-133785-end2012.root save'
+        print 'Sample usage: python ntupleAnalysis.py TT ../RootFiles/EveryHit/all2012-muEstimate.root save'
         print 'Exiting now...'
         sys.exit(0)
     if not os.path.exists('../Out/%s'%tracker):
@@ -95,6 +95,7 @@ if __name__ == '__main__':
     for (lindex,layer) in enumerate(detector.keys()):
         hOverlaps[layer] = {   'HitXVSTrackY':     r.TGraph(),
                                'TrackXVSTrackY':   r.TGraph(),
+                               'DeltaXVSTrackY':   r.TGraph(),
                                'ResidualVSTrackY': r.TGraph()   }
         for gr in hOverlaps[layer].keys():
             hOverlaps[layer][gr].SetMarkerColor(gCol[lindex])
@@ -122,6 +123,8 @@ if __name__ == '__main__':
                 if STNames().uniqueLayerName(STChannelID(ids[i])) == layer:
                     hOverlaps[layer]['HitXVSTrackY'].SetPoint(     hOverlaps[layer]['HitXVSTrackY'].GetN()    , float(cx),           float(tsy[i]) )
                     hOverlaps[layer]['TrackXVSTrackY'].SetPoint(   hOverlaps[layer]['TrackXVSTrackY'].GetN()  , float(tsx[i]),       float(tsy[i]) )
+                    hOverlaps[layer]['DeltaXVSTrackY'].SetPoint(   hOverlaps[layer]['DeltaXVSTrackY'].GetN()  , float(tsx[i])-float(cx),
+                                                                                                                                     float(tsy[i]) )
                     hOverlaps[layer]['ResidualVSTrackY'].SetPoint( hOverlaps[layer]['ResidualVSTrackY'].GetN(), float(residuals[i]), float(tsy[i]) )
     for layer in detector.keys():
         for gr in hOverlaps[layer].keys():
@@ -129,9 +132,11 @@ if __name__ == '__main__':
             hOverlaps[layer][gr].GetYaxis().SetTitle('Track Y extrapolation [mm]')
         hOverlaps[layer]['HitXVSTrackY'].GetXaxis().SetTitle('Cluster X position [mm]')
         hOverlaps[layer]['TrackXVSTrackY'].GetXaxis().SetTitle('Track X extrapolation [mm]')
+        hOverlaps[layer]['DeltaXVSTrackY'].GetXaxis().SetTitle('(Track X extrapolation - cluster X position) [mm]')
         hOverlaps[layer]['ResidualVSTrackY'].GetXaxis().SetTitle('Hit Residual [mm]')
     hOverlaps['all'] = {    'HitXVSTrackY':        r.TMultiGraph(),
                             'TrackXVSTrackY':      r.TMultiGraph(),
+                            'DeltaXVSTrackY':      r.TMultiGraph(),
                             'ResidualVSTrackY':    r.TMultiGraph()   }
     for layer in detector.keys():
         for gr in hOverlaps[layer].keys():
@@ -145,6 +150,8 @@ if __name__ == '__main__':
             hOverlaps['all'][gr].GetXaxis().SetTitle('Cluster X position [mm]')
         elif gr == 'TrackXVSTrackY':
             hOverlaps['all'][gr].GetXaxis().SetTitle('Track X extrapolation [mm]')
+        elif gr == 'DeltaXVSTrackY':
+            hOverlaps['all'][gr].GetXaxis().SetTitle('(Track X extrapolation - cluster X position) [mm]')
         elif gr == 'ResidualVSTrackY':
             hOverlaps['all'][gr].GetXaxis().SetTitle('Hit residual [mm]')
     for c in cSaver:
