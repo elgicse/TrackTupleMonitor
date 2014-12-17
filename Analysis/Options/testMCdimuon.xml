@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+
+  <File ID="5EE2134F-C9DB-E211-A74D-02163E008FD9">
+     <physical>
+       <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/MC/2012/ALLSTREAMS.DST/00025235/0000/00025235_00000001_1.allstreams.dst"/>
+       <pfn filetype="ROOT_All" name="root://fly5.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/MC/2012/ALLSTREAMS.DST/00025235/0000/00025235_00000001_1.allstreams.dst"/>
+       <pfn filetype="ROOT_All" name="file:///storage/gpfs_lhcb/lhcb/disk/MC/2012/ALLSTREAMS.DST/00025235/0000/00025235_00000001_1.allstreams.dst"/>
+     </physical>
+     <logical>
+       <lfn name="/lhcb/MC/2012/ALLSTREAMS.DST/00025235/0000/00025235_00000001_1.allstreams.dst"/>
+     </logical>
+   </File>
+
+</POOLFILECATALOG>

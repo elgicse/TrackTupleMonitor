@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+
+  <File ID="0809898F-F501-E211-B167-001E673987D2">
+     <physical>
+       <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst"/>
+       <pfn filetype="ROOT_All" name="root://fly5.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst"/>
+       <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst?svcClass=lhcbDst"/>
+       <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst"/>
+       <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+       <metadata att_name="root://fly5.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst" att_value="SARA-DST"/>
+       <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+       <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst" att_value="GRIDKA_M-DST"/>
+     </physical>
+     <logical>
+       <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00020198/0000/00020198_00000099_1.dimuon.dst"/>
+     </logical>
+   </File>
+
+</POOLFILECATALOG>

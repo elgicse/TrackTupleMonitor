@@ -16,25 +16,31 @@ for i in TT.values():
 
 import pickle
 
+pickleDir = '../Pickle/'
+
 
 def create_TT():
-    f = open('NameList.pkl')
+    f = open(pickleDir+'NameList.pkl')
     NameList = pickle.load(f) 
     TT = {}
-    ab = ['TTaU','TTaX','TTbV','TTbX']
+    layers = ['TTaU','TTaX','TTbV','TTbX']
     region = ['RegionA','RegionB','RegionC']
-    for a in ab:
-        TT[a]={}
+    for l in layers:
+        TT[l]={}
         for r in region:
-            TT[a][r]={}
-            for s in range(1,25):
-                if a+r+'Sector'+str(s) in NameList['TTNames']:
-                    TT[a][r][str(s)] = a+r+'Sector'+str(s)
-                    print a+r+'Sector'+str(s)
+            TT[l][r]={}
+            nSectors = 25
+            if ('a' in l) and ('B' in r):
+                nSectors = 19
+            if ('b' in l) and ('B' in r):
+                nSectors = 27
+            for s in range(1,nSectors+1):
+                if l+r+'Sector'+str(s) in NameList['TTNames']:
+                    TT[l][r][str(s)] = l+r+'Sector'+str(s)
     return TT
 
 def create_IT():
-    f = open('NameList.pkl')
+    f = open(pickleDir+'NameList.pkl')
     NameList = pickle.load(f) 
     IT = {}
     ITs = ['IT1','IT2','IT3']
@@ -50,3 +56,11 @@ def create_IT():
                     if i+s+x+'Sector'+str(n) in NameList['ITNames']:
                         IT[i][s][x][str(n)]=i+s+x+'Sector'+str(n)
     return IT
+
+def get_IT_layers(IT):
+    ITlayers = {}
+    for station in IT.keys():
+        for box in IT[station].keys():
+            for striptype in IT[station][box]:
+                ITlayers[station+box+striptype] = IT[station][box][striptype]
+    return ITlayers
