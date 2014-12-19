@@ -125,3 +125,8 @@ class STNames():
             name = (  self.uniqueLayerName(id)
                     + self.sectorName(id)  )
         return name
+
+    def locateTTSector(self, uSectorName):
+        uLayer = uSectorName.split('Region')[0]
+        region, sector = uSectorName.split('Region')[1].split('Sector')
+        return uLayer, region, int(sector)
