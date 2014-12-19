@@ -69,6 +69,10 @@ class STNames():
     def __init__(self):
         self.TTstations = ["a", "b"]
         self.TTlayers = [["X", "U"], ["V", "X"]]
+        self.TTuniqueLayers = []
+        for (ind,s) in enumerate(self.TTstations):
+            for l in self.TTlayers[ind]:
+                self.TTuniqueLayers.append('TT'+s+l)
         self.TTregions = ["A", "B", "C"]
         self.ITlayers = ["X1", "U", "V", "X2"]
         self.ITboxes = ["CSide", "ASide", "Bottom", "Top"]
