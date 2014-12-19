@@ -116,22 +116,22 @@ cleanerExcellentTracks.Selector.TrackTypes = [ "Long" ]
 ########################################################################################
 
 # Search window (residual) for STEfficiency
-itwindow = 0.4
+itwindow = 2.#0.4
 # Search window (residual) for STClusterCollector
 itcollectorwindow = itwindow
 # Tolerance for X and Y in the first estimate of the track crossing the silicon position
 # and central position of the cluster
-itxTol = 1.
-ityTol = 0.
+itxTol = 2.#1.
+ityTol = 2.#0.
 
 # Search window (residual) for STEfficiency
-ttwindow = 0.4
+ttwindow = 2.#0.4
 # Search window (residual) for STClusterCollector
 ttcollectorwindow = ttwindow
 # Tolerance for X and Y in the first estimate of the track crossing the silicon position
 # and central position of the cluster
-ttxTol = 1.
-ttyTol = 0.
+ttxTol = 2.#1.
+ttyTol = 2.#0.
 
 #from Configurables import STEfficiency, STClusterCollector, STSelectChannelIDByElement, TrackTuple
 
@@ -225,6 +225,8 @@ itEffTuple.BranchByTrack      = True
 itEffTuple.TakeEveryHit       = False#True
 # Take hits on tracks
 itEffTuple.HitsOnTrack        = True
+# Skip or allow dead areas
+itEffTuple.SkipEdges          = False#True
 # Set output level
 itEffTuple.OutputLevel        = 3
 
@@ -258,6 +260,8 @@ ttEffTuple.BranchByTrack      = True
 ttEffTuple.TakeEveryHit       = False#True
 # Take hits on tracks
 ttEffTuple.HitsOnTrack        = True
+# Skip or allow dead areas
+ttEffTuple.SkipEdges          = False#True
 # Set output level
 ttEffTuple.OutputLevel        = 3
 
