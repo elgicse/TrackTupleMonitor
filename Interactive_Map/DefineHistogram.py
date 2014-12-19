@@ -1,6 +1,9 @@
 from ROOT import *
 import os
 
+if not os.path.exists("static/plots"):
+    os.system("mkdir static/plots")
+
 def GetAPlot(hist,histname):    
     if os.path.isfile("static/plots/"+histname+".png"):
         return "plots/"+histname+".png"
