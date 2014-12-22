@@ -4,6 +4,21 @@
 
 <div style="width:50%;height:100%;position:absolute;top:0%;left:0%;text-align:center;">
     <h1><a href="/TT"> Detailed TT </a></h1>
+    <div style="width:50%;height:10%;position:absolute;top:10%;left:0%;">
+        <form  action="/index" method="POST" class=index>
+            <select name="TT_hist">
+                <option value="">Choose histogram</option>
+                {% for h in tt['TTaU']['RegionA']['1']['Histograms'] %}
+                <option value="{{ h }}"
+                {% if dm['TT_hist'] == h %}
+                selected
+                {% endif %}>
+                {{ h }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     <div style="width:100%;height:80%;position:absolute;top:20%;left:0%;">
         {% for layer in tt %}
             {% if tt[layer]['layer_info'] %}
@@ -22,12 +37,16 @@
                             {% for sector in tt[layer][side] %}
                                 {% if  tt[layer][side][sector]['div_info'] %}
                                 <a href="/{{ tt[layer][side][sector]['Name'] }}">
-                                    <div id='TT_bin' style="
-                                        {% for i in tt[layer][side][sector]['div_info'] %}
-                                            {{ i }}:{{ tt[layer][side][sector]['div_info'][i] }};
-                                        {% endfor %}"
-                                        >
-                                        {{ sector }}
+                                <div class="thumbnail" id='TT_bin' style="
+                                    {% for i in tt[layer][side][sector]['div_info'] %}
+                                        {{ i }}:{{ tt[layer][side][sector]['div_info'][i] }};
+                                    {% endfor %}">
+                                            {{ sector }}
+                                            {% if dm['TT_hist'] %}
+                                            <span id='TT_span' >
+                                            <img  id='TT_image' src="{{ url_for('static', filename = tt[layer][side][sector]['Histograms'][dm['TT_hist']]) }}"/>
+                                            </span>
+                                            {% endif %}
                                     </div>
                                 </a>
                                 {% endif %}
@@ -43,6 +62,20 @@
 </div>
 <div style="width:50%;height:100%;position:absolute;top:0%;left:50%;text-align:center">
     <h1><a href="/IT"> Detailed IT </a></h1>
+    <div style="width:50%;height:10%;position:absolute;top:10%;left:0%;">
+        <form  action="/index" method="POST" class=index>
+            <select name="IT_hist">
+                <option value="">Choose histogram</option>
+                {% for h in it['IT1']['ASide']['X1']['1']['Histograms'] %}
+                <option value="{{ h }}" {% if dm['IT_hist'] == h %}
+                selected
+                {% endif %}>
+                {{ h }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
     <div style="width:100%;height:80%;position:absolute;top:20%;left:0%;">
         {% for station in it %}
             {% if it[station]['station_info'] %}
@@ -66,12 +99,18 @@
                                 {% for sector in it[station][side][layer] %}
                                     {% if  it[station][side][layer][sector]['div_info'] %}
                                     <a href="/{{ it[station][side][layer][sector]['Name'] }}">
-                                        <div id='IT_bin' style="
+                                        <div class="thumbnail" id='IT_bin' style="
                                             {% for i in it[station][side][layer][sector]['div_info'] %}
                                                 {{ i }}:{{ it[station][side][layer][sector]['div_info'][i] }};
                                             {% endfor %}"
                                             >
                                             {{ sector }}
+                                            {% if dm['IT_hist'] %}
+                                            <span id='IT_span' >
+                                            <img id='IT_image' src="{{ url_for('static', filename = it[station][side][layer][sector]['Histograms'][dm['IT_hist']]) }}"/>
+                                            </span>
+                                            {% endif %}
+
                                         </div>
                                     </a>
                                     {% endif %}
