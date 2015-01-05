@@ -6,7 +6,7 @@ xmlOut = '/disk/data3/gangadir/egraveri/workspace/egraveri/LocalXML'
 rootFile = ['STTrackTuple-BranchByTrack-EveryHit-NTuples.root', 'STTrackTuple-BranchByTrack-HitsOnTrack-NTuples.root']
 
 #myjobs = jobs.select(87, 89)
-myjobs = jobs.select(92, 93)
+myjobs = jobs.select(96, 97)
 
 filesToHadd = ['']*len(myjobs)
 completedSubjobs = 0
@@ -17,8 +17,8 @@ notFoundLog = file(os.getcwd()+'/out/missedOutputLog.txt', 'w')
 analysisPath = '/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/TrackTupleMonitor/Analysis/RootFiles/'
 
 #outFile = [os.getcwd()+'/out/%s.root'%j.name for j in myjobs]
-copyToAnalysis = [     analysisPath+'EveryHit/runs131973-133785-end2012-muEstimate.root',
-					analysisPath+'HitsOnTrack/runs131973-133785-end2012-muEstimate.root']
+copyToAnalysis = [     analysisPath+'EveryHit/runs131973-133785-end2012-muEstimate-Edges.root',
+					analysisPath+'HitsOnTrack/runs131973-133785-end2012-muEstimate-Edges.root']
 
 print 'Selected jobs ID and name:'
 for j in myjobs:

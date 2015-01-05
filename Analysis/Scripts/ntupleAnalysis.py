@@ -49,9 +49,12 @@ if __name__ == '__main__':
         print 'Sample usage: python -i ntupleAnalysis.py TT ../RootFiles/EveryHit/all2012-muEstimate.root save'
         print 'Exiting now...'
         sys.exit(0)
-    if not os.path.exists('../Out/%s'%tracker):
-        os.system('mkdir ../Out/%s'%tracker)
     inputFile = str(sys.argv[2])
+    shortFilename = inputFile.split('/')[-1].replace('.root','')
+    if not os.path.exists('../Out/'+shortFilename):
+        os.system('mkdir ../Out/'+shortFilename)
+    if not os.path.exists('../Out/'+shortFilename+'/%s'%tracker):
+        os.system('mkdir ../Out/'+shortFilename+'/%s'%tracker)
     if 'EveryHit' in inputFile:
         datatype = 'EveryHit'
     elif 'HitsOnTrack' in inputFile:
@@ -59,8 +62,8 @@ if __name__ == '__main__':
     else:
         print 'ERROR: could not understand data type (HitsOnTrack or EveryHit)'
         sys.exit(0)
-    if not os.path.exists('../Out/%s/%s'%(tracker, datatype)):
-        os.system('mkdir ../Out/%s/%s'%(tracker, datatype))
+    if not os.path.exists('../Out/'+shortFilename+'/%s/%s'%(tracker, datatype)):
+        os.system('mkdir ../Out/'+shortFilename+'/%s/%s'%(tracker, datatype))
     save = False
     try:
         if str(sys.argv[3]) == 'save':
@@ -75,8 +78,8 @@ if __name__ == '__main__':
     t = tFile.Get(tracker+'HitEfficiencyTuple/TrackMonTuple')
     
     # Looking into possible magnetic field effects
-    if not os.path.exists('../Out/%s/%s/ResidualVSMomentum'%(tracker, datatype)):
-        os.system('mkdir ../Out/%s/%s/ResidualVSMomentum'%(tracker, datatype))
+    if not os.path.exists('../Out/'+shortFilename+'/%s/%s/ResidualVSMomentum'%(tracker, datatype)):
+        os.system('mkdir ../Out/'+shortFilename+'/%s/%s/ResidualVSMomentum'%(tracker, datatype))
     hPositive, hNegative = {}, {}
     for sector in flatDetector:
         hPositive[sector] = r.TGraph(); hPositive[sector].SetName(sector+'-pos'); hPositive[sector].SetTitle(sector+' Residual VS Momentum (charge = +1)');
@@ -106,15 +109,15 @@ if __name__ == '__main__':
                 label.SetFillColor(0); label.SetTextAlign(12); label.SetBorderSize(0)
                 label.SetTextFont(132); label.SetTextSize(0.06)
                 label.AddText(gr); label.Draw('same'); c1.Modified(); c1.Update()
-                c1.SaveAs('../Out/%s/%s/ResidualVSMomentum/%s.pdf'%(tracker, datatype, collection[gr].GetName()))
+                c1.SaveAs('../Out/'+shortFilename+'/%s/%s/ResidualVSMomentum/%s.pdf'%(tracker, datatype, collection[gr].GetName()))
                 c1.Close()
     
     # Look at the overlaps in the single half-modules
     if tracker == 'IT':
         print 'Sorry I cannot do this for the IT, yet...'
         sys.exit(0)
-    if not os.path.exists('../Out/%s/%s/OverlapsByHalfModule'%(tracker, datatype)):
-        os.system('mkdir ../Out/%s/%s/OverlapsByHalfModule'%(tracker, datatype))
+    if not os.path.exists('../Out/'+shortFilename+'/%s/%s/OverlapsByHalfModule'%(tracker, datatype)):
+        os.system('mkdir ../Out/'+shortFilename+'/%s/%s/OverlapsByHalfModule'%(tracker, datatype))
     listOfHM = listOfTTHalfModules()
     hOverlapsByHM = {}
     for hm in listOfHM:
@@ -168,7 +171,7 @@ if __name__ == '__main__':
         hOverlapsByHM[hm]['ResidualVSTrackY'].GetXaxis().SetTitle('Hit Residual [mm]')
     if save:
         for hm in listOfHM:
-            outfile = r.TFile('../Out/%s/%s/OverlapsByHalfModule/%s.root'%(tracker, datatype, hm), 'recreate')
+            outfile = r.TFile('../Out/'+shortFilename+'/%s/%s/OverlapsByHalfModule/%s.root'%(tracker, datatype, hm), 'recreate')
             for gr in hOverlapsByHM[hm].keys():
                 hOverlapsByHM[hm][gr].Write()
                 c1 = r.TCanvas(hOverlapsByHM[hm][gr].GetName(), hOverlapsByHM[hm][gr].GetTitle(), 1600, 1000)
@@ -179,7 +182,7 @@ if __name__ == '__main__':
                 label.SetFillColor(0); label.SetTextAlign(12); label.SetBorderSize(0)
                 label.SetTextFont(132); label.SetTextSize(0.06)
                 label.AddText(hm); label.Draw('same'); c1.Modified(); c1.Update()
-                c1.SaveAs('../Out/%s/%s/OverlapsByHalfModule/%s'%(tracker, datatype, hm) + '-%s.pdf'%gr)
+                c1.SaveAs('../Out/'+shortFilename+'/%s/%s/OverlapsByHalfModule/%s'%(tracker, datatype, hm) + '-%s.pdf'%gr)
                 c1.Write(); c1.Close()
             outfile.Close()
     print '\nList of half modules where no overlapping hits were found:\n'
@@ -189,8 +192,8 @@ if __name__ == '__main__':
 
     
     # Look at the overlaps in the full layers
-    if not os.path.exists('../Out/%s/%s/Overlaps'%(tracker, datatype)):
-        os.system('mkdir ../Out/%s/%s/Overlaps'%(tracker, datatype))
+    if not os.path.exists('../Out/'+shortFilename+'/%s/%s/Overlaps'%(tracker, datatype)):
+        os.system('mkdir ../Out/'+shortFilename+'/%s/%s/Overlaps'%(tracker, datatype))
     if tracker == 'IT':
         detector = CreateDetectors.get_IT_layers(detector)
     hOverlaps = {}
@@ -278,7 +281,7 @@ if __name__ == '__main__':
         c.Modified(); c.Update()
     if save:
         for (lindex, layer) in enumerate(detector.keys()):
-            outfile = r.TFile('../Out/%s/%s/Overlaps/%s.root'%(tracker, datatype, layer), 'recreate')
+            outfile = r.TFile('../Out/'+shortFilename+'/%s/%s/Overlaps/%s.root'%(tracker, datatype, layer), 'recreate')
             for gr in hOverlaps[layer].keys():
                 hOverlaps[layer][gr].Write()
                 c1 = r.TCanvas(hOverlaps[layer][gr].GetName(), hOverlaps[layer][gr].GetTitle(), 1600, 1000)
@@ -288,14 +291,14 @@ if __name__ == '__main__':
                 label.SetFillColor(0); label.SetTextAlign(12); label.SetBorderSize(0)
                 label.SetTextFont(132); label.SetTextSize(0.06); label.SetTextColor(gCol[lindex])
                 label.AddText(layer); label.Draw('same'); c1.Modified(); c1.Update()
-                c1.SaveAs('../Out/%s/%s/Overlaps/%s'%(tracker, datatype, layer) + '-%s.pdf'%gr)
+                c1.SaveAs('../Out/'+shortFilename+'/%s/%s/Overlaps/%s'%(tracker, datatype, layer) + '-%s.pdf'%gr)
                 c1.Write(); c1.Close()
             outfile.Close()
-        outfile = r.TFile('../Out/%s/%s/Overlaps/AllLayers.root'%(tracker, datatype), 'recreate')
+        outfile = r.TFile('../Out/'+shortFilename+'/%s/%s/Overlaps/AllLayers.root'%(tracker, datatype), 'recreate')
         for gr in hOverlaps['all'].keys():
             hOverlaps['all'][gr].Write()
         for c in cSaver:
-            c.SaveAs('../Out/%s/%s/Overlaps/'%(tracker, datatype) + '%s.pdf'%c.GetName())
+            c.SaveAs('../Out/'+shortFilename+'/%s/%s/Overlaps/'%(tracker, datatype) + '%s.pdf'%c.GetName())
             c.Write(); c.Close()
         outfile.Close()
     
