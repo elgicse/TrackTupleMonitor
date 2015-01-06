@@ -37,13 +37,12 @@ for h in GetHistosFromNT('data/STTrackMonitor-2012.root'):
         Add_Histograms(it_d, IT_hists, h)
 
 # Handle sector plot drawing and the default template
+# Drawing_mode handles the menu
 @app.route("/",methods = ('GET', 'POST'))
 @app.route("/index",methods = ('GET', 'POST'))
 def hello():
     global Drawing_mode
     if request.method == 'POST':
-        #Drawing_mode['TT_hist'] = 'Efficiency_time_dependence'
-        #Drawing_mode['form']=request.form['TT_hist']
         for m in ['IT_hist', 'TT_hist']:
             try:
                 Drawing_mode[m]=request.form[m]
@@ -52,7 +51,6 @@ def hello():
         return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode)
     Drawing_mode = {'TT_hist':'', 'IT_hist':''}
     return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode)
-    #return "Hello World!"
 
 # Handle sector plots (e.g. when you click on a sector)
 @app.route("/<d>",methods = ('GET', 'POST'))
@@ -74,7 +72,7 @@ def Detector(d):
         p_name = Parse_Name(d)
         return render_template('Sector.html', sec=it_d[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']], histoname = hname)
     return redirect(url_for('hello'))
-    #return render_template('Sector.html', sec=d)
+
 
 # Execute the program
 if __name__ == "__main__":

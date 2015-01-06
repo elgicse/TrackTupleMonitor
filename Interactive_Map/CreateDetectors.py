@@ -191,6 +191,7 @@ def IT_layer_info(st,s,l):
                         'height':'25%'}
     return {}
 
+
 def Parse_Name(d):
     """ Parses station, side, layer and sector
     from a unique sector name """
@@ -263,7 +264,13 @@ def create_IT():
 
 
 def Add_Histograms(det, hist_set, hist_name='hist'):
-    """ Adds a plot for every sector to the detector dictionary """
+    """ Adds a plot for every sector to the detector dictionary
+
+    Inputs:
+    - det is an instance of create_TT or create_IT
+    - hist_set is a set of histograms loaded from a pickle file
+    - hist_name is the name of the set of histograms (e.g. TT_UnbiasedResidual_)
+    """
     f = open('NameList.pkl')
     NameList = pickle.load(f) 
     print "Creating histograms for "+hist_name
@@ -282,6 +289,8 @@ def Add_Histograms(det, hist_set, hist_name='hist'):
 
 
 def SniffInfo(f, dictionary, names):
+    """ Populates a dictionary of the content of the ROOT file
+    (in this case, TH1D histograms) """
     for k in f.GetListOfKeys():
         t = k.GetClassName()
         n = k.GetName()
@@ -306,6 +315,8 @@ def SniffInfo(f, dictionary, names):
 
 
 def GetHistosFromNT(f_n):
+    """ Dumps the histograms of a ROOT file into pikle files
+    according to the histogram name """
     nf = open('NameList.pkl')
     names = pickle.load(nf)
     f = TFile(f_n)
