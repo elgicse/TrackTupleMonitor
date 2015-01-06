@@ -180,6 +180,11 @@ private:
    * 
    */
   bool m_singlehitpersector;
+
+  /**
+   * Exclude dead regions of the sensors
+   */
+  bool m_skipEdges;
   
 
   /**

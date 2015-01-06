@@ -103,6 +103,7 @@ TrackTuple::TrackTuple( const std::string& name,
   declareProperty( "SingleHitPerSector" , m_singlehitpersector = false );
   declareProperty( "BranchBySector"     , m_branchBySector = false);
   declareProperty( "BranchByTrack"      , m_branchByTrack = true);
+  declareProperty( "SkipEdges"          , m_skipEdges = true );
 }
 
 //=============================================================================
@@ -218,7 +219,13 @@ StatusCode TrackTuple::execute()
   unsigned int nbFoundHits,nbExpHits,nbExpSectors,nbFoundSectors;
   int nbResHits,nbResSectors;
   State trackState;
+  // if computing hit efficiency use only active regions
   Gaudi::XYZPoint toleranceOnEdge(- std::max(0.,m_minDistToEdgeX), - std::max(0.,m_minDistToEdgeY), 0.);
+  // otherwise keep the whole sensor surface
+  if (!m_skipEdges)
+  {
+    toleranceOnEdge = Gaudi::XYZPoint(0., 0., 0.);
+  }
 
   DeSTSector* sector = 0;
   std::vector<DeSTSensor*> sensors;
@@ -244,8 +251,8 @@ StatusCode TrackTuple::execute()
     // collect the list of expected hits
     m_expectedHits -> collect( **It, expectedHits );
 
-    nbExpHits = expectedHits.size();
     // remove tracks with too few expected hits
+    nbExpHits = expectedHits.size();
     if ( nbExpHits < m_minExpSectors ) 
       continue; 
 
@@ -253,29 +260,27 @@ StatusCode TrackTuple::execute()
     m_clustercollector -> execute( **It, prefoundHits );
     
     nbFoundHits = prefoundHits.size();
+    // Number of hits not found
     nbResHits = (int)(nbFoundHits) - (int)(nbExpHits);
     
     if(fullDetail()){
       plot(nbFoundHits, "Control/NbFoundHits","Number of found hits",-0.5,24.5,25);
-      plot(nbExpHits,   "Control/NbExpHits","Number of expected hits",-0.5,24.5,25);
-      plot(nbResHits,   "Control/NbResHits","Number of found - expected hits",-5.5,7.5,13);
+      plot(nbExpHits,   "Control/NbExpHits",  "Number of expected hits",-0.5,24.5,25);
+      plot(nbResHits,   "Control/NbResHits",  "Number of found - expected hits",-5.5,7.5,13);
     }
         
-    // convert the expected hits into unique sectors cutting sensor edges
+    // convert the expected hits into unique sectors, cutting sensor edges if m_skipEdges=true
     BOOST_FOREACH(LHCbID id, expectedHits)
     {
       if( m_minDistToEdgeX > 0. || m_minDistToEdgeY > 0.){
-        
         sector = m_tracker -> findSector( id.stID() );
         //info()<<"Sector is "<<sector<<endl;
         if ( sector == 0 ){
           info() << "Should not happen !" << endmsg;
           continue;
         }
-        
         sensors = sector -> sensors();
         inActiveSensor = false;
-        
         BOOST_FOREACH(DeSTSensor* sensor, sensors)
         {
           inSensor = extrapolator() -> propagate( (**It), sensor -> plane(), trackState, sensor -> thickness() );
@@ -289,22 +294,26 @@ StatusCode TrackTuple::execute()
         {
           expectedSectors.push_back(id.stID().uniqueSector());
         }
-      }
-    }
+      }// end if (m_minDistToEdgeX > 0. || m_minDistToEdgeY > 0.).. maybe this condition can be removed?!?!?
+    }// end (convert the expected hits into unique sectors cutting sensor edges)
 
     nbExpSectors = expectedSectors.size();
 
+    // remove tracks with too few expected hits
     if ( nbExpSectors < m_minExpSectors ) 
       continue; 
         
+    // Filling foundHits and foundSectors
     BOOST_FOREACH(ISTClusterCollector::Hit hit, prefoundHits)
     {
+      // if the hit sector is in the list of expected sectors
       if(find( expectedSectors.begin(), expectedSectors.end(), hit.cluster->channelID().uniqueSector() ) != expectedSectors.end()){
+        // push hit in foundHits and sector in foundSectors, if not already there
         if(find(foundSectors.begin(), foundSectors.end(), hit.cluster->channelID().uniqueSector()) == foundSectors.end()){
           foundHits.push_back(hit);
           foundSectors.push_back(hit.cluster->channelID().uniqueSector());
         }else if( !m_singlehitpersector )
-          {foundHits.push_back(hit);}
+          {foundHits.push_back(hit);} // push hit in foundHits anyways
         else
           continue;
       }
@@ -318,12 +327,16 @@ StatusCode TrackTuple::execute()
     nbResSectors = (int)(nbFoundSectors) - (int)(nbExpSectors);
     
     // remove track with too much found - expected hits
-    if ( nbResHits > m_maxNbResSectors ) 
+    if ( nbResHits > m_maxNbResSectors ) {
+      if (msgLevel(MSG::DEBUG)) debug() << "Possible track expectation mismatch";
       continue;
+    }
     
     // remove track with too few found - expected sectors
-    if ( nbResSectors < m_minNbResSectors ) 
+    if ( nbResSectors < m_minNbResSectors ) {
+      if (msgLevel(MSG::DEBUG)) debug() << "Possible track expectation mismatch";
       continue;
+    }
     
     if(fullDetail()){
       plot(nbFoundHits, "Control/NbFoundHitsFinal","Number of found hits after full selection",-0.5,24.5,25);
@@ -764,7 +777,7 @@ StatusCode TrackTuple::finalize()
 {
   if ( msgLevel(MSG::DEBUG) ) debug() << "==> Finalize" << endmsg;
   
-  if ( m_totalExpected == 0 )
+  if ( (m_totalExpected == 0) && (m_branchBySector) )
   {
     warning() << "I'm sorry, but no track was found, please check that"
               << " you selected the right track type." << std::endl
