@@ -24,8 +24,8 @@ def TT_reg_len(det,region):
         top = 19
     if ((det[2]=='b') and (region == 'RegionB')):
         top = 27
-
     return range(1, top)
+
 
 def TT_div_info(det, region, sector):
     nX = 6
@@ -56,6 +56,7 @@ def TT_div_info(det, region, sector):
             'position':'absolute',
             'border':' 1px solid #000000',
             'text-align':'center'}
+
 
 def TT_layer_info(a):
     if a == 'TTaU':
@@ -88,6 +89,7 @@ def TT_layer_info(a):
                 'border':'1px dashed'}
     return {}
 
+
 def TT_side_info(a,r):
     if (r == 'RegionA'): return {'position':'absolute',
                                 'border':' 5px solid #00FFFF',
@@ -110,6 +112,7 @@ def TT_side_info(a,r):
                                 'width':'32%',
                                 'height':'99%'}
     return {}
+
 
 def IT_station_info(st):
     if st == 'IT1': return{'position':'absolute',
@@ -134,6 +137,7 @@ def IT_station_info(st):
                             'border':'1px dashed',
                             'text-align':'left'}
     return {}
+
 
 def IT_side_info(st,s):
     
@@ -163,6 +167,7 @@ def IT_side_info(st,s):
                                 'height':'40%'}
     return {}
 
+
 def IT_layer_info(st,s,l):
     if l == 'X1': return {'position':'absolute',
                         'top':' 0%',
@@ -187,6 +192,8 @@ def IT_layer_info(st,s,l):
     return {}
 
 def Parse_Name(d):
+    """ Parses station, side, layer and sector
+    from a unique sector name """
     f = open('NameList.pkl')
     NameList = pickle.load(f)
     if d in NameList['TTNames']:
@@ -217,6 +224,7 @@ def IT_div_info(st,s,l,n):
             'border':'1px solid #000000',
             'text-align':'center'}
 
+
 def create_TT():
     f = open('NameList.pkl')
     NameList = pickle.load(f) 
@@ -233,6 +241,7 @@ def create_TT():
                 TT[l][si][str(s)] = Info
                     #print a+r+'Sector'+str(s)
     return TT
+
 
 def create_IT():
     f = open('NameList.pkl')
@@ -252,7 +261,9 @@ def create_IT():
                     IT[st][s][l][str(n)]=Info
     return IT
 
+
 def Add_Histograms(det, hist_set, hist_name='hist'):
+    """ Adds a plot for every sector to the detector dictionary """
     f = open('NameList.pkl')
     NameList = pickle.load(f) 
     print "Creating histograms for "+hist_name
@@ -264,11 +275,11 @@ def Add_Histograms(det, hist_set, hist_name='hist'):
         if k in NameList['ITNames']:
             det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=GetAPlot(hist_set[k], histname = hist_name+"_"+k)
         sys.stdout.flush()
-        sys.stdout.write("Creating histograms for "+hist_name+":  "+str(i+1)+'/'+ str(len(hist_set))+' ('+ str(int(100*float(i+1)/float(len(hist_set))))+'%)\r')
-    print ""
-    print 'Stripping candidates done'
-
+        sys.stdout.write("Getting histograms for "+hist_name+":  "+str(i+1)+'/'+ str(len(hist_set))+' ('+ str(int(100*float(i+1)/float(len(hist_set))))+'%)\r')
+    print ''
+    print hist_name+': all done.'
     return 
+
 
 def SniffInfo(f, dictionary, names):
     for k in f.GetListOfKeys():
@@ -292,6 +303,7 @@ def SniffInfo(f, dictionary, names):
         if t == 'TDirectoryFile':
             SniffInfo(f.Get(n), dictionary, names)
     return dictionary
+
 
 def GetHistosFromNT(f_n):
     nf = open('NameList.pkl')

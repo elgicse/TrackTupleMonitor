@@ -3,24 +3,29 @@ from flask import render_template
 from flask import abort, redirect, url_for, request, flash
 from ROOT import *
 from CreateDetectors import *
-
 import pickle
+
+# Avoid spawning canvases
+gROOT.SetBatch(kTRUE)
+
+# Prepare a Flask application
+app = Flask(__name__)
+
+# Load the list of unique sector names
 f = open('NameList.pkl')
 NameList = pickle.load(f)
 
-gROOT.SetBatch(kTRUE)
-
-
+# Create detectors
 tt_d = create_TT()
 it_d = create_IT()
+
+# Add efficiency VS time histograms loading from a pickle file
 f = open('TT_Efficiency_Per_Run.pkl')
 TT_hists = pickle.load(f)
-
-
-
 hname ='Efficiency_time_dependence'
 Add_Histograms(tt_d, TT_hists, hname)
 
+# Add residual, unbiased residual, signal to noise histograms loading from an ntuple
 for h in GetHistosFromNT('data/STTrackMonitor-2012.root'):
     if h[0] == 'T':
         f = open(h+".pkl")
@@ -31,9 +36,7 @@ for h in GetHistosFromNT('data/STTrackMonitor-2012.root'):
         IT_hists = pickle.load(f)
         Add_Histograms(it_d, IT_hists, h)
 
-app = Flask(__name__)
-
-
+# Handle sector plot drawing and the default template
 @app.route("/",methods = ('GET', 'POST'))
 @app.route("/index",methods = ('GET', 'POST'))
 def hello():
@@ -51,6 +54,7 @@ def hello():
     return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode)
     #return "Hello World!"
 
+# Handle sector plots (e.g. when you click on a sector)
 @app.route("/<d>",methods = ('GET', 'POST'))
 def Detector(d):
     """
@@ -72,7 +76,8 @@ def Detector(d):
     return redirect(url_for('hello'))
     #return render_template('Sector.html', sec=d)
 
+# Execute the program
 if __name__ == "__main__":
     Drawing_mode = {'TT_hist':'', 'IT_hist':''}
-    app.debug = True
+    app.debug = True # Disable this when the code is ready!
     app.run()

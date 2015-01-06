@@ -4,7 +4,9 @@ import os
 if not os.path.exists("static/plots"):
     os.system("mkdir static/plots")
 
-def GetAPlot(hist,histname):    
+def GetAPlot(hist,histname):
+    """ Looks for a png files. If it is not there,
+    it produces it by saving a ROOT histogram  as .png """
     if os.path.isfile("static/plots/"+histname+".png"):
         return "plots/"+histname+".png"
     else:
