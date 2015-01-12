@@ -221,15 +221,42 @@ def listOfTTHalfModules():
     return listOfHalfModules
 
 
+def locateTTModule(moduleId):
+    """
+    Extract layer, region, module number and position from
+    a unique half module identifier.
+    """
+    uLayer = moduleId.split('Region')[0]
+    region, moduleNum = moduleId.split('Region')[1].split('Module')
+    return uLayer, region, int(moduleNum)
+
+
 def locateTTHalfModule(halfModuleId):
     """
     Extract layer, region, module number and position from
     a unique half module identifier.
     """
     position = halfModuleId[-1:]
-    uLayer = uSectorName.split('Region')[0]
-    region, moduleNum = uSectorName.split('Region')[1].split('Module')
+    uLayer = halfModuleId.split('Region')[0]
+    region, moduleNum = halfModuleId.split('Region')[1].split('Module')
     return uLayer, region, int(moduleNum[:-1]), position
+
+
+def sectorsInModule(moduleId):
+    uLayer, region, moduleNum = locateTTModule(moduleId)
+    sectors = TTModulesMap().dictOfModules[uLayer]['Region'+region][moduleNum].sectors
+    sectorNumbers = [secName.split('Sector')[-1] for secName in sectors]
+    return sectors, sectorNumbers
+
+
+def sectorsInHalfModule(halfModuleId):
+    uLayer, region, moduleNum, position = locateTTHalfModule(halfModuleId)
+    index = 0
+    if 'b' in position:
+        index = 1
+    sectors = TTModulesMap().dictOfHalfModules[uLayer]['Region'+region][moduleNum][index].sectors
+    sectorNumbers = [secName.split('Sector')[-1] for secName in sectors]
+    return sectors, sectorNumbers
 
 
 if __name__ == '__main__':
