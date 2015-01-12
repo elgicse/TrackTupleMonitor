@@ -17,6 +17,18 @@ from STChannelID import *
 
 
 class TTModulesMap():
+    """
+    Module-wise map of the TT detector.
+
+    Members:
+    - numberOfModules: number of modules per layer / region
+    - dictOfModules: module-wise dictionary of TTModules 
+    - dictOfHalfModules: half-module-wise dictionary of TTModules 
+    - findModule(id): find the module containing the given STChannelID
+    - findSectorModule(name): find the module containing the given sector
+    - findHalfModule(id): find the half module containing the given STChannelID
+    - findSectorHalfModule(name): find the half module containing the given sector    
+    """
     def __init__(self):
         self.numberOfModules = {   'TTaX': { 'RegionA': 6, 'RegionB': 3, 'RegionC': 6 },
                                    'TTaU': { 'RegionA': 6, 'RegionB': 3, 'RegionC': 6 },
@@ -32,11 +44,11 @@ class TTModulesMap():
                 self.dictOfHalfModules[uniqueLayer]['Region'+region] = {}
                 nModules = self.numberOfModules[uniqueLayer]['Region'+region]
                 for i in range(nModules):
-                    nSectors = 4
+                    nSectors = 4 # sectors per full module
                     if 'B' in region:
-                        nSectors = 3
+                        nSectors = 6 # sectors per full module
                     if ('TTb' in uniqueLayer) and ( (i==0) or (i==nModules-1) ):
-                        nSectors = 4
+                        nSectors = 4 # sectors per full module
                     id = uniqueLayer+'Region'+region+'Module'+str(i)
                     newModule = TTModule( id, nSectors, True, uniqueLayer, 'Region'+region )
                     self.dictOfModules[uniqueLayer]['Region'+region].append( newModule )
@@ -148,22 +160,57 @@ class TTModulesMap():
             return module.bottomHalf        
 
 
-
 class TTModule():
+    """
+    Description of a TT module / half module.
+
+    Members:
+    - id (unique identifier)
+    - moduleNumber (numbering restarts for every detector region)
+    - nSectors (number of readout sectors)
+    - parent (True if this is a full module, False if this is a half module)
+    - uniqueLayer (unique layer identifier)
+    - region (region identifier)
+    - position (Top or Bottom for half modules, None for full modules)
+    - topHalf, bottomHalf (half modules if this is a full module)
+    - sectors (list of unique identifiers for sectors contained in this full or half module)
+    """
     def __init__(self, id, nSectors=4, parent=True, uniqueLayer='TTaX', region='RegionB', position='Top'):
-        self.id          = str(id)
-        self.nSectors    = nSectors
-        self.parent      = parent
-        self.uniqueLayer = uniqueLayer
-        self.region      = region
-        self.position    = position
+        self.id           = str(id)
+        self.moduleNumber = int( self.id.split('Module')[-1].replace('b','').replace('t','') )
+        self.nSectors     = nSectors
+        self.parent       = parent
+        self.uniqueLayer  = uniqueLayer
+        self.region       = region
+        self.position     = position
+        # Assigning half modules
         if parent:
             self.topHalf    = TTModule(id=self.id+'t', nSectors=self.nSectors/2, parent=False, uniqueLayer=self.uniqueLayer, region=self.region, position='Top')
             self.bottomHalf = TTModule(id=self.id+'b', nSectors=self.nSectors/2, parent=False, uniqueLayer=self.uniqueLayer, region=self.region, position='Bottom')
             self.position   = None
+        # Assigning sectors
+        if not parent: nSectors = self.nSectors*2
+        if 'B'in self.region and 'TTb' in self.uniqueLayer:
+            if self.moduleNumber == 0:
+                secNums = range(1,5)
+            elif self.moduleNumber == 4:
+                secNums = range(23,27)
+            else: 
+                secNums = [((self.moduleNumber-1)*nSectors + (i + 1 + 4)) for i in xrange(nSectors)]
+        else:
+            secNums = [((self.moduleNumber)*nSectors + (i + 1)) for i in xrange(nSectors)]
+        if self.position == 'Top':
+            self.sectors = [(self.uniqueLayer + self.region + 'Sector' + str(i)) for i in secNums[len(secNums)/2:]]
+        elif self.position == 'Bottom':
+            self.sectors = [(self.uniqueLayer + self.region + 'Sector' + str(i)) for i in secNums[:len(secNums)/2]]
+        elif self.position == None:
+            self.sectors = [(self.uniqueLayer + self.region + 'Sector' + str(i)) for i in secNums]
 
 
 def listOfTTHalfModules():
+    """
+    Flat list of unique half modules indentifiers.
+    """
     hm = TTModulesMap().dictOfHalfModules
     listOfHalfModules = []
     for ul in hm.keys():
@@ -172,6 +219,17 @@ def listOfTTHalfModules():
                 for halfmod in hm[ul][reg][module]:
                     listOfHalfModules.append(halfmod.id)
     return listOfHalfModules
+
+
+def locateTTHalfModule(halfModuleId):
+    """
+    Extract layer, region, module number and position from
+    a unique half module identifier.
+    """
+    position = halfModuleId[-1:]
+    uLayer = uSectorName.split('Region')[0]
+    region, moduleNum = uSectorName.split('Region')[1].split('Module')
+    return uLayer, region, int(moduleNum[:-1]), position
 
 
 if __name__ == '__main__':
