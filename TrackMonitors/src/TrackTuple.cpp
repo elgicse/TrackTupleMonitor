@@ -104,6 +104,7 @@ TrackTuple::TrackTuple( const std::string& name,
   declareProperty( "BranchBySector"     , m_branchBySector = false);
   declareProperty( "BranchByTrack"      , m_branchByTrack = true);
   declareProperty( "SkipEdges"          , m_skipEdges = true );
+  declareProperty( "SaveSectorPositions", m_savePositions = false );
 }
 
 //=============================================================================
@@ -127,10 +128,23 @@ StatusCode TrackTuple::initialize()
   m_expectedHits  = tool< IHitExpectation >( m_detType+"HitExpectation", m_expectedHitsToolName );
   
   m_tracker = getDet< DeSTDetector >( DeSTDetLocation::location( m_detType ) );
+
   m_NbrOfCuts = m_spacialCuts.size();
   m_foundSector.resize(m_NbrOfCuts);
   
   const DeSTDetector::Sectors& sectors = m_tracker->sectors();
+
+  // DEBUG: retrieve and print sector positions *****
+  if (m_savePositions)
+  {
+    BOOST_FOREACH(DeSTSector * sector, sectors)
+    {
+      std::cout << sector->nickname() << "\t";
+      Gaudi::XYZPoint pos = sector->toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
+      std::cout << pos.x() << " " << pos.y() << " " << pos.z() << std::endl;
+    }
+  }
+  // ***************************************
 
   DeSTDetector::Sectors::const_iterator iterS = sectors.begin();
 
@@ -202,6 +216,32 @@ StatusCode TrackTuple::execute()
               << "BranchByTrack or BranchBySector.\n";
   }
 
+  // Book ntuple
+  Tuple tup_test = nTuple ("TrackMonTuple") ;
+
+  const DeSTDetector::Sectors& sectors = m_tracker->sectors();
+
+  // DEBUG: retrieve sector positions *****
+  if (m_savePositions)
+  {
+    std::vector<int>   sectorID;          sectorID.reserve(sectors.size());
+    std::vector<float> sector_x;          sector_x.reserve(sectors.size());
+    std::vector<float> sector_y;          sector_y.reserve(sectors.size());
+    std::vector<float> sector_z;          sector_z.reserve(sectors.size());
+    BOOST_FOREACH(DeSTSector * sector, sectors)
+    {
+      sectorID.push_back( int(sector->elementID()) );
+      Gaudi::XYZPoint pos = sector->globalCentre();//toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
+      sector_x.push_back( float(pos.x()) );
+      sector_y.push_back( float(pos.y()) );
+      sector_z.push_back( float(pos.z()) );
+    }
+    tup_test -> farray( "sectorID",  sectorID, "len",  sectors.size() );
+    tup_test -> farray( "sector_x",  sector_x, "len",  sectors.size() );
+    tup_test -> farray( "sector_y",  sector_y, "len",  sectors.size() );
+    tup_test -> farray( "sector_z",  sector_z, "len",  sectors.size() );
+  }
+  // ***************************************
 
   Tracks* tracks = get< LHCb::Tracks >( inputContainer() );
   Tracks::const_iterator It, Begin( tracks -> begin() ),
@@ -349,7 +389,7 @@ StatusCode TrackTuple::execute()
         
     std::vector<unsigned int>::iterator iterExp = expectedSectors.begin();
 
-    Tuple tup_test  =nTuple ("TrackMonTuple") ;
+    //Tuple tup_test = nTuple ("TrackMonTuple") ;
     tup_test -> column ("TrackCounter", 1);
     if( exist<LHCb::ODIN>(LHCb::ODINLocation::Default) )
       {
@@ -581,16 +621,20 @@ StatusCode TrackTuple::execute()
             // retrieve the error on the measurement
             //LHCb::LHCbID hit_LHCbID = findHitId( (*It), aHit );
             //std::cout << "prima" << std::endl;
-            std::auto_ptr<LHCb::Trajectory> traj = m_tracker -> trajectory( aHit.cluster->channelID(), interStripFrac );
-            LHCb::Trajectory::Point midStripPosition = traj.get()->position(0.5);
-            const LHCb::State & aState = (*It)->closestState( midStripPosition.z() );
+            DeSTSensor* sensor = findSensor(sector, aHit.cluster->channelID());
+            const LHCb::State & aState = (*It)->closestState( sensor->plane() );//midStripPosition.z() );
+            //LHCb::Trajectory::Point midStripPosition = traj.get()->position( (traj->endRange() - traj->beginRange())/2. );
+            //std::cout << "strip z at trajectory 0.5: " << midStripPosition.z() << std::endl;
+            //std::cout << "state z at closest state: " << aState.z() << std::endl;
             //std::cout << "in mezzo" << std::endl;//<< (char*)aState << std::endl;
             trackState_x.push_back( (float)(aState.x()) );
             trackState_y.push_back( (float)(aState.y()) );
             trackState_z.push_back( (float)(aState.z()) );
+            std::auto_ptr<LHCb::Trajectory> traj = m_tracker -> trajectory( aHit.cluster->channelID(), interStripFrac );
             double mu = traj.get()->muEstimate(aState.position());
             traj_mu.push_back(mu);
             LHCb::Trajectory::Point hitPosition = traj.get()->position(mu);//0.5);
+            //std::cout << "strip z at mu estimate: " << hitPosition.z() << std::endl;
             cluster_x.push_back( (float)(hitPosition.x()) );
             cluster_y.push_back( (float)(hitPosition.y()) );
             cluster_z.push_back( (float)(hitPosition.z()) );
@@ -644,6 +688,7 @@ StatusCode TrackTuple::execute()
       //tup_test -> farray( "hit_layer",       hit_layer, "len", 100 );
       //tup_test -> farray( "hit_sector",      hit_sector, "len", 100 );
 
+
     }// end if m_branchByTrack
 
 
@@ -652,7 +697,7 @@ StatusCode TrackTuple::execute()
     if (m_branchBySector)
     {
       bool foundHit = false;
-      const DeSTDetector::Sectors& sectors = m_tracker->sectors();
+      //const DeSTDetector::Sectors& sectors = m_tracker->sectors();
       BOOST_FOREACH(DeSTSector * sector, sectors)
       {
         //info()<<sector->nickname()<<endl<<endmsg;
@@ -1023,6 +1068,21 @@ bool TrackTuple::hasMinStationPassed(LHCb::Track* const& aTrack) const
   return false;
 }
 
+
+DeSTSensor* TrackTuple::findSensor(const DeSTSector* sector,
+                                    STChannelID id)
+{
+  std::vector<DeSTSensor*> sensors = sector->sensors();
+  DeSTSensor* foundSensor;
+  for (std::vector<DeSTSensor*>::const_iterator iter = sensors.begin(); iter != sensors.end(); ++iter)
+  {
+    if ( (*iter)->contains(id) )
+    {
+      foundSensor = (*iter);
+    }
+  }
+  return foundSensor;
+}
 
 bool TrackTuple::crossedLayer(LHCb::Track* const& aTrack,
                                 DeSTLayer * &aLayer) const

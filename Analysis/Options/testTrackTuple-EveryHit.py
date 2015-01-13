@@ -229,6 +229,8 @@ itEffTuple.HitsOnTrack        = False
 itEffTuple.SkipEdges          = False#True
 # Set output level
 itEffTuple.OutputLevel        = 3
+# Save sector positions in ntuple
+itEffTuple.SaveSectorPositions= True
 
 ttEffTuple = TrackTuple( "TTHitEfficiencyTuple" )
 ttEffTuple.TracksInContainer  = "/Event/Rec/Track/MyBest"
@@ -264,6 +266,8 @@ ttEffTuple.HitsOnTrack        = False
 ttEffTuple.SkipEdges          = False#True
 # Set output level
 ttEffTuple.OutputLevel        = 3
+# Save sector positions in ntuple
+ttEffTuple.SaveSectorPositions= True
 
 # Collecting the ST clusters
 itClusterCollector = STClusterCollector( "ToolSvc.ITClusterCollector" )

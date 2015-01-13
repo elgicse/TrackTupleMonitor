@@ -16,6 +16,7 @@ class ISTClusterCollector;
 class IHitExpectation;
 class DeSTDetector;
 class DeSTSector;
+class DeSTSensor;
 
 #include <map>
 #include <vector>
@@ -69,6 +70,9 @@ private:
 
   unsigned int hitsOnLayer(std::vector<const LHCb::STMeasurement*> measVector,
                                      DeSTLayer * &aLayer) const;
+
+  DeSTSensor* findSensor(const DeSTSector* sector,
+                                    LHCb::STChannelID id);
 
   LHCb::LHCbID findHitId(LHCb::Track* const& aTrack,
                           const LHCb::STMeasurement* aHit) const;
@@ -237,6 +241,11 @@ private:
    */
   bool m_branchByTrack;
   
+  /**
+   * Save sector positions in ntuple
+   */
+  bool m_savePositions;
+
 
 };
 #endif // TRACKTUPLE_H
