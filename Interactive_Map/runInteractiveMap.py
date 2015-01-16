@@ -34,6 +34,8 @@ Add_Pkl(tt_d, pickle_file, hist_name)
 #Add_NTuple(ntuple, it_d, tt_d)
 
 #For .root file with 
+#Pay attention, that this folder should be in static folder.
+#Names should be given as <Sector/Module name><-Type of histogram, can be optional>.<extension>
 folder_with_plots = 'preloaded_pictures'
 Add_Folder(folder_with_plots, it_d, tt_d)
 
