@@ -4,6 +4,11 @@ from flask import abort, redirect, url_for, request, flash
 from ROOT import *
 from CreateDetectors import *
 import pickle
+import sys
+import os
+sys.path.append("../Analysis/Scripts/conf")
+from TTModules import *
+
 
 # Avoid spawning canvases
 gROOT.SetBatch(kTRUE)
@@ -20,21 +25,17 @@ tt_d = create_TT()
 it_d = create_IT()
 
 # Add efficiency VS time histograms loading from a pickle file
-f = open('TT_Efficiency_Per_Run.pkl')
-TT_hists = pickle.load(f)
-hname ='Efficiency_time_dependence'
-Add_Histograms(tt_d, TT_hists, hname)
+pickle_file = 'TT_Efficiency_Per_Run.pkl'
+hist_name = 'Efficiency_time_dependence'
+Add_Pkl(tt_d, pickle_file, hist_name)
 
 # Add residual, unbiased residual, signal to noise histograms loading from an ntuple
-for h in GetHistosFromNT('data/STTrackMonitor-2012.root'):
-    if h[0] == 'T':
-        f = open(h+".pkl")
-        TT_hists = pickle.load(f)
-        Add_Histograms(tt_d, TT_hists, h)
-    if h[0] == 'I':
-        f = open(h+".pkl")
-        IT_hists = pickle.load(f)
-        Add_Histograms(it_d, IT_hists, h)
+#ntuple = 'data/STTrackMonitor-2012.root'
+#Add_NTuple(ntuple, it_d, tt_d)
+
+#For .root file with 
+folder_with_plots = 'preloaded_pictures'
+Add_Folder(folder_with_plots, it_d, tt_d)
 
 # Handle sector plot drawing and the default template
 # Drawing_mode handles the menu
@@ -77,5 +78,5 @@ def Detector(d):
 # Execute the program
 if __name__ == "__main__":
     Drawing_mode = {'TT_hist':'', 'IT_hist':''}
-    app.debug = True # Disable this when the code is ready!
+    app.debug = False # Disable this when the code is ready!
     app.run()

@@ -16,7 +16,10 @@ from DefineHistogram import GetAPlot
 from ROOT import *
 import re
 import sys
+import os
 
+sys.path.append("../Analysis/Scripts/conf")
+from TTModules import *
 
 def TT_reg_len(det,region):
     top = 25
@@ -288,6 +291,21 @@ def Add_Histograms(det, hist_set, hist_name='hist'):
     return 
 
 
+def CheckIfModule(n):
+    try: 
+        a = sectorsInModule(n)
+        return True
+    except:
+        return False
+
+def CheckIfHalfModule(n):
+    try: 
+        a = sectorsInHalfModule(n)
+        return True
+    except:
+        return False
+
+
 def SniffInfo(f, dictionary, names):
     """ Populates a dictionary of the content of the ROOT file
     (in this case, TH1D histograms) """
@@ -295,20 +313,28 @@ def SniffInfo(f, dictionary, names):
         t = k.GetClassName()
         n = k.GetName()
         if t == 'TH1D':
-            for name in names['ITNames']:
-                if name == n[len(n) - len(name):]:
-                    naming_schema = 'IT_'+re.sub(name,'',n)
-                    if naming_schema not in dictionary.keys():
-                        dictionary[naming_schema] = {}
-                    dictionary[naming_schema][name] = f.Get(n)
-                    #print dictionary[naming_schema][name]
-            for name in names['TTNames']:
-                if name == n[len(n) - len(name):]:
-                    naming_schema = 'TT_'+re.sub(name,'',n)
-                    if naming_schema not in dictionary.keys():
-                        dictionary[naming_schema] = {}
-                    dictionary[naming_schema][name] = f.Get(n)
-                    #print dictionary[naming_schema][name]
+            #Here we deal with module-based binning.
+            orig_name = n
+            sectorNames = [n]
+            if CheckIfHalfModule(n):
+                sectorNames = sectorsInHalfModule(n)[0]
+            if CheckIfModule(n):
+                sectorNames = sectorsInModule(n)[0]
+            for n in sectorNames:
+                for name in names['ITNames']:
+                    if name == n[len(n) - len(name):]:
+                        naming_schema = 'IT_'+re.sub(name,'',n)
+                        if naming_schema not in dictionary.keys():
+                            dictionary[naming_schema] = {}
+                        dictionary[naming_schema][name] = f.Get(orig_name)
+                        #print dictionary[naming_schema][name]
+                for name in names['TTNames']:
+                    if name == n[len(n) - len(name):]:
+                        naming_schema = 'TT_'+re.sub(name,'',n)
+                        if naming_schema not in dictionary.keys():
+                            dictionary[naming_schema] = {}
+                        dictionary[naming_schema][name] = f.Get(orig_name)
+                        #print dictionary[naming_schema][name]
         if t == 'TDirectoryFile':
             SniffInfo(f.Get(n), dictionary, names)
     return dictionary
@@ -328,5 +354,90 @@ def GetHistosFromNT(f_n):
         output.close()
     return dictionary.keys()
 
+def CreateHistSetFromFilesInFolder(folder):
+    hist_set = {}
+    return hist_set
 
 
+def Add_Existing_Histograms(det, hist_set, hist_name='hist'):
+    """ Adds already existing plot for every sector to the detector dictionary - needed for plots compiled elsewhere
+
+    Inputs:
+    - det is an instance of create_TT or create_IT (det -  from detector)
+    - hist_set is a dictionary {sector_name, histogram_address}
+    - hist_name is the name of the set of histograms (e.g. TT_UnbiasedResidual_)
+    """
+    f = open('NameList.pkl')
+    NameList = pickle.load(f) 
+    print "Creating histograms for "+hist_name
+    print ""
+    for i, k in enumerate(hist_set):
+        p_name = Parse_Name(k)
+        if k in NameList['TTNames']:
+            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+        if k in NameList['ITNames']:
+            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+        sys.stdout.flush()
+        sys.stdout.write("Getting histograms for "+hist_name+":  "+str(i+1)+'/'+ str(len(hist_set))+' ('+ str(int(100*float(i+1)/float(len(hist_set))))+'%)\r')
+    print ''
+    print hist_name+': all done.'
+    return 
+
+def Add_Folder(folder_with_plots, it_d, tt_d):
+    files = os.listdir('static/'+folder_with_plots)
+    it_pictures = {}
+    tt_pictures = {}
+    for pic in files:
+        if pic[len(pic)-5:] == '.root':
+            Add_NTuple(pic, it_d, tt_d)
+            continue
+        if pic[len(pic)-4:] == '.pdf':
+            if pic[:-4]+'.png' in files:
+                continue
+            os.system('convert static/'+folder_with_plots+'/'+pic+' static/'+folder_with_plots+'/'+pic[:-4]+'.png')
+            pic = pic[:-4]+'.png'
+        if pic.split('.')[0]=='':
+            continue
+        pic_name = pic.split('.')[0].split('-')[0]
+        hist_name = folder_with_plots
+        if '-' in pic.split('.')[0]:
+            hist_name = pic.split('.')[0].split('-')[1]
+        pic_ext = '.'+pic.split('.')[1]
+        sectorNames = [pic_name]
+        if CheckIfHalfModule(pic_name):
+            sectorNames = sectorsInHalfModule(pic_name)[0]
+        if CheckIfModule(pic_name):
+            sectorNames = sectorsInModule(pic_name)[0]
+        for sector in sectorNames:
+            if sector[0] == 'T':
+                if hist_name not in tt_pictures:
+                    tt_pictures[hist_name]={}
+                tt_pictures[hist_name][sector]=folder_with_plots+'/'+pic
+            if sector[0] == 'I':
+                if hist_name not in it_pictures:
+                    it_pictures[hist_name]={}
+                it_pictures[hist_name][sector]=folder_with_plots+'/'+pic
+    for histos in it_pictures:
+        Add_Existing_Histograms(it_d, it_pictures[histos], histos)
+    for histos in tt_pictures:
+        Add_Existing_Histograms(tt_d, tt_pictures[histos], histos)
+    return
+
+def Add_NTuple(ntuple, it_d, tt_d):
+    for h in GetHistosFromNT(ntuple):
+        if h[0] == 'T':
+            f = open(h+".pkl")
+            TT_hists = pickle.load(f)
+            Add_Histograms(tt_d, TT_hists, h)
+        if h[0] == 'I':
+            f = open(h+".pkl")
+            IT_hists = pickle.load(f)
+            Add_Histograms(it_d, IT_hists, h)
+    return
+
+def Add_Pkl(detector, pickle_file, hist_name):
+    f = open(pickle_file)
+    TT_hists = pickle.load(f)
+    hname = hist_name
+    Add_Histograms(detector, TT_hists, hname)
+    return
