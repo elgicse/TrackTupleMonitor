@@ -3,8 +3,7 @@
 
 
 <div style="width:50%;height:100%;position:absolute;top:0%;left:0%;text-align:center;">
-    <h1><a href="/TT"> Detailed TT </a></h1>
-    <div style="width:50%;height:10%;position:absolute;top:10%;left:0%;">
+    <div style="width:35%;height:10%;position:absolute;top:0%;left:0%;">
         <form  action="/index" method="POST" class=index>
             <select name="TT_hist">
                 <option value="">Choose histogram</option>
@@ -18,6 +17,39 @@
             </select>
             <input type="submit" value="Submit">
         </form>
+    </div>
+    <div style="width:30%;height:10%;position:absolute;top:0%;left:35%;">
+        <h1><a href="/TT"> Detailed TT </a></h1>
+    </div>
+    <div style="width:35%;height:10%;position:absolute;top:0%;left:65%;">
+        <form  action="/index" method="POST" class=index>
+            <select name="TT_prop">
+                <option value="">Choose colour schema</option>
+                    {% if dm['TT_hist'] != '' %}
+                    {% for h in tt['TTaU']['RegionA']['1']['Histograms'][dm['TT_hist']]['properties'] %}
+                    <option value="{{ h }}"
+                    {% if dm['TT_prop'] == h %}
+                    selected
+                    {% endif %}>
+                    {{ h }}</option>
+                    {% endfor %}
+                    {% endif %}
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <div style="width:80%;height:10%;position:absolute;top:10%;left:10%;">
+        {% if dm['TT_hist'] %}
+            {% if dm['TT_prop'] %}
+                {% for i in range(0, 100) %}
+                    <span class="dropt" >
+                        <div style="width:1%;height:50%;position:absolute;top:0%;left:{{ i }}%;background-color:{{ collections[['tt_d',dm['TT_hist'],dm['TT_prop']]|join][i|string]['colour'] }};">
+                            <span> {{ collections[['tt_d',dm['TT_hist'],dm['TT_prop']]|join][i|string]['value'] }}</span>
+                        </div>
+                    </span>
+                {% endfor %}"
+            {% endif %}
+        {% endif %}
     </div>
     <div style="width:100%;height:80%;position:absolute;top:20%;left:0%;">
         {% for layer in tt %}
@@ -40,11 +72,25 @@
                                 <div class="thumbnail" id='TT_bin' style="
                                     {% for i in tt[layer][side][sector]['div_info'] %}
                                         {{ i }}:{{ tt[layer][side][sector]['div_info'][i] }};
-                                    {% endfor %}">
+                                    {% endfor %}
+                                    {% if dm['TT_hist'] %}
+                                        {% if dm['TT_prop'] %}
+                                            background-color: {{ tt[layer][side][sector]['Histograms'][dm['TT_hist']]['properties'][dm['TT_prop']] }};
+                                        {% endif %}
+                                    {% endif %}">
+                                            <span id='TT_span_info'>
+                                            <div> {{ tt[layer][side][sector]['Name'] }}  
+                                            {% if dm['TT_hist'] %}
+                                                {% if dm['TT_prop'] %}
+                                                    '{{ dm['TT_prop'] }}': {{ tt[layer][side][sector]['Histograms'][dm['TT_hist']]['init_properties'][dm['TT_prop']] }};
+                                                {% endif %}
+                                            {% endif %}
+                                            </div>
+                                            </span>
                                             {{ sector }}
                                             {% if dm['TT_hist'] %}
                                             <span id='TT_span' >
-                                            <img  id='TT_image' src="{{ url_for('static', filename = tt[layer][side][sector]['Histograms'][dm['TT_hist']]) }}"/>
+                                            <img  id='TT_image' src="{{ url_for('static', filename = tt[layer][side][sector]['Histograms'][dm['TT_hist']]['plot']) }}"/>
                                             </span>
                                             {% endif %}
                                     </div>
@@ -61,8 +107,7 @@
     </div>
 </div>
 <div style="width:50%;height:100%;position:absolute;top:0%;left:50%;text-align:center">
-    <h1><a href="/IT"> Detailed IT </a></h1>
-    <div style="width:50%;height:10%;position:absolute;top:10%;left:0%;">
+    <div style="width:35%;height:10%;position:absolute;top:0%;left:0%;">
         <form  action="/index" method="POST" class=index>
             <select name="IT_hist">
                 <option value="">Choose histogram</option>
@@ -76,6 +121,42 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+    <div style="width:30%;height:10%;position:absolute;top:0%;left:35%;">
+        <h1><a href="/IT"> Detailed IT </a></h1>
+    </div>
+
+    <div style="width:35%;height:10%;position:absolute;top:0%;left:65%;">
+        <form  action="/index" method="POST" class=index>
+            <select name="IT_prop">
+                <option value="">Choose colour schema</option>
+                    {% if dm['IT_hist'] != '' %}
+                    {% for h in it['IT1']['ASide']['X1']['1']['Histograms'][dm['IT_hist']]['properties'] %}
+                    <option value="{{ h }}"
+                    {% if dm['IT_prop'] == h %}
+                    selected
+                    {% endif %}>
+                    {{ h }}</option>
+                    {% endfor %}
+                    {% endif %}
+            </select>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <div style="width:80%;height:10%;position:absolute;top:10%;left:10%;">
+        {% if dm['IT_hist'] %}
+            {% if dm['IT_prop'] %}
+                {% for i in range(0, 100) %}
+                    <span class="dropt" >
+                        <div style="width:1%;height:50%;position:absolute;top:0%;left:{{ i }}%;background-color:{{ collections[['it_d',dm['IT_hist'],dm['IT_prop']]|join][i|string]['colour'] }};">
+                            <span> {{ collections[['it_d',dm['IT_hist'],dm['IT_prop']]|join][i|string]['value'] }}</span>
+                        </div>
+                    </span>
+                {% endfor %}"
+            {% endif %}
+        {% endif %}
+    </div>
+
     <div style="width:100%;height:80%;position:absolute;top:20%;left:0%;">
         {% for station in it %}
             {% if it[station]['station_info'] %}
@@ -83,7 +164,7 @@
                                     {% for i in it[station]['station_info'] %}
                                         {{ i }}:{{ it[station]['station_info'][i] }};
                                     {% endfor %}">
-                {{ station }}
+                <h1>{{ station }}</h1>
                 {% for side in it[station] %}
                     {% if  it[station][side]['side_info'] %}
                         <div id="IT_side" align="center" style="
@@ -102,15 +183,33 @@
                                         <div class="thumbnail" id='IT_bin' style="
                                             {% for i in it[station][side][layer][sector]['div_info'] %}
                                                 {{ i }}:{{ it[station][side][layer][sector]['div_info'][i] }};
-                                            {% endfor %}"
-                                            >
+                                            {% endfor %}
+                                            {% if dm['IT_hist'] %}
+                                                {% if dm['IT_prop'] %}
+                                                    {% if dm['IT_hist'] in it[station][side][layer][sector]['Histograms'] %}
+                                                        background-color: {{ it[station][side][layer][sector]['Histograms'][dm['IT_hist']]['properties'][dm['IT_prop']] }};
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}">
+                                            <span id='IT_span_info'>
+                                            <div> {{ it[station][side][layer][sector]['Name'] }}  
+                                            {% if dm['IT_hist'] %}
+                                                {% if dm['IT_hist'] in it[station][side][layer][sector]['Histograms'] %}
+                                                    {% if dm['IT_prop'] %}
+                                                        '{{ dm['IT_prop'] }}': {{ it[station][side][layer][sector]['Histograms'][dm['IT_hist']]['init_properties'][dm['IT_prop']]}};
+                                                    {% endif %}
+                                                {% endif %}
+                                            {% endif %}
+                                            </div>
+                                            </span>
                                             {{ sector }}
                                             {% if dm['IT_hist'] %}
-                                            <span id='IT_span' >
-                                            <img id='IT_image' src="{{ url_for('static', filename = it[station][side][layer][sector]['Histograms'][dm['IT_hist']]) }}"/>
-                                            </span>
+                                                {% if dm['IT_hist'] in it[station][side][layer][sector]['Histograms'] %}
+                                                    <span id='IT_span' >
+                                                    <img id='IT_image' src="{{ url_for('static', filename = it[station][side][layer][sector]['Histograms'][dm['IT_hist']]['plot']) }}"/>
+                                                    </span>
+                                                {% endif %}
                                             {% endif %}
-
                                         </div>
                                     </a>
                                     {% endif %}

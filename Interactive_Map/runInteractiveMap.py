@@ -8,6 +8,7 @@ import sys
 import os
 sys.path.append("../Analysis/Scripts/conf")
 from TTModules import *
+import json
 
 
 # Avoid spawning canvases
@@ -25,19 +26,22 @@ tt_d = create_TT()
 it_d = create_IT()
 
 # Add efficiency VS time histograms loading from a pickle file
-pickle_file = 'TT_Efficiency_Per_Run.pkl'
-hist_name = 'Efficiency_time_dependence'
-Add_Pkl(tt_d, pickle_file, hist_name)
+#pickle_file = 'TT_Efficiency_Per_Run.pkl'
+#hist_name = 'Efficiency_time_dependence'
+#Add_Pkl(tt_d, pickle_file, hist_name)
 
 # Add residual, unbiased residual, signal to noise histograms loading from an ntuple
-#ntuple = 'data/STTrackMonitor-2012.root'
-#Add_NTuple(ntuple, it_d, tt_d)
+ntuple = 'data/STTrackMonitor-2012.root'
+Add_NTuple(ntuple, it_d, tt_d)
 
 #For .root file with 
 #Pay attention, that this folder should be in static folder.
 #Names should be given as <Sector/Module name><-Type of histogram, can be optional>.<extension>
-folder_with_plots = 'preloaded_pictures'
-Add_Folder(folder_with_plots, it_d, tt_d)
+#folder_with_plots = 'preloaded_pictures'
+#Add_Folder(folder_with_plots, it_d, tt_d)
+
+collection = Normalize_Colours(tt_d, it_d)
+print json.dumps(it_d,sort_keys=True, indent=4)
 
 # Handle sector plot drawing and the default template
 # Drawing_mode handles the menu
@@ -46,14 +50,14 @@ Add_Folder(folder_with_plots, it_d, tt_d)
 def hello():
     global Drawing_mode
     if request.method == 'POST':
-        for m in ['IT_hist', 'TT_hist']:
+        for m in ['IT_hist', 'TT_hist','IT_prop', 'TT_prop']:
             try:
                 Drawing_mode[m]=request.form[m]
             except:
                 pass
-        return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode)
-    Drawing_mode = {'TT_hist':'', 'IT_hist':''}
-    return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode)
+        return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode, collections = collection)
+    Drawing_mode = {'TT_hist':'', 'IT_hist':'','TT_prop':'', 'IT_prop':''}
+    return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode, collections = collection)
 
 # Handle sector plots (e.g. when you click on a sector)
 @app.route("/<d>",methods = ('GET', 'POST'))
@@ -79,6 +83,6 @@ def Detector(d):
 
 # Execute the program
 if __name__ == "__main__":
-    Drawing_mode = {'TT_hist':'', 'IT_hist':''}
-    app.debug = False # Disable this when the code is ready!
+    Drawing_mode = {'TT_hist':'', 'IT_hist':'','TT_prop':'', 'IT_prop':''}
+    app.debug = True # Disable this when the code is ready!
     app.run()
