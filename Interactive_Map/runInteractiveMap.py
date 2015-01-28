@@ -41,7 +41,7 @@ Add_NTuple(ntuple, it_d, tt_d)
 #Add_Folder(folder_with_plots, it_d, tt_d)
 
 collection = Normalize_Colours(tt_d, it_d)
-print json.dumps(it_d,sort_keys=True, indent=4)
+#print json.dumps(it_d,sort_keys=True, indent=4)
 
 # Handle sector plot drawing and the default template
 # Drawing_mode handles the menu
@@ -84,5 +84,5 @@ def Detector(d):
 # Execute the program
 if __name__ == "__main__":
     Drawing_mode = {'TT_hist':'', 'IT_hist':'','TT_prop':'', 'IT_prop':''}
-    app.debug = True # Disable this when the code is ready!
+    app.debug = False # Disable this when the code is ready!
     app.run()
