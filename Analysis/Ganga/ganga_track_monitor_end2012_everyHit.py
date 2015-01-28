@@ -21,7 +21,7 @@ gridProxy.renew()
 for ds in datasets2:
     bkq = BKQuery(path=str(ds),type="Run")
     j=Job(application='DaVinci')
-    j.name = "TrackTuple_2012_everyHit"
+    j.name = "TrackTuple_end2012_everyHit"
     j.name += ds.replace("/","_").replace(" ","")
     #j.application.version="v36r0"
     j.application.version="v36r2" #should work with root 6

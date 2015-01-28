@@ -389,7 +389,7 @@ def Add_Folder(folder_with_plots, it_d, tt_d):
     tt_pictures = {}
     for pic in files:
         if pic[len(pic)-5:] == '.root':
-            Add_NTuple(pic, it_d, tt_d)
+            Add_NTuple('static/'+folder_with_plots+'/'+pic, it_d, tt_d)
             continue
         if pic[len(pic)-4:] == '.pdf':
             if pic[:-4]+'.png' in files:
