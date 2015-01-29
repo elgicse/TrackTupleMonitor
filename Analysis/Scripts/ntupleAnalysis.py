@@ -463,7 +463,7 @@ if __name__ == '__main__':
                 c1 = r.TCanvas(hFullLayers[layer][gr].GetName(), hFullLayers[layer][gr].GetTitle(), 1600, 1000)
                 hFullLayers[layer][gr].Draw('ap'); c1.Modified(); c1.Update()
                 label = r.TPaveText( 0.85 - r.gStyle.GetPadRightMargin(), 0.87 - r.gStyle.GetPadTopMargin(),
-                                     0.95 - r.gStyle.GetPadRightMargin(), 0.95 - r.gStyle.GetPadTopMargin(), "BRNDC");
+                                     0.95 - r.gStyle.GetPadRightMargin(), 0.95 - r.gStyle.GetPadTopMargin(), "BRNDC")
                 label.SetFillColor(0); label.SetTextAlign(12); label.SetBorderSize(0)
                 label.SetTextFont(132); label.SetTextSize(0.06); label.SetTextColor(gCol[lindex])
                 label.AddText(layer); label.Draw('same'); c1.Modified(); c1.Update()
