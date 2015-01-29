@@ -98,21 +98,21 @@ def TT_layer_info(a):
 
 def TT_side_info(a,r):
     if (r == 'RegionA'): return {'position':'absolute',
-                                'border':' 5px solid #00FFFF',
+                                'border':' 1px solid ',
                                 'top':' 0%',
                                 'left':' 0%',
                                 'width':'32%',
                                 'height':'99%'}
 
     if (r == 'RegionB'): return {'position':'absolute',
-                                'border':' 5px solid #FF00FF',
+                                'border':' 1px solid ',
                                 'top':' 0%',
                                 'left':' 33.3%',
                                 'width':'32%',
                                 'height':'99%'}
 
     if (r == 'RegionC'): return {'position':'absolute',
-                                'border':' 5px solid #FFFF00',
+                                'border':' 1px solid ',
                                 'top':' 0%',
                                 'left':' 66.6%',
                                 'width':'32%',
@@ -148,25 +148,25 @@ def IT_station_info(st):
 def IT_side_info(st,s):
     
     if s == 'ASide': return{'position':'absolute',
-                                'border':' 5px solid #00FFFF',
+                                'border':' 1px solid ',
                                 'top':' 30%',
                                 'left':' 0%',
                                 'width':'33.3%',
                                 'height':'40%'}
     if s == 'CSide': return{'position':'absolute',
-                                'border':' 5px solid #00FF00',
+                                'border':' 1px solid ',
                                 'top':' 30%',
                                 'left':' 66.6%',
                                 'width':'33.3%',
                                 'height':'40%'}
     if s == 'Bottom': return{'position':'absolute',
-                                'border':' 5px solid #FF00FF',
+                                'border':' 1px solid ',
                                 'top':' 60%',
                                 'left':' 33.3%',
                                 'width':'33.3%',
                                 'height':'40%'}
     if s == 'Top': return{'position':'absolute',
-                                'border':' 5px solid #FFFF00',
+                                'border':' 1px solid ',
                                 'top':' 0%',
                                 'left':' 33.3%',
                                 'width':'33.3%',
