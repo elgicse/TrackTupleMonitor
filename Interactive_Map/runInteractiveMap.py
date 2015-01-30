@@ -33,6 +33,7 @@ it_d = create_IT()
 # Add residual, unbiased residual, signal to noise histograms loading from an ntuple
 ntuple = 'data/STTrackMonitor-2012.root'
 Add_NTuple(ntuple, it_d, tt_d)
+Add_NTuple('data/DeltaY.root', it_d, tt_d)
 
 #For .root file with 
 #Pay attention, that this folder should be in static folder.

@@ -315,7 +315,7 @@ def SniffInfo(f, dictionary, names):
     for k in f.GetListOfKeys():
         t = k.GetClassName()
         n = k.GetName()
-        if t == 'TH1D':
+        if t == 'TH1D' or t == 'TH1F' or t == 'TH1I':
             #Here we deal with module-based binning.
             orig_name = n
             sectorNames = [n]
@@ -348,6 +348,7 @@ def GetHistosFromNT(f_n):
     according to the histogram name """
     nf = open('NameList.pkl')
     names = pickle.load(nf)
+    print 'Opening file %s ...'%f_n
     f = TFile(f_n)
     dictionary = {}
     dictionary = SniffInfo(f, dictionary, names)
