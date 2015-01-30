@@ -304,16 +304,16 @@ def Add_Histograms(det, hist_set, hist_name='hist',hist_coll={'it':{}, 'tt':{}})
     return 
 
 
-def CheckIfModule(n):
+def CheckIfModule(name):
     try: 
-        a = sectorsInModule(n)
+        a = sectorsInModule(name)
         return True
     except:
         return False
 
-def CheckIfHalfModule(n):
+def CheckIfHalfModule(name):
     try: 
-        a = sectorsInHalfModule(n)
+        a = sectorsInHalfModule(name)
         return True
     except:
         return False
