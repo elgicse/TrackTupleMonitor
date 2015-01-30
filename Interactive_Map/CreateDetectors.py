@@ -324,32 +324,32 @@ def SniffInfo(f, dictionary, names):
     (in this case, TH1D histograms) """
     for k in f.GetListOfKeys():
         t = k.GetClassName()
-        n = k.GetName()
+        element_name = k.GetName()
         if t == 'TH1D' or t == 'TH1F' or t == 'TH1I':
             #Here we deal with module-based binning.
-            orig_name = n
-            sectorNames = [n]
-            if CheckIfHalfModule(n):
-                sectorNames = sectorsInHalfModule(n)[0]
-            if CheckIfModule(n):
-                sectorNames = sectorsInModule(n)[0]
-            for n in sectorNames:
-                for name in names['ITNames']:
-                    if name == n[len(n) - len(name):]:
-                        naming_schema = 'IT_'+re.sub(name,'',n)
+            orig_histo_name = element_name
+            extracted_sector_names = [element_name]
+            if CheckIfHalfModule(element_name):
+                extracted_sector_names = sectorsInHalfModule(element_name)[0]
+            if CheckIfModule(element_name):
+                extracted_sector_names = sectorsInModule(element_name)[0]
+            for name in extracted_sector_names:
+                for sector_name in names['ITNames']:
+                    if sector_name == name[len(name) - len(sector_name):]:
+                        naming_schema = 'IT_'+re.sub(sector_name,'',name)
                         if naming_schema not in dictionary.keys():
                             dictionary[naming_schema] = {}
-                        dictionary[naming_schema][name] = f.Get(orig_name)
+                        dictionary[naming_schema][sector_name] = f.Get(orig_histo_name)
                         #print dictionary[naming_schema][name]
-                for name in names['TTNames']:
-                    if name == n[len(n) - len(name):]:
-                        naming_schema = 'TT_'+re.sub(name,'',n)
+                for sector_name in names['TTNames']:
+                    if sector_name == name[len(name) - len(sector_name):]:
+                        naming_schema = 'TT_'+re.sub(sector_name,'',name)
                         if naming_schema not in dictionary.keys():
                             dictionary[naming_schema] = {}
-                        dictionary[naming_schema][name] = f.Get(orig_name)
+                        dictionary[naming_schema][sector_name] = f.Get(orig_histo_name)
                         #print dictionary[naming_schema][name]
         if t == 'TDirectoryFile':
-            SniffInfo(f.Get(n), dictionary, names)
+            SniffInfo(f.Get(element_name), dictionary, names)
     return dictionary
 
 
