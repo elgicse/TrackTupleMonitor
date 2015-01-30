@@ -328,6 +328,10 @@ def SniffInfo(f, dictionary, names):
         if t == 'TH1D' or t == 'TH1F' or t == 'TH1I':
             #Here we deal with module-based binning.
             orig_histo_name = element_name
+            try:
+                element_name = orig_histo_name.split('_')[1] # parse histogram name for ST element name
+            except:
+                pass
             extracted_sector_names = [element_name]
             if CheckIfHalfModule(element_name):
                 extracted_sector_names = sectorsInHalfModule(element_name)[0]
@@ -336,14 +340,16 @@ def SniffInfo(f, dictionary, names):
             for name in extracted_sector_names:
                 for sector_name in names['ITNames']:
                     if sector_name == name[len(name) - len(sector_name):]:
-                        naming_schema = 'IT_'+re.sub(sector_name,'',name)
+                        #naming_schema = 'IT_'+re.sub(sector_name,'',name)
+                        naming_schema = 'IT_'+orig_histo_name.split('_')[0]
                         if naming_schema not in dictionary.keys():
                             dictionary[naming_schema] = {}
                         dictionary[naming_schema][sector_name] = f.Get(orig_histo_name)
                         #print dictionary[naming_schema][name]
                 for sector_name in names['TTNames']:
                     if sector_name == name[len(name) - len(sector_name):]:
-                        naming_schema = 'TT_'+re.sub(sector_name,'',name)
+                        #naming_schema = 'TT_'+re.sub(sector_name,'',name)
+                        naming_schema = 'TT_'+orig_histo_name.split('_')[0]
                         if naming_schema not in dictionary.keys():
                             dictionary[naming_schema] = {}
                         dictionary[naming_schema][sector_name] = f.Get(orig_histo_name)
