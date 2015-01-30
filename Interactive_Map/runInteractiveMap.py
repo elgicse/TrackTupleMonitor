@@ -24,22 +24,22 @@ NameList = pickle.load(f)
 # Create detectors
 tt_d = create_TT()
 it_d = create_IT()
+histos = {'it':{},'tt':{}}
 
 # Add efficiency VS time histograms loading from a pickle file
 #pickle_file = 'TT_Efficiency_Per_Run.pkl'
 #hist_name = 'Efficiency_time_dependence'
-#Add_Pkl(tt_d, pickle_file, hist_name)
+#Add_Pkl(tt_d, pickle_file, hist_name,histos)
 
 # Add residual, unbiased residual, signal to noise histograms loading from an ntuple
 ntuple = 'data/STTrackMonitor-2012.root'
-Add_NTuple(ntuple, it_d, tt_d)
+Add_NTuple(ntuple, it_d, tt_d,histos)
 
 #For .root file with 
 #Pay attention, that this folder should be in static folder.
 #Names should be given as <Sector/Module name><-Type of histogram, can be optional>.<extension>
 #folder_with_plots = 'preloaded_pictures'
-#Add_Folder(folder_with_plots, it_d, tt_d)
-
+#Add_Folder(folder_with_plots, it_d, tt_d,histos)
 collection = Normalize_Colours(tt_d, it_d)
 #print json.dumps(it_d,sort_keys=True, indent=4)
 
@@ -55,9 +55,9 @@ def hello():
                 Drawing_mode[m]=request.form[m]
             except:
                 pass
-        return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode, collections = collection)
+        return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode, collections = collection, hist_coll = histos)
     Drawing_mode = {'TT_hist':'', 'IT_hist':'','TT_prop':'', 'IT_prop':''}
-    return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode, collections = collection)
+    return render_template('index.html', tt = tt_d, it=it_d, dm = Drawing_mode, collections = collection, hist_coll = histos)
 
 # Handle sector plots (e.g. when you click on a sector)
 @app.route("/<d>",methods = ('GET', 'POST'))
@@ -85,4 +85,4 @@ def Detector(d):
 if __name__ == "__main__":
     Drawing_mode = {'TT_hist':'', 'IT_hist':'','TT_prop':'', 'IT_prop':''}
     app.debug = False # Disable this when the code is ready!
-    app.run()
+    app.run(port=5000)
