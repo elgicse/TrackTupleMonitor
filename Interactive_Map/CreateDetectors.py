@@ -347,7 +347,6 @@ def SniffInfo(f, dictionary, names):
                         if naming_schema not in dictionary.keys():
                             dictionary[naming_schema] = {}
                         dictionary[naming_schema][name] = f.Get(orig_name)
-                        if 'nOutliers' in name: print '\t\t'+name
                         #print dictionary[naming_schema][name]
         if t == 'TDirectoryFile':
             SniffInfo(f.Get(n), dictionary, names)
