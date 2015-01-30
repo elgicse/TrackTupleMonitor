@@ -540,15 +540,40 @@ if __name__ == '__main__':
                 tsx.extend(outliers['DeltaY'][hm][sector]['tsx'])
                 tsy.extend(outliers['DeltaY'][hm][sector]['tsy'])
                 tsz.extend(outliers['DeltaY'][hm][sector]['tsz'])
+            hnum = r.TH1I('nOutliersDeltaY_%s'%hm, 'nOutliersDeltaY_%s'%hm, 21, -0.5, 20.5)
+            hnum.Fill(sum([len(outliers['DeltaY'][hm][sector]['tsx']) for sector in outliers['DeltaY'][hm]]))
+            outliers['DeltaY'][hm]['nOutliers'] = hnum
             outliers['DeltaY'][hm]['ClusterXY'] = r.TGraph(len(cx), array('f',cx), array('f',cy))
             outliers['DeltaY'][hm]['TrackXY'] = r.TGraph(len(tsx), array('f',tsx), array('f',tsy))
-            outliers['DeltaY'][hm]['ClusterZ'] = r.TH1F('','',6,min(cz),max(cz))
+            outliers['DeltaY'][hm]['ClusterZ'] = r.TH1F('CZForYOutliers_%s'%sector,'CZForYOutliers_%s'%sector,10,min(cz),max(cz))
             [ outliers['DeltaY'][hm]['ClusterZ'].Fill(z) for z in cz ]
-            outliers['DeltaY'][hm]['TrackZ'] = r.TH1F('','',6,min(tsz),max(tsz))
+            outliers['DeltaY'][hm]['ClusterX'] = r.TH1F('CXForYOutliers_%s'%sector,'CXForYOutliers_%s'%sector,10,min(cx),max(cx))
+            [ outliers['DeltaY'][hm]['ClusterX'].Fill(x) for x in cx ]
+            outliers['DeltaY'][hm]['ClusterY'] = r.TH1F('CYForYOutliers_%s'%sector,'CYForYOutliers_%s'%sector,10,min(cy),max(cy))
+            [ outliers['DeltaY'][hm]['ClusterY'].Fill(y) for y in cy ]
+            outliers['DeltaY'][hm]['TrackZ'] = r.TH1F('TSZForYOutliers_%s'%sector,'TSZForYOutliers_%s'%sector,10,min(tsz),max(tsz))
             [ outliers['DeltaY'][hm]['TrackZ'].Fill(z) for z in tsz ]
+            outliers['DeltaY'][hm]['TrackX'] = r.TH1F('TSXForYOutliers_%s'%sector,'TSXForYOutliers_%s'%sector,10,min(tsx),max(tsx))
+            [ outliers['DeltaY'][hm]['TrackX'].Fill(x) for x in tsx ]
+            outliers['DeltaY'][hm]['TrackY'] = r.TH1F('TSYForYOutliers_%s'%sector,'TSYForYOutliers_%s'%sector,10,min(tsy),max(tsy))
+            [ outliers['DeltaY'][hm]['TrackY'].Fill(y) for y in tsy ]
             outliers['DeltaY'][hm]['ClusterXY'].SetMarkerColor(colors[i]), outliers['DeltaY'][hm]['ClusterXY'].SetTitle(hm)
             outliers['DeltaY'][hm]['TrackXY'].SetMarkerColor(colors[i]), outliers['DeltaY'][hm]['TrackXY'].SetTitle(hm)
             outliers['DeltaY'][hm]['ClusterZ'].SetMarkerColor(colors[i]), outliers['DeltaY'][hm]['ClusterZ'].SetTitle(hm)
             outliers['DeltaY'][hm]['TrackZ'].SetMarkerColor(colors[i]), outliers['DeltaY'][hm]['TrackZ'].SetTitle(hm)
             outliers['mgr_ClusterXY'].Add(outliers['DeltaY'][hm]['ClusterXY'])
             outliers['mgr_TrackXY'].Add(outliers['DeltaY'][hm]['TrackXY'])
+        if save:
+            if not os.path.exists('../Out/'+shortFilename+'/%s/%s/Histograms'%(tracker, datatype)):
+                os.system('mkdir ../Out/'+shortFilename+'/%s/%s/Histograms'%(tracker, datatype))
+            foutliers = r.TFile('../Out/'+shortFilename+'/%s/%s/Histograms/DeltaY.root'%(tracker, datatype), 'recreate')
+            for hm in outliers['DeltaY']:
+                for hist in outliers['DeltaY'][hm].values():
+                    try:
+                        print hist.GetName(), type(hist)
+                    except AttributeError:
+                        pass
+                    if isinstance(hist, r.TH1F) or isinstance(hist, r.TH1I):
+                        hist.Write()
+            foutliers.Close()
+

@@ -347,6 +347,7 @@ def SniffInfo(f, dictionary, names):
                         if naming_schema not in dictionary.keys():
                             dictionary[naming_schema] = {}
                         dictionary[naming_schema][name] = f.Get(orig_name)
+                        if 'nOutliers' in name: print '\t\t'+name
                         #print dictionary[naming_schema][name]
         if t == 'TDirectoryFile':
             SniffInfo(f.Get(n), dictionary, names)
@@ -363,7 +364,7 @@ def GetHistosFromNT(f_n):
     dictionary = {}
     dictionary = SniffInfo(f, dictionary, names)
     for d in dictionary:
-        output = open(d+'.pkl', 'wb')
+        output = open('pickle/'+d+'.pkl', 'wb')
         pickle.dump(dictionary[d], output)
         output.close()
     return dictionary.keys()
@@ -444,13 +445,13 @@ def Add_Folder(folder_with_plots, it_d, tt_d,hist_coll):
 def Add_NTuple(ntuple, it_d, tt_d,hist_coll):
     for h in GetHistosFromNT(ntuple):
         if h[0] == 'T':
-            f = open(h+".pkl")
+            f = open('pickle/'+h+".pkl")
             TT_hists = pickle.load(f)
             #if h not in hist_coll['tt']:
             #    hist_coll['tt'].append(h)
             Add_Histograms(tt_d, TT_hists, h, hist_coll)
         if h[0] == 'I':
-            f = open(h+".pkl")
+            f = open('pickle/'+h+".pkl")
             IT_hists = pickle.load(f)
             #if h not in hist_coll['it']:
             #    hist_coll['it'].append(h)
@@ -479,7 +480,7 @@ def convert_to_hex(rgba_color) :
 
 def Normalize_Colours(tt_d, it_d):
     collection = {}
-    cmap = cm.PRGn
+    cmap = cm.PiYG
     #Create collection of properties:
     #collection = {'tt+hist+property':{
     #                                'vals':[]
