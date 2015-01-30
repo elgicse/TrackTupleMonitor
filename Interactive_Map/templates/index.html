@@ -75,23 +75,29 @@
                                     {% endfor %}
                                     {% if dm['TT_hist'] %}
                                         {% if dm['TT_prop'] %}
-                                            background-color: {{ tt[layer][side][sector]['Histograms'][dm['TT_hist']]['properties'][dm['TT_prop']] }};
+                                            {% if dm['TT_hist'] in tt[layer][side][sector]['Histograms']%}
+                                                background-color: {{ tt[layer][side][sector]['Histograms'][dm['TT_hist']]['properties'][dm['TT_prop']] }};
+                                            {% endif %}
                                         {% endif %}
                                     {% endif %}">
                                             <span id='TT_span_info'>
                                             <div> {{ tt[layer][side][sector]['Name'] }}  
                                             {% if dm['TT_hist'] %}
                                                 {% if dm['TT_prop'] %}
+                                                    {% if dm['TT_hist'] in tt[layer][side][sector]['Histograms']%}
                                                     '{{ dm['TT_prop'] }}': {{ tt[layer][side][sector]['Histograms'][dm['TT_hist']]['init_properties'][dm['TT_prop']] }};
+                                                    {% endif %}
                                                 {% endif %}
                                             {% endif %}
                                             </div>
                                             </span>
                                             {{ sector }}
                                             {% if dm['TT_hist'] %}
+                                            {% if dm['TT_hist'] in tt[layer][side][sector]['Histograms']%}
                                             <span id='TT_span' >
                                             <img  id='TT_image' src="{{ url_for('static', filename = tt[layer][side][sector]['Histograms'][dm['TT_hist']]['plot']) }}"/>
                                             </span>
+                                            {% endif %}
                                             {% endif %}
                                     </div>
                                 </a>
