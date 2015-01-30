@@ -269,7 +269,7 @@ def create_IT():
     return IT
 
 
-def Add_Histograms(det, hist_set, hist_name='hist'):
+def Add_Histograms(det, hist_set, hist_name='hist',hist_coll={'it':{}, 'tt':{}}):
     """ Adds a plot for every sector to the detector dictionary
 
     Inputs:
@@ -285,8 +285,18 @@ def Add_Histograms(det, hist_set, hist_name='hist'):
         p_name = Parse_Name(k)
         if k in NameList['TTNames']:
             det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]=GetAPlot(hist_set[k], histname = hist_name+"_"+k)
+            if hist_name not in hist_coll['tt']:
+                hist_coll['tt'][hist_name]=[]
+            for pr in det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]["properties"]:
+                if pr not in hist_coll['tt'][hist_name]:
+                    hist_coll['tt'][hist_name].append(pr)
         if k in NameList['ITNames']:
             det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=GetAPlot(hist_set[k], histname = hist_name+"_"+k)
+            if hist_name not in hist_coll['it']:
+                hist_coll['it'][hist_name]=[]
+            for pr in det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]["properties"]:
+                if pr not in hist_coll['it'][hist_name]:
+                    hist_coll['it'][hist_name].append(pr)
         sys.stdout.flush()
         sys.stdout.write("Getting histograms for "+hist_name+":  "+str(i+1)+'/'+ str(len(hist_set))+' ('+ str(int(100*float(i+1)/float(len(hist_set))))+'%)\r')
     print ''
@@ -363,7 +373,7 @@ def CreateHistSetFromFilesInFolder(folder):
     return hist_set
 
 
-def Add_Existing_Histograms(det, hist_set, hist_name='hist'):
+def Add_Existing_Histograms(det, hist_set, hist_name='hist',hist_coll={'it':{}, 'tt':{}}):
     """ Adds already existing plot for every sector to the detector dictionary - needed for plots compiled elsewhere
 
     Inputs:
@@ -379,15 +389,19 @@ def Add_Existing_Histograms(det, hist_set, hist_name='hist'):
         p_name = Parse_Name(k)
         if k in NameList['TTNames']:
             det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+            if hist_name not in hist_coll['tt']:
+                hist_coll['tt'][hist_name]=[]
         if k in NameList['ITNames']:
             det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+            if hist_name not in hist_coll['it']:
+                hist_coll['it'][hist_name]=[]
         sys.stdout.flush()
         sys.stdout.write("Getting histograms for "+hist_name+":  "+str(i+1)+'/'+ str(len(hist_set))+' ('+ str(int(100*float(i+1)/float(len(hist_set))))+'%)\r')
     print ''
     print hist_name+': all done.'
     return 
 
-def Add_Folder(folder_with_plots, it_d, tt_d):
+def Add_Folder(folder_with_plots, it_d, tt_d,hist_coll):
     files = os.listdir('static/'+folder_with_plots)
     it_pictures = {}
     tt_pictures = {}
@@ -414,36 +428,47 @@ def Add_Folder(folder_with_plots, it_d, tt_d):
             sectorNames = sectorsInModule(pic_name)[0]
         for sector in sectorNames:
             if sector[0] == 'T':
-                if hist_name not in tt_pictures:
-                    tt_pictures[hist_name]={}
                 tt_pictures[hist_name][sector]=folder_with_plots+'/'+pic
             if sector[0] == 'I':
-                if hist_name not in it_pictures:
-                    it_pictures[hist_name]={}
                 it_pictures[hist_name][sector]=folder_with_plots+'/'+pic
     for histos in it_pictures:
-        Add_Existing_Histograms(it_d, it_pictures[histos], histos)
+        if histos not in hist_coll['it']:
+            hist_coll['it'][histos]=[]
+        Add_Existing_Histograms(it_d, it_pictures[histos], histos,hist_coll)
     for histos in tt_pictures:
-        Add_Existing_Histograms(tt_d, tt_pictures[histos], histos)
+        if histos not in hist_coll['tt']:
+            hist_coll['tt'][histos]=[]
+        Add_Existing_Histograms(tt_d, tt_pictures[histos], histos,hist_coll)
     return
 
-def Add_NTuple(ntuple, it_d, tt_d):
+def Add_NTuple(ntuple, it_d, tt_d,hist_coll):
     for h in GetHistosFromNT(ntuple):
         if h[0] == 'T':
             f = open(h+".pkl")
             TT_hists = pickle.load(f)
-            Add_Histograms(tt_d, TT_hists, h)
+            #if h not in hist_coll['tt']:
+            #    hist_coll['tt'].append(h)
+            Add_Histograms(tt_d, TT_hists, h, hist_coll)
         if h[0] == 'I':
             f = open(h+".pkl")
             IT_hists = pickle.load(f)
-            Add_Histograms(it_d, IT_hists, h)
+            #if h not in hist_coll['it']:
+            #    hist_coll['it'].append(h)
+            Add_Histograms(it_d, IT_hists, h, hist_coll)
     return
 
-def Add_Pkl(detector, pickle_file, hist_name):
+def Add_Pkl(detector, pickle_file, hist_name,hist_coll):
     f = open(pickle_file)
     TT_hists = pickle.load(f)
     hname = hist_name
-    Add_Histograms(detector, TT_hists, hname)
+    #try: 
+    #    if detector['layer_info']:
+    #        if hist_name not in hist_coll['tt']:
+    #            hist_coll['tt'].append(hist_name)
+    #except:
+    #    if hist_name not in hist_coll['it']:
+    #        hist_coll['it'].append(hist_name)
+    Add_Histograms(detector, TT_hists, hname, hist_coll)
     return
 
 def convert_to_hex(rgba_color) :
@@ -454,6 +479,7 @@ def convert_to_hex(rgba_color) :
 
 def Normalize_Colours(tt_d, it_d):
     collection = {}
+    cmap = cm.PRGn
     #Create collection of properties:
     #collection = {'tt+hist+property':{
     #                                'vals':[]
@@ -488,7 +514,6 @@ def Normalize_Colours(tt_d, it_d):
         collection[coll]['min']=min(collection[coll]['vals'])
         collection[coll]['max']=max(collection[coll]['vals'])
         norm = mpl.colors.Normalize(vmin=collection[coll]['min'], vmax=collection[coll]['max'])
-        cmap = cm.hot
         m = cm.ScalarMappable(norm=norm, cmap=cmap)
         for i in range(0,100):
             collection[coll][str(i)] = {}
@@ -503,7 +528,6 @@ def Normalize_Colours(tt_d, it_d):
                         for hist in tt_d[layer][side][sector]['Histograms']:
                             for prop in tt_d[layer][side][sector]['Histograms'][hist]['properties']:
                                 norm = mpl.colors.Normalize(vmin=collection['tt_d'+hist+prop]['min'], vmax=collection['tt_d'+hist+prop]['max'])
-                                cmap = cm.hot
                                 m = cm.ScalarMappable(norm=norm, cmap=cmap)
                                 tt_d[layer][side][sector]['Histograms'][hist]['properties'][prop] = convert_to_hex(m.to_rgba(tt_d[layer][side][sector]['Histograms'][hist]['properties'][prop]))
                                 #print m.to_rgba(tt_d[layer][side][sector]['Histograms'][hist]['properties'][prop],bytes=True)
@@ -517,7 +541,6 @@ def Normalize_Colours(tt_d, it_d):
                                 for hist in it_d[station][side][layer][sector]['Histograms']:
                                     for prop in it_d[station][side][layer][sector]['Histograms'][hist]['properties']:
                                         norm = mpl.colors.Normalize(vmin=collection['it_d'+hist+prop]['min'], vmax=collection['it_d'+hist+prop]['max'])
-                                        cmap = cm.hot
                                         m = cm.ScalarMappable(norm=norm, cmap=cmap)
                                         it_d[station][side][layer][sector]['Histograms'][hist]['properties'][prop] = convert_to_hex(m.to_rgba(it_d[station][side][layer][sector]['Histograms'][hist]['properties'][prop]))
     return collection

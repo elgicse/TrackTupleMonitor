@@ -7,7 +7,7 @@
         <form  action="/index" method="POST" class=index>
             <select name="TT_hist">
                 <option value="">Choose histogram</option>
-                {% for h in tt['TTaU']['RegionA']['1']['Histograms'] %}
+                {% for h in hist_coll['tt'] %}
                 <option value="{{ h }}"
                 {% if dm['TT_hist'] == h %}
                 selected
@@ -26,7 +26,7 @@
             <select name="TT_prop">
                 <option value="">Choose colour schema</option>
                     {% if dm['TT_hist'] != '' %}
-                    {% for h in tt['TTaU']['RegionA']['1']['Histograms'][dm['TT_hist']]['properties'] %}
+                    {% for h in hist_coll['tt'][dm['TT_hist']] %}
                     <option value="{{ h }}"
                     {% if dm['TT_prop'] == h %}
                     selected
