@@ -85,4 +85,4 @@ def Detector(d):
 if __name__ == "__main__":
     Drawing_mode = {'TT_hist':'', 'IT_hist':'','TT_prop':'', 'IT_prop':''}
     app.debug = False # Disable this when the code is ready!
-    app.run()
+    app.run(port=5000)
