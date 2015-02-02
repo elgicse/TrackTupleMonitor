@@ -394,13 +394,11 @@ def Add_Existing_Histograms(det, hist_set, hist_name='hist',hist_coll={'it':{}, 
     for i, k in enumerate(hist_set):
         p_name = Parse_Name(k)
         if k in NameList['TTNames']:
-            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]={'plot':'','properties':{}}
-            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]['plot']=hist_set[k]
+            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]={'plot':hist_set[k], "init_properties":{},'properties':{}}
             if hist_name not in hist_coll['tt']:
                 hist_coll['tt'][hist_name]=[]
         if k in NameList['ITNames']:
-            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]={'plot':'','properties':{}}
-            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]['plot']=hist_set[k]
+            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]={'plot':hist_set[k], "init_properties":{} ,'properties':{}}
             if hist_name not in hist_coll['it']:
                 hist_coll['it'][hist_name]=[]
         sys.stdout.flush()
@@ -424,11 +422,24 @@ def Add_Folder(folder_with_plots, it_d, tt_d,hist_coll):
             pic = pic[:-4]+'.png'
         if pic.split('.')[0]=='':
             continue
-        pic_name = pic.split('.')[0].split('-')[0]
-        hist_name = folder_with_plots
+
         if '-' in pic.split('.')[0]:
+            #This is for <HistType>-<SectorName>.<extension>
+            #naming schema
+            pic_name = pic.split('.')[0].split('-')[0]
             hist_name = pic.split('.')[0].split('-')[1]
-        pic_ext = '.'+pic.split('.')[1]
+            pic_ext = '.'+pic.split('.')[1]
+        elif "_" in pic.split('.')[0]:
+            #This is for <HistType>_<SectorName>.<extension> 
+            #naming schema
+            pic_name = pic.split('.')[0].split("_")[len(pic.split('.')[0].split("_"))-1]
+            hist_name = pic.split('.')[0].replace(pic_name,"")
+            pic_ext = '.'+pic.split('.')[1]
+        else:
+            pic_name = pic.split('.')[0]
+            pic_ext = '.'+pic.split('.')[1]
+            hist_name = folder_with_plots
+
         sectorNames = [pic_name]
         if CheckIfHalfModule(pic_name):
             sectorNames = sectorsInHalfModule(pic_name)[0]
