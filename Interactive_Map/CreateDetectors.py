@@ -434,8 +434,12 @@ def Add_Folder(folder_with_plots, it_d, tt_d,hist_coll):
             sectorNames = sectorsInModule(pic_name)[0]
         for sector in sectorNames:
             if sector[0] == 'T':
+                if hist_name not in tt_pictures:
+                    tt_pictures[hist_name] = {}
                 tt_pictures[hist_name][sector]=folder_with_plots+'/'+pic
             if sector[0] == 'I':
+                if hist_name not in it_pictures:
+                    it_pictures[hist_name] = {}
                 it_pictures[hist_name][sector]=folder_with_plots+'/'+pic
     for histos in it_pictures:
         if histos not in hist_coll['it']:
