@@ -394,11 +394,13 @@ def Add_Existing_Histograms(det, hist_set, hist_name='hist',hist_coll={'it':{}, 
     for i, k in enumerate(hist_set):
         p_name = Parse_Name(k)
         if k in NameList['TTNames']:
-            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]={'plot':'','properties':{}}
+            det[p_name['layer']][p_name['side']][p_name['sector']]['Histograms'][hist_name]['plot']=hist_set[k]
             if hist_name not in hist_coll['tt']:
                 hist_coll['tt'][hist_name]=[]
         if k in NameList['ITNames']:
-            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]=hist_set[k]
+            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]={'plot':'','properties':{}}
+            det[p_name['station']][p_name['side']][p_name['layer']][p_name['sector']]['Histograms'][hist_name]['plot']=hist_set[k]
             if hist_name not in hist_coll['it']:
                 hist_coll['it'][hist_name]=[]
         sys.stdout.flush()
