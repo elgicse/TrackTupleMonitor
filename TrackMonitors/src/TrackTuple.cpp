@@ -137,11 +137,32 @@ StatusCode TrackTuple::initialize()
   // DEBUG: retrieve and print sector positions *****
   if (m_savePositions)
   {
+    Tuple positions = nTuple("SectorPositions");
+    std::vector<DeSTSensor*> sensorsInSector;
     BOOST_FOREACH(DeSTSector * sector, sectors)
     {
-      std::cout << sector->nickname() << "\t";
+      // Printouts
+      std::cout << sector->nickname() << "\t" << int( sector->elementID() ) << "\t\t" ;
       Gaudi::XYZPoint pos = sector->toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
       std::cout << pos.x() << " " << pos.y() << " " << pos.z() << std::endl;
+
+      positions -> column( "sectorID", int( sector->elementID() ) );
+      sensorsInSector = sector -> sensors();
+      std::vector<float> sensor_x;     sensor_x.reserve( sensorsInSector.size() );
+      std::vector<float> sensor_y;     sensor_y.reserve( sensorsInSector.size() );
+      std::vector<float> sensor_z;     sensor_z.reserve( sensorsInSector.size() );
+      std::vector<DeSTSensor*>::const_iterator sensor = sensorsInSector.begin();
+      for(; sensor != sensorsInSector.end(); ++sensor)
+      {
+        Gaudi::XYZPoint pos = (*sensor)->globalCentre();//toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
+        sensor_x.push_back( float(pos.x()) );
+        sensor_y.push_back( float(pos.y()) );
+        sensor_z.push_back( float(pos.z()) );
+      }
+      positions -> farray( "sensor_x",  sensor_x, "len",  sensorsInSector.size() );
+      positions -> farray( "sensor_y",  sensor_y, "len",  sensorsInSector.size() );
+      positions -> farray( "sensor_z",  sensor_z, "len",  sensorsInSector.size() );
+      positions -> write();
     }
   }
   // ***************************************
@@ -216,32 +237,59 @@ StatusCode TrackTuple::execute()
               << "BranchByTrack or BranchBySector.\n";
   }
 
-  // Book ntuple
-  Tuple tup_test = nTuple ("TrackMonTuple") ;
 
   const DeSTDetector::Sectors& sectors = m_tracker->sectors();
 
-  // DEBUG: retrieve sector positions *****
-  if (m_savePositions)
-  {
-    std::vector<int>   sectorID;          sectorID.reserve(sectors.size());
-    std::vector<float> sector_x;          sector_x.reserve(sectors.size());
-    std::vector<float> sector_y;          sector_y.reserve(sectors.size());
-    std::vector<float> sector_z;          sector_z.reserve(sectors.size());
-    BOOST_FOREACH(DeSTSector * sector, sectors)
-    {
-      sectorID.push_back( int(sector->elementID()) );
-      Gaudi::XYZPoint pos = sector->globalCentre();//toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
-      sector_x.push_back( float(pos.x()) );
-      sector_y.push_back( float(pos.y()) );
-      sector_z.push_back( float(pos.z()) );
-    }
-    tup_test -> farray( "sectorID",  sectorID, "len",  sectors.size() );
-    tup_test -> farray( "sector_x",  sector_x, "len",  sectors.size() );
-    tup_test -> farray( "sector_y",  sector_y, "len",  sectors.size() );
-    tup_test -> farray( "sector_z",  sector_z, "len",  sectors.size() );
-  }
-  // ***************************************
+  // // DEBUG: retrieve sector positions ******
+  // if (m_savePositions)
+  // {
+  //   Tuple positions = nTuple("SectorPositions");
+  //   std::vector<DeSTSensor*> sensorsInSector;
+  //   //std::vector<DeSTSector*>::const_iterator sector = m_tracker->sectors().begin();
+  //   //for(; sector != m_tracker->sectors().end(); ++sector)
+  //   BOOST_FOREACH(DeSTSector * sector, sectors)
+  //   {
+  //   //{
+  //     positions -> column( "sectorID", int( sector->elementID() ) );
+  //     sensorsInSector = sector -> sensors();
+  //     std::vector<float> sensor_x;     sensor_x.reserve( sensorsInSector.size() );
+  //     std::vector<float> sensor_y;     sensor_y.reserve( sensorsInSector.size() );
+  //     std::vector<float> sensor_z;     sensor_z.reserve( sensorsInSector.size() );
+  //     //BOOST_FOREACH(DeSTSensor* sensor, sensorsInSector)
+  //     //{
+  //     std::vector<DeSTSensor*>::const_iterator sensor = sensorsInSector.begin();
+  //     for(; sensor != sensorsInSector.end(); ++sensor)
+  //     {
+  //       Gaudi::XYZPoint pos = (*sensor)->globalCentre();//toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
+  //       sensor_x.push_back( float(pos.x()) );
+  //       sensor_y.push_back( float(pos.y()) );
+  //       sensor_z.push_back( float(pos.z()) );
+  //     }
+  //     positions -> farray( "sensor_x",  sensor_x, "len",  sensorsInSector.size() );
+  //     positions -> farray( "sensor_y",  sensor_y, "len",  sensorsInSector.size() );
+  //     positions -> farray( "sensor_z",  sensor_z, "len",  sensorsInSector.size() );
+  //   }
+  //   positions -> write();
+  // }
+  // // ***************************************
+  // // // DEBUG: retrieve sector positions ******
+  // // if (m_savePositions)
+  // // {
+  // //   Tuple positions = nTuple( "SectorPositions" );
+  // //   BOOST_FOREACH(DeSTSector * sector, sectors)
+  // //   {
+  // //     Gaudi::XYZPoint pos = sector->globalCentre();
+  // //     positions -> column ( "sectorID", int(sector->elementID()) );
+  // //     positions -> column ( "sector_x", float(pos.x()) );
+  // //     positions -> column ( "sector_y", float(pos.y()) );
+  // //     positions -> column ( "sector_z", float(pos.z()) );
+  // //   }
+  // //   positions -> write();
+  // // }
+  // // // ***************************************
+
+  // Book ntuple
+  Tuple tup_test = nTuple ("TrackMonTuple") ;
 
   Tracks* tracks = get< LHCb::Tracks >( inputContainer() );
   Tracks::const_iterator It, Begin( tracks -> begin() ),
@@ -492,7 +540,7 @@ StatusCode TrackTuple::execute()
           traj_mu.push_back(mu);
           //std::cout << "at 0.5: " << midStripPosition.x() << ", " << midStripPosition.y() << "\t";
           //midStripPosition = traj.get()->position(0.5);//0.5
-          //std::cout << "at mu: " << midStripPosition.x() << ", " << midStripPosition.y() << std::endl;
+          std::cout << "at mu = " << mu << ": " << midStripPosition.z() << ", state is at " << aState.z() << std::endl;
           cluster_x.push_back( (float)(midStripPosition.x()) );
           cluster_y.push_back( (float)(midStripPosition.y()) );
           cluster_z.push_back( (float)(midStripPosition.z()) );
