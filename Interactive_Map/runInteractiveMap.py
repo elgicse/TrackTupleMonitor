@@ -33,8 +33,8 @@ histos = {'it':{},'tt':{}}
 
 # Add residual, unbiased residual, signal to noise histograms loading from an ntuple
 ntuple = 'data/STTrackMonitor-2012.root'
-Add_NTuple('data/DeltaY.root', it_d, tt_d, histos)
-Add_NTuple(ntuple, it_d, tt_d,histos)
+#Add_NTuple('data/DeltaY.root', it_d, tt_d, histos)
+#Add_NTuple(ntuple, it_d, tt_d,histos)
 
 collection = Normalize_Colours(tt_d, it_d)
 
@@ -43,7 +43,7 @@ collection = Normalize_Colours(tt_d, it_d)
 #Names should be given as <Sector/Module name><-Type of histogram, can be optional>.<extension>
 #folder_with_plots = 'preloaded_pictures'
 #Add_Folder(folder_with_plots, it_d, tt_d,histos)
-folder_with_plots = 'PlotsByHalfModule'
+folder_with_plots = 'PlotsBySector'#HalfModule'
 Add_Folder(folder_with_plots, it_d, tt_d,histos)
 #print json.dumps(it_d,sort_keys=True, indent=4)
 
