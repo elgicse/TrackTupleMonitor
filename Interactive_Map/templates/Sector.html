@@ -1,7 +1,0 @@
-<!doctype html>
-<title>{{ sec['Name'] }}</title>
-  <center><h1>{{ sec['Name'] }}</h1></center>
-{% for h in sec['Histograms'] %}
-    <center><h2>{{ h }}</h2></center>
-    <center><img src="{{ url_for('static', filename = sec['Histograms'][h]) }}" ></center>
-{% endfor %}
