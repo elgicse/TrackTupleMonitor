@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+<File ID="06480081-666D-E211-8A23-00A0D1EEE660">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision11/DIMUON.DST/00022761/0000/00022761_00000176_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision11/DIMUON.DST/00022761/0000/00022761_00000176_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision11/DIMUON.DST/00022761/0000/00022761_00000176_1.dimuon.dst" se="IN2P3_M-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision11/DIMUON.DST/00022761/0000/00022761_00000176_1.dimuon.dst" se="CNAF-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision11/DIMUON.DST/00022761/0000/00022761_00000176_1.dimuon.dst"/>
+   </logical>
+</File>
+
+</POOLFILECATALOG>
