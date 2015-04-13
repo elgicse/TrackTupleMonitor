@@ -1,7 +1,7 @@
 import os, sys
 
 os.system("kinit -l 7d")
-os.system(aklog)
+os.system("aklog")
 
 import imp
 setup = imp.load_source('setup', '/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/Resolution/ganga/setup.py')
@@ -21,7 +21,7 @@ TrackTuplePath = "/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/TrackTupleMo
 gridProxy.renew()
 
 for ds in datasets2:
-    bkq = BKQuery(path=str(ds),type="Run")
+    bkq = BKQuery(path=str(ds))#,type="Run")
     j=Job(application='DaVinci')
     j.name = "TrackTuple_2011_hitsOnTrack"
     j.name += ds.replace("/","_").replace(" ","")
