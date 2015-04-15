@@ -429,7 +429,7 @@ mainSeq.Members += [ #runnumberfilter,
 
 # Usual DaVinci stuff
 from Configurables import DaVinci
-DaVinci().EvtMax   = 1000#300
+#DaVinci().EvtMax   = 1000#300
 #DaVinci().SkipEvents = 10000
 DaVinci().PrintFreq = 1000
 #In DV2012.py
