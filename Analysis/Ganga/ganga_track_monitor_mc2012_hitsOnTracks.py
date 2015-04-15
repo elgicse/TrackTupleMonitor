@@ -17,7 +17,7 @@ gridProxy.renew()
 #diMuonOptFile = "HitEfficiency-Resolution-DiMuon-MC.py"
 TrackTuplePath = "/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/TrackTupleMonitor/Analysis/Options/"
 
-hitsOnTrack = TrackTuplePath+"testTrackTuple-HitsOnTracks.py"
+hitsOnTrack = TrackTuplePath+"testTrackTuple-HitsOnTracks-MC.py"
 
 
 print 'Submitting 2012 MC Pythia8 MagDown...'
