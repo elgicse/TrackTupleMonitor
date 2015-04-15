@@ -80,9 +80,31 @@ def flatten(d):
             out.extend(flatten(d[dictkey]))
     return out
 
-def profileClusterSize(tree):
+def profileClusterSize(tree=None):
+    if not tree:
+        f = r.TFile("../RootFiles/HitsOnTrack/all2012-muEstimate-Edges-closestState.root")
+        tree = f.Get("TTHitEfficiencyTuple/TrackMonTuple")
     c = r.TCanvas()
     tree.Draw("clusterSize : TMath::Sin(pt/p)*TMath::Cos(phi)","","prof")
+    c.Modified(); c.Update()
+    cSaver.append(c)
+
+def profileClusterCharge(tree=None):
+    if not tree:
+        f = r.TFile("../RootFiles/HitsOnTrack/all2012-muEstimate-Edges-closestState.root")
+        tree = f.Get("TTHitEfficiencyTuple/TrackMonTuple")
+    c = r.TCanvas()
+    #tree.Draw("clusterCharge : TMath::Sqrt(p*p-pt*pt)/p","","prof")
+    tree.Draw("clusterCharge : TMath::Cos(pt/p)","","prof")
+    c.Modified(); c.Update()
+    cSaver.append(c)
+
+def plotCosTheta(tree=None):
+    if not tree:
+        f = r.TFile("../RootFiles/HitsOnTrack/all2012-muEstimate-Edges-closestState.root")
+        tree = f.Get("TTHitEfficiencyTuple/TrackMonTuple")
+    c = r.TCanvas()
+    tree.Draw("TMath::Cos(pt/p)","","")
     c.Modified(); c.Update()
     cSaver.append(c)
 
