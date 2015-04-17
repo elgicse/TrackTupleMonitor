@@ -1,4 +1,5 @@
-# Execute e.g. with: python analyze.py -i ../RootFiles/HitsOnTrack/runs131973-133785-end2012-muEstimate-Edges-closestState.root -st RotationsPerIOV -s -b
+# Execute e.g. with:
+# python analyze.py -i ../RootFiles/HitsOnTrack/runs131973-133785-end2012-muEstimate-Edges-closestState.root -st RotationsPerIOV -s -b
 import argparse, importlib
 from IPython import embed
 from tools.common import *
