@@ -8,8 +8,8 @@ from conf import CreateDetectors
 from conf.STChannelID import *
 from conf.TTModules import *
 
-studies = ['MagField', 'OverlapsHalfModules', 'Overlaps', 'ClusterSize', 'FullLayers', 'Outliers', 'PositionsHalfModules', 'PositionsSectors', 'iov']
-studies = ['iov']#['PositionsSectors']
+studies = ['MagField', 'OverlapsHalfModules', 'Overlaps', 'ClusterSize', 'FullLayers', 'Outliers', 'PositionsHalfModules', 'PositionsSectors', 'IOV']
+studies = ['IOV']#['PositionsSectors']
 
 cSaver = []
 r.gROOT.ProcessLine('.x tools/lhcbStyle.C')
@@ -840,7 +840,7 @@ if __name__ == '__main__':
             outfile.Close()
 
 
-    if 'iov' in studies:
+    if 'IOV' in studies:
         if tracker == 'IT':
             print 'Sorry I cannot do this for the IT, yet...'
             sys.exit(0)

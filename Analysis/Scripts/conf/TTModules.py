@@ -221,6 +221,53 @@ def listOfTTHalfModules():
     return listOfHalfModules
 
 
+def listOfOverlappingTTPairs():
+    """
+    Flat list of neighbouring TT half modules.
+    """
+    listOfHalfModules = listOfTTHalfModules()
+    ttmap = TTModulesMap()
+    pairs = []
+    regions = {'A':1, 'B':2, 'C':3}
+    for hm1 in listOfHalfModules:
+        for hm2 in listOfHalfModules:
+            # they must be different
+            if hm1 == hm2: continue
+            # they must be both on top or both on bottom
+            if locateTTHalfModule(hm1)[3] != locateTTHalfModule(hm2)[3]: continue
+            # they must be on the same layer
+            if locateTTHalfModule(hm1)[0] != locateTTHalfModule(hm2)[0]: continue
+            # avoid duplicates
+            if (hm1, hm2) in pairs: continue
+            if (hm2, hm1) in pairs: continue
+            # they must be contiguous:
+            if (locateTTHalfModule(hm1)[1] == locateTTHalfModule(hm2)[1]):
+                if (abs(locateTTHalfModule(hm1)[2] - locateTTHalfModule(hm2)[2]) == 1):
+                    pairs.append( (hm1, hm2) )
+            else:
+                num1 = locateTTHalfModule(hm1)[2]
+                num2 = locateTTHalfModule(hm2)[2]
+                max1 = ttmap.numberOfModules[locateTTHalfModule(hm1)[0]]['Region'+locateTTHalfModule(hm1)[1]] - 1
+                max2 = ttmap.numberOfModules[locateTTHalfModule(hm2)[0]]['Region'+locateTTHalfModule(hm2)[1]] - 1
+                nreg1 = regions[locateTTHalfModule(hm1)[1]]
+                nreg2 = regions[locateTTHalfModule(hm2)[1]]
+                if ( (num1==max1 and num2==0 and nreg2-nreg1==1) or (num2==max2 and num1==0 and nreg1-nreg2==1) ):
+                    pairs.append( (hm1, hm2) )
+                    print hm1, hm2
+            ## - same region
+            #if ((abs(locateTTHalfModule(hm1)[2] - locateTTHalfModule(hm2)[2]) != 1)
+            #    and (locateTTHalfModule(hm1)[0] != locateTTHalfModule(hm2)[0])): continue
+            ## - or neighbouring region
+            #elif not ((locateTTHalfModule(hm1)[0] != locateTTHalfModule(hm2)[0])
+            #    and ( ( (ttmap.numberOfModules[locateTTHalfModule(hm1)[0]] == locateTTHalfModule(hm1)[2]+1 )
+            #            and (locateTTHalfModule(hm2)[2] == 0) )
+            #        or ( (ttmap.numberOfModules[locateTTHalfModule(hm2)[0]] == locateTTHalfModule(hm2)[2]+1 )
+            #             and (locateTTHalfModule(hm1)[2] == 0) ) ) ): continue
+            ## append to list of pairs
+            #pairs.append( (hm1, hm2) )
+    return pairs
+
+
 def locateTTModule(moduleId):
     """
     Extract layer, region, module number and position from
@@ -243,6 +290,9 @@ def locateTTHalfModule(halfModuleId):
 
 
 def sectorsInModule(moduleId):
+    """
+    List of sectors and list of sector numbers belonging to a TT module.
+    """
     uLayer, region, moduleNum = locateTTModule(moduleId)
     sectors = TTModulesMap().dictOfModules[uLayer]['Region'+region][moduleNum].sectors
     sectorNumbers = [secName.split('Sector')[-1] for secName in sectors]
@@ -250,6 +300,9 @@ def sectorsInModule(moduleId):
 
 
 def sectorsInHalfModule(halfModuleId):
+    """
+    List of sectors and list of sector numbers belonging to a TT module.
+    """
     uLayer, region, moduleNum, position = locateTTHalfModule(halfModuleId)
     index = 0
     if 'b' in position:
