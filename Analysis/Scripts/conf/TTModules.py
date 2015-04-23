@@ -66,7 +66,7 @@ class TTModulesMap():
     def findModule(self, id):
         ul = STNames_instance.uniqueLayerName(id)
         reg = STNames_instance.regionName(id)
-        sector = int(id.sector())
+        sector = int(id.sector)
         if sector == 0:
             print 'TTModulesMap ERROR: sector numbering starts from 0!!'
             sys.exit(0)
@@ -104,7 +104,7 @@ class TTModulesMap():
         return self.dictOfModules[uniqueLayer][reg][iModule]
     def findHalfModule(self, id):
         module = self.findModule(id)
-        sector = int(id.sector())
+        sector = int(id.sector)
         if 'B'in STNames_instance.regionName(id) and 'TTb' in STNames_instance.uniqueLayerName(id):
             if 4<sector<23:
                 if (sector-1-4)%6 >= 3:

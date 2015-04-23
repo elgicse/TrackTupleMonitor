@@ -37,28 +37,17 @@ class STChannelID():
         self.uniqueLayerMask     = self.layerMask + self.stationMask
         self.uniqueDetRegionMask = self.detRegionMask + self.layerMask + self.stationMask
         self.uniqueSectorMask    = self.sectorMask + self.detRegionMask + self.layerMask + self.stationMask
-    def type(self):
-        return ((self.channelID & self.typeMask) >> self.typeBits)
-    def isTT(self):
-        return (self.type() == self.typeTT)
-    def isIT(self):
-        return (self.type() == self.typeIT)
-    def station(self):
-        return ((self.channelID & self.stationMask) >> self.stationBits)
-    def detRegion(self):
-        return ((self.channelID & self.detRegionMask) >> self.detRegionBits)
-    def uniqueDetRegion(self):
-        return ((self.channelID & self.uniqueDetRegionMask) >> self.detRegionBits)
-    def layer(self):
-        return ((self.channelID & self.layerMask) >> self.layerBits)
-    def uniqueLayer(self):
-        return ((self.channelID & self.uniqueLayerMask) >> self.layerBits)
-    def sector(self):
-        return ((self.channelID & self.sectorMask) >> self.sectorBits)
-    def uniqueSector(self):
-        return ((self.channelID & self.uniqueSectorMask) >> self.sectorBits)
-    def strip(self):
-        return ((self.channelID & self.stripMask) >> self.stripBits)
+        self.type = ((self.channelID & self.typeMask) >> self.typeBits)
+        self.isTT = (self.type == self.typeTT)
+        self.isIT = (self.type == self.typeIT)
+        self.station = ((self.channelID & self.stationMask) >> self.stationBits)
+        self.detRegion = ((self.channelID & self.detRegionMask) >> self.detRegionBits)
+        self.uniqueDetRegion = ((self.channelID & self.uniqueDetRegionMask) >> self.detRegionBits)
+        self.layer = ((self.channelID & self.layerMask) >> self.layerBits)
+        self.uniqueLayer = ((self.channelID & self.uniqueLayerMask) >> self.layerBits)
+        self.sector = ((self.channelID & self.sectorMask) >> self.sectorBits)
+        self.uniqueSector = ((self.channelID & self.uniqueSectorMask) >> self.sectorBits)
+        self.strip = ((self.channelID & self.stripMask) >> self.stripBits)
 
 
 class STNames():
@@ -78,31 +67,31 @@ class STNames():
         self.ITboxes = ["CSide", "ASide", "Bottom", "Top"]
 
     def detectorName(self, id):
-        if id.isTT():
+        if id.isTT:
             return "TT"
         else:
             return "IT"
 
     def stationName(self, id):
-        if id.isTT():
-            return self.TTstations[id.station()-1]
+        if id.isTT:
+            return self.TTstations[id.station-1]
         else:
-            return str(id.station())
+            return str(id.station)
 
     def regionName(self, id):
-        if id.isTT():
-            return "Region" + self.TTregions[id.detRegion()-1]
+        if id.isTT:
+            return "Region" + self.TTregions[id.detRegion-1]
         else:
-            return self.ITboxes[id.detRegion()-1]
+            return self.ITboxes[id.detRegion-1]
 
     def layerName(self, id):
-        if id.isTT():
-            return self.TTlayers[id.station()-1][id.layer()-1]
+        if id.isTT:
+            return self.TTlayers[id.station-1][id.layer-1]
         else:
-            return self.ITlayers[id.layer()-1]
+            return self.ITlayers[id.layer-1]
 
     def uniqueLayerName(self, id):
-        if id.isTT():
+        if id.isTT:
             name = (  self.detectorName(id)
                     + self.stationName(id)
                     + self.layerName(id)  )
@@ -114,10 +103,10 @@ class STNames():
         return name
 
     def sectorName(self, id):
-        return "Sector" + str(id.sector())
+        return "Sector" + str(id.sector)
 
     def uniqueSectorName(self, id):
-        if id.isTT():
+        if id.isTT:
             name = (  self.uniqueLayerName(id)
                     + self.regionName(id)
                     + self.sectorName(id)  )
