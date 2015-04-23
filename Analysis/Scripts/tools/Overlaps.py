@@ -1,6 +1,6 @@
 from tools.common import *
 
-def Overlaps(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def Overlaps(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     if not os.path.exists('../Out/'+shortFilename+'/%s/%s/Overlaps'%(tracker, datatype)):
         os.system('mkdir ../Out/'+shortFilename+'/%s/%s/Overlaps'%(tracker, datatype))
     if tracker == 'IT':

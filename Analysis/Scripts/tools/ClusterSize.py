@@ -1,6 +1,6 @@
 from tools.common import *
 
-def ClusterSize(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def ClusterSize(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     if not os.path.exists('../Out/'+shortFilename+'/%s/%s/ClusterSizeBySector'%(tracker, datatype)):
         os.system('mkdir ../Out/'+shortFilename+'/%s/%s/ClusterSizeBySector'%(tracker, datatype))
     hCSize = {}

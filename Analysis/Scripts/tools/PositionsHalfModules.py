@@ -1,6 +1,6 @@
 from tools.common import *
 
-def PositionsHalfModules(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def PositionsHalfModules(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     if tracker == 'IT':
         print 'Sorry I cannot do this for the IT, yet...'
         sys.exit(0)

@@ -35,8 +35,14 @@ if __name__ == '__main__':
     # Prepare execution
     if tracker == 'TT':
         detector = CreateDetectors.create_TT()
+        if os.path.isfile('../Pickle/TTchIDlookupTable.pkl'):
+            lookup = pickle.load(open('../Pickle/TTchIDlookupTable.pkl','r'))
+        else:
+            lookup = dictOfTTChannelIDs(save=True)
     elif tracker == 'IT':
-        detector = CreateDetectors.create_IT()
+        print "Missing IT lookup table. Exiting."
+        quit()
+        #detector = CreateDetectors.create_IT()
     else:
         print 'ERROR: please select tracker (IT or TT).'
         print 'Sample usage: python -i ntupleAnalysis.py TT ../RootFiles/EveryHit/all2012-muEstimate-Edges-2cm.root save'
@@ -93,7 +99,7 @@ if __name__ == '__main__':
         print 'Starting', s, '...'
         module = importlib.import_module('tools.'+s)
         func = getattr(module, s)
-        results[s] = func(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector)
+        results[s] = func(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup)
 
     # Access interactive shell
     ipshell(header='Hit Ctrl-D to exit interpreter and continue program.')

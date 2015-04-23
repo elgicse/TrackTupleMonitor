@@ -4,7 +4,7 @@ import pickle
 def fitToTheta(m):
     return (math.pi/2.) - math.atan(m)
 
-def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment, detector):
+def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment, detector, lookup):
     if tracker == 'IT':
         print 'Sorry I cannot do this for the IT, yet...'
         sys.exit(0)

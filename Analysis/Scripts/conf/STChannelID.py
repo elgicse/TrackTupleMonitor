@@ -47,7 +47,9 @@ class STChannelID():
         self.uniqueLayer = ((self.channelID & self.uniqueLayerMask) >> self.layerBits)
         self.sector = ((self.channelID & self.sectorMask) >> self.sectorBits)
         self.uniqueSector = ((self.channelID & self.uniqueSectorMask) >> self.sectorBits)
-        self.strip = ((self.channelID & self.stripMask) >> self.stripBits)
+        self.strip = ((self.channelID & self.stripMask) >> self.stripBits) # goes from 1 to 384 (IT) or 1 to 512 (TT)
+        #if self.detRegion == 3:
+        #    print self.channelID, self.type, self.station, self.layer, self.detRegion, self.sector
 
 
 class STNames():

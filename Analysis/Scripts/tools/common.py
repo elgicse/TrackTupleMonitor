@@ -69,6 +69,9 @@ def get_module(chanID):
 def get_half_module(chanID):
     return TTModulesMap_instance.findHalfModule(STChannelID(int(chanID))).id
 
+def lookup_half_module(chanID, table):
+    return table[chanID]['hm']
+
 def flatten(d):
     out = []
     if isinstance(d, (list, tuple)):

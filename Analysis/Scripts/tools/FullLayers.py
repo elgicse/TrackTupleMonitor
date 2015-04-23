@@ -1,6 +1,6 @@
 from tools.common import *
 
-def FullLayers(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def FullLayers(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     if not os.path.exists('../Out/'+shortFilename+'/%s/%s/PlotsByLayer'%(tracker, datatype)):
         os.system('mkdir ../Out/'+shortFilename+'/%s/%s/PlotsByLayer'%(tracker, datatype))
     if tracker == 'IT':

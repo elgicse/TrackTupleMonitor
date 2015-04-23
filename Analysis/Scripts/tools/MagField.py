@@ -1,6 +1,6 @@
 from tools.common import *
 
-def MagField(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def MagField(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     if not os.path.exists('../Out/'+shortFilename+'/%s/%s/ResidualVSMomentum'%(tracker, datatype)):
         os.system('mkdir ../Out/'+shortFilename+'/%s/%s/ResidualVSMomentum'%(tracker, datatype))
     hPositive, hNegative = {}, {}

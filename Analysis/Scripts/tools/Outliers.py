@@ -1,6 +1,6 @@
 from tools.common import *
 
-def Outliers(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def Outliers(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     outliers = {'DeltaY': {}} # Add cluster size etc.
     # Loop on data
     ntracks = t.GetEntriesFast()

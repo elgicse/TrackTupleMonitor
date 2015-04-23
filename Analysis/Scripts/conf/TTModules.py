@@ -11,7 +11,7 @@ __version__ = "1.0"
 __date__    = "18/12/2014"
 
 
-import sys
+import sys, os, pickle
 from STChannelID import *
 
 
@@ -208,6 +208,44 @@ class TTModule():
 
 
 TTModulesMap_instance = TTModulesMap()
+
+
+def dictOfTTChannelIDs(save=True):
+    bits = STChannelID(0)
+    d = {}
+    for itype,typ in enumerate(('TT',)):
+        for istation,station in enumerate(('a','b'), start=1):
+            for ilayer,layer in enumerate( (("X", "U"), ("V", "X"))[istation-1], start=1 ):
+                for iregion,region in enumerate(("C","B","A"), start=1):
+                    for module in TTModulesMap_instance.dictOfModules['TT'+station+layer]['Region'+region]:
+                        for halfmodule in TTModulesMap_instance.dictOfHalfModules['TT'+station+layer]['Region'+region][module.moduleNumber]:
+                            secNums = [ int(it) for it in sectorsInHalfModule(halfmodule.id)[-1] ]
+                            for sector in secNums:
+                                for i in xrange(1,513):
+                                    chanID = (  i 
+                                                + (sector   << bits.sectorBits)
+                                                + (iregion  << bits.detRegionBits)
+                                                + (ilayer   << bits.layerBits)
+                                                + (istation << bits.stationBits)
+                                                + (itype    << bits.typeBits)        )
+                                    d[chanID] = { 'type':typ, 'station':station, 'layer':layer, 'region':region,
+                                                  'sector':sector, 'uniqueSector': 'TT%s%s'%(station,layer)+'Region%s'%region+'Sector%s'%sector,
+                                                  'module':halfmodule.id.replace('t','').replace('b',''), 'hm':halfmodule.id }
+    def write(d):
+        pickle.dump(d, open('../Pickle/TTchIDlookupTable.pkl', 'wb'))
+    #    
+    if save:
+        if os.path.isfile('../Pickle/TTchIDlookupTable.pkl'):
+            yes = raw_input("dictOfTTChannelIDs WARNING: file ../Pickle/TTchIDlookupTable.pkl already exists! Overwrite? (yes or no)\n\t")
+            if yes=='yes':
+                write(d)
+            else:
+                print "Skipping."
+        else:
+            write(d)
+    return d
+
+
 
 
 def listOfTTHalfModules():

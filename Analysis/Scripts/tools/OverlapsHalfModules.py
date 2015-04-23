@@ -1,6 +1,6 @@
 from tools.common import *
 
-def OverlapsHalfModules(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector):
+def OverlapsHalfModules(tracker, datatype, flatDetector, t, save, shortFilename, segment, detector, lookup):
     if tracker == 'IT':
         print 'Sorry I cannot do this for the IT, yet...'
         sys.exit(0)
