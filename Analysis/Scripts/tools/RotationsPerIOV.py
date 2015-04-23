@@ -1,4 +1,5 @@
 from tools.common import *
+import pickle
 
 def fitToTheta(m):
     return (math.pi/2.) - math.atan(m)
@@ -14,6 +15,7 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
     #
     # Book Histograms
     histosByHM = {}
+    rotations = {}
     listOfHM = listOfTTHalfModules()
     for hm in listOfHM:
         histosByHM[hm] = { 
@@ -59,7 +61,9 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
     bar.finish()
     for hm in listOfHM:
         #avg, rms = [], []
+        rotations[hm] = {}
         for iov in xrange(len(IOVs2012().intervals)):
+            rotations[hm][iov] = {}
             #avg.append( histosByHM[hm]['ResidualsByIOV-'+iov].GetMean() )
             #rms.append( histosByHM[hm]['ResidualsByIOV-'+iov].GetRMS() )
             avg = histosByHM[hm]['ResidualsByIOV-'+str(iov)].GetMean() 
@@ -94,12 +98,17 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
                 #print func.GetParameter(0), func.GetParameter(1), func.GetChisquare(), histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].GetN(), hm, iov
                 histosByHM[hm]['RxByIOV'].SetBinContent(iov, func.GetParameter(1) ) #fitToTheta( func.GetParameter(1) ))
                 histosByHM[hm]['RxByIOV'].SetBinError(iov, func.GetParError(1) ) #fitToTheta( func.GetParError(1) ))
+                rotations[hm][iov]['m'] = func.GetParameter(1)
+                rotations[hm][iov]['m_err'] = func.GetParError(1)
+                rotations[hm][iov]['q'] = func.GetParameter(0)
+                rotations[hm][iov]['q_err'] = func.GetParError(0)
             histosByHM[hm]['RxByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012().intervals[iov]['start'].replace('2012-','') + ' to ' 
                 + IOVs2012().intervals[iov]['end'].replace('2012-',''))
     # Style up
     r.gStyle.SetPadBottomMargin(0.30)
     r.gROOT.ForceStyle()
     if save:
+        pickle.dump( rotations, open('rotationsByIOV.pkl', 'wb') )
         outfile = r.TFile('../Out/'+shortFilename+'/%s/%s/Histograms/RotationsByIOV-%s.root'%(tracker, datatype, segment), 'recreate')
         for hm in listOfHM:
             for h in histosByHM[hm].keys():
