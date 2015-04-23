@@ -49,6 +49,7 @@ class IOVs2012():
         return 0, {'start':'MC', 'end':'MC', 'firstrun':0, 'lastrun':99999}
         sys.exit()
 
+IOVs2012_instance = IOVs2012()
 
 class InMoreLayers(Exception): pass
 
@@ -57,10 +58,10 @@ def run_number(event):
 
 def GetIOV(event):
     n = run_number(event)
-    return IOVs2012().GetInterval(n)[0]
+    return IOVs2012_instance.GetInterval(n)[0]
 
 def get_sector(chanID):
-    return STNames().uniqueSectorName(STChannelID(int(chanID)))
+    return STNames_instance.uniqueSectorName(STChannelID(int(chanID)))
 
 def get_module(chanID):
     return TTModulesMap_instance.findModule(STChannelID(int(chanID))).id
