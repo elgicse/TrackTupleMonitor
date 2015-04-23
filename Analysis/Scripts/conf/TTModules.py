@@ -36,10 +36,10 @@ class TTModulesMap():
                                    'TTbX': { 'RegionA': 6, 'RegionB': 5, 'RegionC': 6 }   }
         self.dictOfModules = {}
         self.dictOfHalfModules = {}
-        for uniqueLayer in STNames().TTuniqueLayers:
+        for uniqueLayer in STNames_instance.TTuniqueLayers:
             self.dictOfModules[uniqueLayer] = {}
             self.dictOfHalfModules[uniqueLayer] = {}
-            for region in STNames().TTregions:
+            for region in STNames_instance.TTregions:
                 self.dictOfModules[uniqueLayer]['Region'+region] = []
                 self.dictOfHalfModules[uniqueLayer]['Region'+region] = {}
                 nModules = self.numberOfModules[uniqueLayer]['Region'+region]
@@ -64,8 +64,8 @@ class TTModulesMap():
     #        print 'TTModulesMap ERROR: could not understand input!'
     #        return False
     def findModule(self, id):
-        ul = STNames().uniqueLayerName(id)
-        reg = STNames().regionName(id)
+        ul = STNames_instance.uniqueLayerName(id)
+        reg = STNames_instance.regionName(id)
         sector = int(id.sector())
         if sector == 0:
             print 'TTModulesMap ERROR: sector numbering starts from 0!!'
@@ -84,7 +84,7 @@ class TTModulesMap():
         #print iModule, sector, ul, reg
         return self.dictOfModules[ul][reg][iModule]
     def findSectorModule(self, uSectorName):
-        uniqueLayer, region, sector = STNames().locateTTSector(uSectorName)
+        uniqueLayer, region, sector = STNames_instance.locateTTSector(uSectorName)
         reg = 'Region'+region
         if sector == 0:
             print 'TTModulesMap ERROR: sector numbering starts from 0!!'
@@ -105,7 +105,7 @@ class TTModulesMap():
     def findHalfModule(self, id):
         module = self.findModule(id)
         sector = int(id.sector())
-        if 'B'in STNames().regionName(id) and 'TTb' in STNames().uniqueLayerName(id):
+        if 'B'in STNames_instance.regionName(id) and 'TTb' in STNames_instance.uniqueLayerName(id):
             if 4<sector<23:
                 if (sector-1-4)%6 >= 3:
                     return module.topHalf
@@ -121,7 +121,7 @@ class TTModulesMap():
                     return module.topHalf
                 else:
                     return module.bottomHalf
-        elif 'B' in STNames().regionName(id) and 'TTa' in STNames().uniqueLayerName(id):
+        elif 'B' in STNames_instance.regionName(id) and 'TTa' in STNames_instance.uniqueLayerName(id):
             if (sector-1)%6 >= 3:
                 return module.topHalf
             else:
@@ -132,7 +132,7 @@ class TTModulesMap():
             return module.bottomHalf
     def findSectorHalfModule(self, uSectorName):
         module = self.findSectorModule(uSectorName)
-        uniqueLayer, region, sector = STNames().locateTTSector(uSectorName)
+        uniqueLayer, region, sector = STNames_instance.locateTTSector(uSectorName)
         if 'B'in region and 'TTb' in uniqueLayer:
             if 4<sector<23:
                 if (sector-1-4)%6 >= 3:
@@ -207,11 +207,14 @@ class TTModule():
             self.sectors = [(self.uniqueLayer + self.region + 'Sector' + str(i)) for i in secNums]
 
 
+TTModulesMap_instance = TTModulesMap()
+
+
 def listOfTTHalfModules():
     """
     Flat list of unique half modules indentifiers.
     """
-    hm = TTModulesMap().dictOfHalfModules
+    hm = TTModulesMap_instance.dictOfHalfModules
     listOfHalfModules = []
     for ul in hm.keys():
         for reg in hm[ul].keys():
@@ -226,9 +229,10 @@ def listOfOverlappingTTPairs():
     Flat list of neighbouring TT half modules.
     """
     listOfHalfModules = listOfTTHalfModules()
-    ttmap = TTModulesMap()
+    ttmap = TTModulesMap_instance
     pairs = []
     regions = {'A':1, 'B':2, 'C':3}
+    print "Overlapping TT half modules:"
     for hm1 in listOfHalfModules:
         for hm2 in listOfHalfModules:
             # they must be different
@@ -253,7 +257,7 @@ def listOfOverlappingTTPairs():
                 nreg2 = regions[locateTTHalfModule(hm2)[1]]
                 if ( (num1==max1 and num2==0 and nreg2-nreg1==1) or (num2==max2 and num1==0 and nreg1-nreg2==1) ):
                     pairs.append( (hm1, hm2) )
-                    print hm1, hm2
+                    print '\t', hm1, hm2
             ## - same region
             #if ((abs(locateTTHalfModule(hm1)[2] - locateTTHalfModule(hm2)[2]) != 1)
             #    and (locateTTHalfModule(hm1)[0] != locateTTHalfModule(hm2)[0])): continue
@@ -265,6 +269,7 @@ def listOfOverlappingTTPairs():
             #             and (locateTTHalfModule(hm1)[2] == 0) ) ) ): continue
             ## append to list of pairs
             #pairs.append( (hm1, hm2) )
+    print
     return pairs
 
 
@@ -294,7 +299,7 @@ def sectorsInModule(moduleId):
     List of sectors and list of sector numbers belonging to a TT module.
     """
     uLayer, region, moduleNum = locateTTModule(moduleId)
-    sectors = TTModulesMap().dictOfModules[uLayer]['Region'+region][moduleNum].sectors
+    sectors = TTModulesMap_instance.dictOfModules[uLayer]['Region'+region][moduleNum].sectors
     sectorNumbers = [secName.split('Sector')[-1] for secName in sectors]
     return sectors, sectorNumbers
 
@@ -307,7 +312,7 @@ def sectorsInHalfModule(halfModuleId):
     index = 0
     if 'b' in position:
         index = 1
-    sectors = TTModulesMap().dictOfHalfModules[uLayer]['Region'+region][moduleNum][index].sectors
+    sectors = TTModulesMap_instance.dictOfHalfModules[uLayer]['Region'+region][moduleNum][index].sectors
     sectorNumbers = [secName.split('Sector')[-1] for secName in sectors]
     return sectors, sectorNumbers
 
@@ -325,4 +330,4 @@ if __name__ == '__main__':
                 print 'Not TT.'
                 sys.exit(0)
             if 'TTb' in STNames().uniqueLayerName(id) and 'B' in STNames().regionName(id):
-                print id.sector(), STNames().uniqueSectorName(id), '\t', TTModulesMap().findHalfModule(id).id
+                print id.sector(), STNames().uniqueSectorName(id), '\t', TTModulesMap_instance.findHalfModule(id).id

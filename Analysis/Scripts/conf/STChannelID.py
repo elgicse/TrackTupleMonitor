@@ -130,3 +130,5 @@ class STNames():
         uLayer = uSectorName.split('Region')[0]
         region, sector = uSectorName.split('Region')[1].split('Sector')
         return uLayer, region, int(sector)
+
+STNames_instance = STNames()

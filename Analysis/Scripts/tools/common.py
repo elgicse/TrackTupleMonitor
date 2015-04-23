@@ -43,8 +43,10 @@ class IOVs2012():
         for i in self.intervals:
             if self.intervals[i]['firstrun'] <= runNumber <= self.intervals[i]['lastrun']:
                 return i, self.intervals[i]
-        print 'Could not find IOV for run '+str(runNumber)
-        print 'EXITING'
+        #print 'Could not find IOV for run '+str(runNumber)
+        #print 'EXITING'
+        # DIRTY trick for MC!!
+        return 0, {'start':'MC', 'end':'MC', 'firstrun':0, 'lastrun':99999}
         sys.exit()
 
 
@@ -61,10 +63,10 @@ def get_sector(chanID):
     return STNames().uniqueSectorName(STChannelID(int(chanID)))
 
 def get_module(chanID):
-    return TTModulesMap().findModule(STChannelID(int(chanID))).id
+    return TTModulesMap_instance.findModule(STChannelID(int(chanID))).id
 
 def get_half_module(chanID):
-    return TTModulesMap().findHalfModule(STChannelID(int(chanID))).id
+    return TTModulesMap_instance.findHalfModule(STChannelID(int(chanID))).id
 
 def flatten(d):
     out = []
