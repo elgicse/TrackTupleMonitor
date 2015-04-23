@@ -7,11 +7,12 @@ xmlOut = '/disk/data3/gangadir/egraveri/workspace/egraveri/LocalXML'
 #rootFile = 'STTrackMonitor-HitEfficiency.root'
 rootFile = 'STTrackTuple-BranchByTrack-HitsOnTrack-NTuples.root'
 
-#myjobs = jobs#[jobs(7)]
-ids = [131]
-ids.extend(range(121,130))
-ids.extend(range(132,142))
-myjobs = [jobs(i) for i in ids]#jobs.select(121,141)
+
+#ids = [131]
+#ids.extend(range(121,130))
+#ids.extend(range(132,142))
+#myjobs = [jobs(i) for i in ids]#jobs.select(121,141)
+myjobs = jobs.select(142,161)
 
 filesToHadd = ['']*len(myjobs)
 completedSubjobs = 0

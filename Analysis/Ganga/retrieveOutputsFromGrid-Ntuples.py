@@ -3,10 +3,11 @@ import sys, os
 import ROOT as r
 
 xmlOut = '/disk/data3/gangadir/egraveri/workspace/egraveri/LocalXML'
-rootFile = ['STTrackTuple-BranchByTrack-EveryHit-NTuples.root', 'STTrackTuple-BranchByTrack-HitsOnTrack-NTuples.root']
+rootFile = [#'STTrackTuple-BranchByTrack-EveryHit-NTuples.root',
+			 'STTrackTuple-BranchByTrack-HitsOnTrack-NTuples.root']
 
-#myjobs = jobs.select(87, 89)
-myjobs = jobs.select(111, 112)
+#myjobs = jobs.select(111, 112)
+myjobs = [jobs(163)]
 
 filesToHadd = ['']*len(myjobs)
 completedSubjobs = 0
@@ -14,10 +15,11 @@ totalSubJobs = 0
 
 notFoundLog = file(os.getcwd()+'/out/missedOutputLog.txt', 'w')
 
-analysisPath = '/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/TrackTupleMonitor/Analysis/RootFiles/'
+#analysisPath = '/afs/cern.ch/user/e/egraveri/cmtuser/STMonitoring/TrackTupleMonitor/Analysis/RootFiles/'
+analysisPath = '/disk/data3/lhcb/elena/STAnalysis/RootFiles/'
 
 #outFile = [os.getcwd()+'/out/%s.root'%j.name for j in myjobs]
-copyToAnalysis = [     analysisPath+'EveryHit/runs131973-133785-end2012-muEstimate-Edges-closestState.root',
+copyToAnalysis = [  #   analysisPath+'EveryHit/runs131973-133785-end2012-muEstimate-Edges-closestState.root',
 					analysisPath+'HitsOnTrack/runs131973-133785-end2012-muEstimate-Edges-closestState.root']
 
 print 'Selected jobs ID and name:'
