@@ -102,8 +102,8 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
                 rotations[hm][iov]['m_err'] = func.GetParError(1)
                 rotations[hm][iov]['q'] = func.GetParameter(0)
                 rotations[hm][iov]['q_err'] = func.GetParError(0)
-            histosByHM[hm]['RxByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012().intervals[iov]['start'].replace('2012-','') + ' to ' 
-                + IOVs2012().intervals[iov]['end'].replace('2012-',''))
+            histosByHM[hm]['RxByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012_instance.intervals[iov]['start'].replace('2012-','') + ' to ' 
+                + IOVs2012_instance.intervals[iov]['end'].replace('2012-',''))
     # Style up
     r.gStyle.SetPadBottomMargin(0.30)
     r.gROOT.ForceStyle()
