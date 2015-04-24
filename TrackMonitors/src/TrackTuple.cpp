@@ -152,17 +152,61 @@ StatusCode TrackTuple::initialize()
       std::vector<float> sensor_x;     sensor_x.reserve( sensorsInSector.size() );
       std::vector<float> sensor_y;     sensor_y.reserve( sensorsInSector.size() );
       std::vector<float> sensor_z;     sensor_z.reserve( sensorsInSector.size() );
+      std::vector<float> corner1_x;    corner1_x.reserve( sensorsInSector.size() );
+      std::vector<float> corner1_y;    corner1_y.reserve( sensorsInSector.size() );
+      std::vector<float> corner1_z;    corner1_z.reserve( sensorsInSector.size() );
+      std::vector<float> corner2_x;    corner2_x.reserve( sensorsInSector.size() );
+      std::vector<float> corner2_y;    corner2_y.reserve( sensorsInSector.size() );
+      std::vector<float> corner2_z;    corner2_z.reserve( sensorsInSector.size() );
+      std::vector<float> corner3_x;    corner3_x.reserve( sensorsInSector.size() );
+      std::vector<float> corner3_y;    corner3_y.reserve( sensorsInSector.size() );
+      std::vector<float> corner3_z;    corner3_z.reserve( sensorsInSector.size() );
+      std::vector<float> corner4_x;    corner4_x.reserve( sensorsInSector.size() );
+      std::vector<float> corner4_y;    corner4_y.reserve( sensorsInSector.size() );
+      std::vector<float> corner4_z;    corner4_z.reserve( sensorsInSector.size() );
       std::vector<DeSTSensor*>::const_iterator sensor = sensorsInSector.begin();
       for(; sensor != sensorsInSector.end(); ++sensor)
       {
+        // Sensor centre
         Gaudi::XYZPoint pos = (*sensor)->globalCentre();//toGlobal( Gaudi::XYZPoint(0.,0.,0.) );
         sensor_x.push_back( float(pos.x()) );
         sensor_y.push_back( float(pos.y()) );
         sensor_z.push_back( float(pos.z()) );
+        // Sensor corners
+        std::auto_ptr<LHCb::Trajectory> firsttraj = (*sensor)->trajectory(1, 0.);
+        Gaudi::XYZPoint corner1 = firsttraj->beginPoint();
+        Gaudi::XYZPoint corner2 = firsttraj->endPoint();
+        std::auto_ptr<LHCb::Trajectory> lasttraj = (*sensor)->trajectory(512, 0.);
+        Gaudi::XYZPoint corner3 = lasttraj->beginPoint();
+        Gaudi::XYZPoint corner4 = lasttraj->endPoint();
+        corner1_x.push_back( float(corner1.x()) );
+        corner1_y.push_back( float(corner1.y()) );
+        corner1_z.push_back( float(corner1.z()) );
+        corner2_x.push_back( float(corner2.x()) );
+        corner2_y.push_back( float(corner2.y()) );
+        corner2_z.push_back( float(corner2.z()) );
+        corner3_x.push_back( float(corner3.x()) );
+        corner3_y.push_back( float(corner3.y()) );
+        corner3_z.push_back( float(corner3.z()) );
+        corner4_x.push_back( float(corner4.x()) );
+        corner4_y.push_back( float(corner4.y()) );
+        corner4_z.push_back( float(corner4.z()) );
       }
       positions -> farray( "sensor_x",  sensor_x, "len",  sensorsInSector.size() );
       positions -> farray( "sensor_y",  sensor_y, "len",  sensorsInSector.size() );
       positions -> farray( "sensor_z",  sensor_z, "len",  sensorsInSector.size() );
+      positions -> farray( "corner1_x", corner1_x, "len",  sensorsInSector.size() );
+      positions -> farray( "corner1_y", corner1_y, "len",  sensorsInSector.size() );
+      positions -> farray( "corner1_z", corner1_z, "len",  sensorsInSector.size() );
+      positions -> farray( "corner2_x", corner2_x, "len",  sensorsInSector.size() );
+      positions -> farray( "corner2_y", corner2_y, "len",  sensorsInSector.size() );
+      positions -> farray( "corner2_z", corner2_z, "len",  sensorsInSector.size() );
+      positions -> farray( "corner3_x", corner3_x, "len",  sensorsInSector.size() );
+      positions -> farray( "corner3_y", corner3_y, "len",  sensorsInSector.size() );
+      positions -> farray( "corner3_z", corner3_z, "len",  sensorsInSector.size() );
+      positions -> farray( "corner4_x", corner4_x, "len",  sensorsInSector.size() );
+      positions -> farray( "corner4_y", corner4_y, "len",  sensorsInSector.size() );
+      positions -> farray( "corner4_z", corner4_z, "len",  sensorsInSector.size() );
       positions -> write();
     } // end loop (sectors)
   }
