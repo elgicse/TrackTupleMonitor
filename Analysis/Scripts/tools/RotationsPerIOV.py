@@ -21,11 +21,11 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
         histosByHM[hm] = { 
             #'AvgResidualByIOV': r.TH2F(hm+'-AvgResidualByIOV', hm+'-AvgResidualByIOV', 17, 0, 17, 100, 0., 0.06),
             #'ResidualRMSByIOV': r.TH2F(hm+'-ResidualRMSByIOV', hm+'-ResidualRMSByIOV', 17, 0, 17, 100, 0., 0.06)
-            'AvgResidualByIOV': r.TH1F('AvgResidualByIOV_'+hm, 'AvgResidualByIOV_'+hm, len(IOVs2012().intervals), 0, 1),
-            'ResidualRMSByIOV': r.TH1F('ResidualRMSByIOV_'+hm, 'ResidualRMSByIOV_'+hm, len(IOVs2012().intervals), 0, 1),
-            'RxByIOV': r.TH1F('RxByIOV_'+hm, 'RxByIOV_'+hm, len(IOVs2012().intervals), 0, 1)
+            'AvgResidualByIOV': r.TH1F('AvgResidualByIOV_'+hm, 'AvgResidualByIOV_'+hm, len(IOVs2012_instance.intervals), 0, 1),
+            'ResidualRMSByIOV': r.TH1F('ResidualRMSByIOV_'+hm, 'ResidualRMSByIOV_'+hm, len(IOVs2012_instance.intervals), 0, 1),
+            'RxByIOV': r.TH1F('RxByIOV_'+hm, 'RxByIOV_'+hm, len(IOVs2012_instance.intervals), 0, 1)
         }
-        for i in IOVs2012().intervals:
+        for i in IOVs2012_instance.intervals:
             histosByHM[hm]['ResidualsByIOV-'+str(i)] = r.TH1F(hm+'-ResidualsByIOV-'+str(i), hm+'-ResidualsByIOV-'+str(i), 100, 0., 0.06)
             histosByHM[hm]['HitZvsTrackYByIOV-'+str(i)] = r.TGraph()
             histosByHM[hm]['HitZvsTrackYByIOV-'+str(i)].SetTitle(hm+'-HitZvsTrackYByIOV-'+str(i))
@@ -53,7 +53,7 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
             cy = track.cluster_y
             cz = track.cluster_z
             for (i, id) in enumerate(ids):
-                if STNames().uniqueLayerName(STChannelID(ids[i])) == layer:
+                if STNames_instance.uniqueLayerName(STChannelID(ids[i])) == layer:
                     hm = get_half_module(id)
                     histosByHM[hm]['ResidualsByIOV-'+str(iov)].Fill(residuals[i])
                     histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].SetPoint(   histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].GetN(),
@@ -62,7 +62,7 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
     for hm in listOfHM:
         #avg, rms = [], []
         rotations[hm] = {}
-        for iov in xrange(len(IOVs2012().intervals)):
+        for iov in xrange(len(IOVs2012_instance.intervals)):
             rotations[hm][iov] = {}
             #avg.append( histosByHM[hm]['ResidualsByIOV-'+iov].GetMean() )
             #rms.append( histosByHM[hm]['ResidualsByIOV-'+iov].GetRMS() )
@@ -75,10 +75,10 @@ def RotationsPerIOV(tracker, datatype, listOfHM, t, save, shortFilename, segment
             histosByHM[hm]['ResidualRMSByIOV'].SetBinContent(iov, rms)
             histosByHM[hm]['AvgResidualByIOV'].SetBinError(iov, avge)
             histosByHM[hm]['ResidualRMSByIOV'].SetBinError(iov, rmse)
-            histosByHM[hm]['ResidualRMSByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012().intervals[iov]['start'].replace('2012-','') + ' to ' 
-                + IOVs2012().intervals[iov]['end'].replace('2012-',''))
-            histosByHM[hm]['AvgResidualByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012().intervals[iov]['start'].replace('2012-','') + ' to ' 
-                + IOVs2012().intervals[iov]['end'].replace('2012-',''))
+            histosByHM[hm]['ResidualRMSByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012_instance.intervals[iov]['start'].replace('2012-','') + ' to ' 
+                + IOVs2012_instance.intervals[iov]['end'].replace('2012-',''))
+            histosByHM[hm]['AvgResidualByIOV'].GetXaxis().SetBinLabel(iov+1, IOVs2012_instance.intervals[iov]['start'].replace('2012-','') + ' to ' 
+                + IOVs2012_instance.intervals[iov]['end'].replace('2012-',''))
             if histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].GetN() > 2:
                 r.gStyle.SetOptFit(r.kTRUE)
                 c1 = r.TCanvas(histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].GetName(), histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].GetTitle(), 1600, 1000) #debug
