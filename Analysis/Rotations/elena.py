@@ -35,7 +35,7 @@ theApp.DatasetName = 'Align'
 #theApp.UseFileStager = True
 
 from Configurables import UpdateManagerSvc
-UpdateManagerSvc().ConditionsOverride += [ "Conditions/Alignment/TT/TTaXLayerR1Module1T := double_v dPosXYZ = 0.05 0. 0.; double_v dRotXYZ = -0.005 0. 0.;" ]
+UpdateManagerSvc().ConditionsOverride += [ "Conditions/Alignment/TT/TTaXLayerR1Module1T := double_v dPosXYZ = 0.0 0. 0.; double_v dRotXYZ = 0. 0. 1.;" ]
 
 
 ### VERTEX SELECTION ##############
