@@ -47,9 +47,37 @@ class IOVs2012():
         #print 'EXITING'
         # DIRTY trick for MC!!
         return 0, {'start':'MC', 'end':'MC', 'firstrun':0, 'lastrun':99999}
-        sys.exit()
+        #sys.exit()
+
 
 IOVs2012_instance = IOVs2012()
+
+class SplitIOVs(IOVs2012):
+    def __init__(self, n=10):
+        new_intervals = {}
+        i = 0
+        for idx in IOVs2012_instance.intervals:
+            howmanyruns = IOVs2012_instance.intervals[idx]['lastrun'] - IOVs2012_instance.intervals[idx]['firstrun']
+            runsPerSmallInterval = howmanyruns / n
+            for ii in xrange(n):
+                new_intervals[i] = {
+                    'start': IOVs2012_instance.intervals[idx]['start'],
+                    'end': IOVs2012_instance.intervals[idx]['end'],
+                    'firstrun': int(IOVs2012_instance.intervals[idx]['firstrun'] + ii * runsPerSmallInterval),
+                    'lastrun': int(IOVs2012_instance.intervals[idx]['firstrun'] + (ii+1) * runsPerSmallInterval -1),
+                }
+                if ii == (n-1):
+                    new_intervals[i] = {
+                        'start': IOVs2012_instance.intervals[idx]['start'],
+                        'end': IOVs2012_instance.intervals[idx]['end'],
+                        'firstrun': int(IOVs2012_instance.intervals[idx]['firstrun'] + ii * runsPerSmallInterval),
+                        'lastrun': IOVs2012_instance.intervals[idx]['lastrun'],
+                    }
+
+                i += 1
+        self.intervals = new_intervals
+
+SplitIOVs_instance = SplitIOVs()
 
 class InMoreLayers(Exception): pass
 
@@ -59,6 +87,10 @@ def run_number(event):
 def GetIOV(event):
     n = run_number(event)
     return IOVs2012_instance.GetInterval(n)[0]
+
+def GetSplitIOV(event):
+    n = run_number(event)
+    return SplitIOVs_instance.GetInterval(n)[0]
 
 def get_sector(chanID):
     return STNames_instance.uniqueSectorName(STChannelID(int(chanID)))
