@@ -355,6 +355,19 @@ def sectorsInHalfModule(halfModuleId):
     return sectors, sectorNumbers
 
 
+def elenaNamesToOlafNames(name):
+    """
+    Converts the name of a TT half module from Elena's alphabet to Olaf's alphabet
+
+    * RegionA, RegionB, RegionC -> R3, R2, R1
+    * Module#i -> Module#(i+1)
+
+    """
+    layer, region, num, position = locateTTHalfModule(name)
+    reg = {'A': 'R3', 'B': 'R2', 'C':'R1'}
+    return layer+'Layer'+reg[region]+'Module'+str(num+1)+position.capitalize()
+
+
 if __name__ == '__main__':
     import ROOT as r
     f = r.TFile('../../RootFiles/EveryHit/runs131973-133785-end2012.root','read')
