@@ -53,11 +53,12 @@ if __name__ == '__main__':
         os.system('mkdir ../Out/'+shortFilename)
     if not os.path.exists('../Out/'+shortFilename+'/%s'%tracker):
         os.system('mkdir ../Out/'+shortFilename+'/%s'%tracker)
+    datatype = ''
     if 'EveryHit' in inputfile:
         datatype = 'EveryHit'
     elif 'HitsOnTrack' in inputfile:
         datatype = 'HitsOnTrack'
-    else:
+    elif not studies==['Corners']:
         print 'ERROR: could not understand data type (HitsOnTrack or EveryHit)'
         sys.exit()
     segment = 'all2012'
