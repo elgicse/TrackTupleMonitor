@@ -1,0 +1,45 @@
+********************* ALIGNMENT LOG ************************
+Iteration: 0
+Total number of events: 2
+Time of first event [ns]: 1301000000 --> 1970-01-01 01:00:01 AM
+Time of last event [ns] : 1301000000 --> 1970-01-01 01:00:01 AM
+Time at initialize [ns] : 1301000000 --> 1970-01-01 01:00:01 AM
+First/last run number: 1551783/1551783
+Used 6 vertices for alignment
+Used 0 particles for alignment
+Used 37 tracks for alignment
+Total chisquare/dofs:    1486.82 / 1320
+Average track chisquare: 39.1342
+Track chisquare/dof:     1.13477
+Vertex chisquare/dof:    0.882959
+Used 140 hits for alignment
+Total number of hits in external detectors: 1321
+Total chisquare of survey constraints: 5.27763e+06 / 1314
+Most important dofs, including survey: 
+  0 TTaXLayerCSide dof=4 chi2= 15803.4 delta= -0.0623877 +/- 0.000496275
+  1 TTaXLayerCSide dof=2 chi2= 3029 delta= 11.5802 +/- 0.21041
+  2 TTaXLayerCSide dof=3 chi2= 2620.42 delta= 0.0149561 +/- 0.000292168
+  3 TTaXLayerCSide dof=5 chi2= 457.987 delta= 0.00304436 +/- 0.000142255
+  4 TTaXLayerCSide dof=1 chi2= 283.09 delta= 2.299 +/- 0.13664
+  5 TT/TTb/TTbVLayer/R2Module4B dof=2 chi2= 159.567 delta= -1.26156 +/- 0.0998702
+  6 TT/TTb/TTbVLayer/R2Module4B dof=3 chi2= 159.306 delta= -0.00115039 +/- 9.1144e-05
+  7 TTbVLayerR2Module4 dof=2 chi2= 159.271 delta= -1.25362 +/- 0.0993344
+  8 TT/TTb/TTbVLayer/R2Module4T dof=2 chi2= 156.967 delta= -1.24612 +/- 0.099462
+  9 TTbVLayerR2Module4 dof=3 chi2= 155.965 delta= -0.00161357 +/- 0.000129204
+  10 TT dof=0 chi2= 151.879 delta= -0.466281 +/- 0.0378354
+  11 TT/TTb/TTbVLayer/R2Module4T dof=3 chi2= 141.148 delta= 0.00256674 +/- 0.000216045
+  12 TT/TTb/TTbVLayer/R2Module5B dof=3 chi2= 132.268 delta= -0.00104833 +/- 9.11527e-05
+  13 TT/TTb/TTbXLayer/R2Module4B dof=3 chi2= 131.594 delta= -0.00104554 +/- 9.11423e-05
+  14 TT/TTb/TTbVLayer/R2Module5B dof=2 chi2= 130.332 delta= -1.13911 +/- 0.0997787
+  15 TTbVLayerR2Module5 dof=3 chi2= 130.024 delta= -0.00147284 +/- 0.000129165
+  16 TTbXLayerR2Module4 dof=3 chi2= 129.768 delta= -0.00147194 +/- 0.000129213
+  17 TTbVLayerR2Module5 dof=2 chi2= 129.186 delta= -1.13116 +/- 0.0995218
+  18 TT/TTb/TTbVLayer/R2Module5T dof=2 chi2= 129.039 delta= -1.13301 +/- 0.0997413
+  19 TT/TTb/TTbXLayer/R2Module4B dof=2 chi2= 128.65 delta= -1.13248 +/- 0.0998449
+  20 TTbXLayerR2Module4 dof=2 chi2= 124.647 delta= -1.10915 +/- 0.099346
+  21 TT/TTb/TTbXLayer/R2Module4T dof=2 chi2= 124.364 delta= -1.10959 +/- 0.0994988
+  22 TT/TTb/TTbXLayer/R2Module4T dof=3 chi2= 121.709 delta= 0.00238345 +/- 0.000216045
+  23 TT/TTb/TTbVLayer/R2Module5T dof=3 chi2= 120.056 delta= 0.00236899 +/- 0.000216208
+  24 TT/TTb/TTbVLayer/R3Module1B dof=2 chi2= 115.482 delta= -1.06907 +/- 0.0994827
+No alignable degrees of freedom ... skipping solver tools and update.
+********************* END OF ALIGNMENT LOG ************************

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+<File ID="D07F8318-D576-E411-9B30-001B21BAC578">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://bw32-1.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041834/0000/00041834_00000282_1.dimuon.dst" se="SARA-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx229.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041834/0000/00041834_00000282_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041834/0000/00041834_00000282_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041834/0000/00041834_00000282_1.dimuon.dst"/>
+   </logical>
+</File>
+
+</POOLFILECATALOG>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?><!DOCTYPE DDDB SYSTEM "../../../DTD/structure.dtd"><DDDB>
+<!-- 2012-Aug-23 - 0:09:59 -->
+<!-- Author: mamartin -->
+<!-- Version:: Unknown -->
+<!-- Description:: AlignHltD0-Fill2880 -->
+
+<condition classID="6" name="TTSystem"><paramVector name="dPosXYZ" type="double">0 -0.2000000158054366 0</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+<condition classID="6" name="TTa"><paramVector name="dPosXYZ" type="double">0 0 0</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+<condition classID="6" name="TTaXLayer"><paramVector name="dPosXYZ" type="double">0 0 0.9302875718390169</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+<condition classID="6" name="TTaULayer"><paramVector name="dPosXYZ" type="double">0 0 0.9555126730488155</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+<condition classID="6" name="TTb"><paramVector name="dPosXYZ" type="double">0 0 0</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+<condition classID="6" name="TTbXLayer"><paramVector name="dPosXYZ" type="double">0 0 0.3758196284356927</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+<condition classID="6" name="TTbVLayer"><paramVector name="dPosXYZ" type="double">0 0 0.362157136341466</paramVector><paramVector name="dRotXYZ" type="double">0 0 0</paramVector></condition>
+</DDDB>

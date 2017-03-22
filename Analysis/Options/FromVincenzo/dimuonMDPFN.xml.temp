@@ -1,0 +1,346 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By PoolXMLCatalog.py -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+
+<File ID="D241AEF8-B47C-E411-A4E7-848F69FD4667">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://lhcb-sdpd3.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst" se="RRCKI-DST"/>
+      <pfn filetype="ROOT_All" name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst" se="IN2P3-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://lhcb-sdpd3.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst" att_value="RRCKI-DST"/>
+      <metadata att_name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst" att_value="IN2P3-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001972_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="BCCBBC00-8A7C-E411-AE0E-002590D0AFEE">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-123-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://s35-01.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst" se="SARA-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-123-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://s35-01.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst" att_value="SARA-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001632_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="F2615C12-947C-E411-8E5E-AC162DACC3E8">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx234.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://dcdoor04.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst" se="PIC-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://heplnx234.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+      <metadata att_name="root://dcdoor04.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst" att_value="PIC-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001730_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="6AB3C95D-8F7C-E411-949B-0026557FA408">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx229.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://s35-01.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst" se="SARA-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://heplnx229.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+      <metadata att_name="root://s35-01.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst" att_value="SARA-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001700_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="D684E3FE-967C-E411-87F5-BCAEC50971E3">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst" se="IN2P3-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst" att_value="IN2P3-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001758_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="1E5658E1-8F7C-E411-B2BA-002590D0B0D0">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://bohr3226.tier2.hep.manchester.ac.uk:1094//dpm/tier2.hep.manchester.ac.uk/home/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst" se="Manchester-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://bohr3226.tier2.hep.manchester.ac.uk:1094//dpm/tier2.hep.manchester.ac.uk/home/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst" att_value="Manchester-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001681_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="682D266A-A47C-E411-9895-0025901D4D6C">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx232.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://heplnx232.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001828_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="F28FEF30-AF7C-E411-A266-BCAEC5097212">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-123-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx210.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://f01-080-123-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://heplnx210.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001903_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="B607912C-777C-E411-935B-C4346BB28648">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx232.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://dcdoor07.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst" se="PIC-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://heplnx232.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+      <metadata att_name="root://dcdoor07.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst" att_value="PIC-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001528_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="10826286-7C7C-E411-8F3B-002655216B10">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx234.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://bw27-3.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst" se="SARA-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://heplnx234.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+      <metadata att_name="root://bw27-3.grid.sara.nl:1094/pnfs/grid.sara.nl/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst" att_value="SARA-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001549_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="44A30089-AE7C-E411-985E-0025907DC9C8">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst" se="LAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://lpnse1.in2p3.fr:1094//dpm/in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst" se="LPNHE-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst" att_value="LAL-DST"/>
+      <metadata att_name="root://lpnse1.in2p3.fr:1094//dpm/in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst" att_value="LPNHE-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001869_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="E6FF9C32-BF7C-E411-BB18-002590200B4C">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx231.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst" se="LAL-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://heplnx231.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+      <metadata att_name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst" att_value="LAL-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001726_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="E48D2B4B-AA7C-E411-8523-C4346BB2F400">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://dcdoor02.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst" se="PIC-DST"/>
+      <pfn filetype="ROOT_All" name="root://tbit00.nipne.ro:1094//dpm/nipne.ro/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst" se="NIPNE-07-DST"/>
+      <pfn filetype="ROOT_All" name="root://storage01.lcg.cscs.ch:1094/pnfs/lcg.cscs.ch/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst" se="CSCS-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://dcdoor02.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst" att_value="PIC-DST"/>
+      <metadata att_name="root://tbit00.nipne.ro:1094//dpm/nipne.ro/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst" att_value="NIPNE-07-DST"/>
+      <metadata att_name="root://storage01.lcg.cscs.ch:1094/pnfs/lcg.cscs.ch/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst" att_value="CSCS-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001859_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="2A557C41-657C-E411-A83B-20CF3027A5B6">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://lhcb-sdpd13.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst" se="RRCKI-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://lhcb-sdpd13.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst" att_value="RRCKI-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001462_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="AA4A5393-7B7C-E411-A004-1CC1DE0503C0">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://dcdoor02.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst" se="PIC-DST"/>
+      <pfn filetype="ROOT_All" name="root://tbit00.nipne.ro:1094//dpm/nipne.ro/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst" se="NIPNE-07-DST"/>
+      <pfn filetype="ROOT_All" name="root://storage01.lcg.cscs.ch:1094/pnfs/lcg.cscs.ch/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst" se="CSCS-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://dcdoor02.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst" att_value="PIC-DST"/>
+      <metadata att_name="root://tbit00.nipne.ro:1094//dpm/nipne.ro/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst" att_value="NIPNE-07-DST"/>
+      <metadata att_name="root://storage01.lcg.cscs.ch:1094/pnfs/lcg.cscs.ch/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst" att_value="CSCS-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001542_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="760C9BE7-8D7C-E411-B17C-002590D0AFDC">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-123-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" se="IN2P3-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-123-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst" att_value="IN2P3-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001673_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="B6AEBD2F-A07C-E411-BE6D-E0CB4E19F9A4">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://bohr3226.tier2.hep.manchester.ac.uk:1094//dpm/tier2.hep.manchester.ac.uk/home/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst" se="Manchester-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://bohr3226.tier2.hep.manchester.ac.uk:1094//dpm/tier2.hep.manchester.ac.uk/home/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst" att_value="Manchester-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001797_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="22D9871B-B87C-E411-BD58-002590DB91FA">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://lhcb-sdpd3.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst" se="RRCKI-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://lhcb-sdpd3.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst" att_value="RRCKI-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001957_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="96860F09-777C-E411-89D9-002590AC4FE2">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst" se="CERN-DST-EOS"/>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx229.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <metadata att_name="root://eoslhcb.cern.ch//eos/lhcb/grid/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst" att_value="CERN-DST-EOS"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://heplnx229.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001502_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="E8A14A0C-8F7C-E411-81C7-002590D0AFD2">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst" se="CNAF-DST"/>
+      <pfn filetype="ROOT_All" name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst" se="LAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://lpnse1.in2p3.fr:1094//dpm/in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst" se="LPNHE-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://xrootd-lhcb.cr.cnaf.infn.it//storage/gpfs_lhcb/lhcb/disk/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst" att_value="CNAF-DST"/>
+      <metadata att_name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst" att_value="LAL-DST"/>
+      <metadata att_name="root://lpnse1.in2p3.fr:1094//dpm/in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst" att_value="LPNHE-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001695_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="125956B8-737C-E411-BB51-F04DA23BCE4C">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst" se="GRIDKA-DST"/>
+      <pfn filetype="ROOT_All" name="root://lhcb-sdpd8.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst" se="RRCKI-DST"/>
+      <pfn filetype="ROOT_All" name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst" se="LAL-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://f01-080-125-e.gridka.de:1094/pnfs/gridka.de/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst" att_value="GRIDKA-DST"/>
+      <metadata att_name="root://lhcb-sdpd8.t1.grid.kiae.ru.:1094/t1.grid.kiae.ru/data/lhcb/lhcbdisk/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst" att_value="RRCKI-DST"/>
+      <metadata att_name="root://grid05.lal.in2p3.fr:1094//dpm/lal.in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst" att_value="LAL-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001510_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="3E875E4A-B17C-E411-928B-00266CFFCD60">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://heplnx234.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst" se="RAL-HEP-DST"/>
+      <pfn filetype="ROOT_All" name="root://dcdoor06.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst" se="PIC-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://heplnx234.pp.rl.ac.uk:1094/pnfs/pp.rl.ac.uk/data/lhcb/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst" att_value="RAL-HEP-DST"/>
+      <metadata att_name="root://dcdoor06.pic.es:1094/pnfs/pic.es/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst" att_value="PIC-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001928_1.dimuon.dst"/>
+   </logical>
+</File>
+<File ID="0623C06C-887C-E411-9F5B-848F69FD2853">
+   <physical>
+      <pfn filetype="ROOT_All" name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst?svcClass=lhcbDst" se="RAL-DST"/>
+      <pfn filetype="ROOT_All" name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst" se="IN2P3-DST"/>
+      <pfn filetype="ROOT_All" name="root://tbit00.nipne.ro:1094//dpm/nipne.ro/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst" se="NIPNE-07-DST"/>
+      <pfn filetype="ROOT_All" name="root://marsedpm.in2p3.fr:1094//dpm/in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst" se="CPPM-DST"/>
+      <metadata att_name="root://clhcbdlf.ads.rl.ac.uk//castor/ads.rl.ac.uk/prod/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst?svcClass=lhcbDst" att_value="RAL-DST"/>
+      <metadata att_name="root://ccdcacli067.in2p3.fr:1094/pnfs/in2p3.fr/data/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst" att_value="IN2P3-DST"/>
+      <metadata att_name="root://tbit00.nipne.ro:1094//dpm/nipne.ro/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst" att_value="NIPNE-07-DST"/>
+      <metadata att_name="root://marsedpm.in2p3.fr:1094//dpm/in2p3.fr/home/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst" att_value="CPPM-DST"/>
+   </physical>
+   <logical>
+      <lfn name="/lhcb/LHCb/Collision12/DIMUON.DST/00041836/0000/00041836_00001616_1.dimuon.dst"/>
+   </logical>
+</File>
+
+</POOLFILECATALOG>
