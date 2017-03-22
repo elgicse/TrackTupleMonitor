@@ -7,7 +7,7 @@ import argparse, importlib
 ap = argparse.ArgumentParser(prog='python analyze.py',
     description='ST track analysis script', add_help=True)
 ap.add_argument('-st', '--studies', help='List of studies to execute.\nDefault is none.',
-#                nargs='+', default='CLZvsTY RotationsPerIOV IOV PositionsSectors PositionsHalfModules Outliers FullLayers ClusterSize Overlaps OverlapsHalfModules MagField'.split())
+#                nargs='+', default='NormalSectorMonitoring CLZvsTY RotationsPerIOV IOV PositionsSectors PositionsHalfModules Outliers FullLayers ClusterSize Overlaps OverlapsHalfModules MagField'.split())
                 nargs='+', default=' '.split())
 ap.add_argument('-t', '--tracker', help='Tracking detector: IT or TT', default='TT', type=str)
 ap.add_argument('-i', '--inputfile', help='Input file', required=True, type=str)
@@ -45,7 +45,7 @@ if __name__ == '__main__':
         #detector = CreateDetectors.create_IT()
     else:
         print 'ERROR: please select tracker (IT or TT).'
-        print 'Sample usage: python -i ntupleAnalysis.py TT ../RootFiles/EveryHit/all2012-muEstimate-Edges-2cm.root save'
+        print 'Sample usage: python -i analyze.py TT ../RootFiles/EveryHit/all2012-muEstimate-Edges-2cm.root save'
         print 'Exiting now...'
         sys.exit()
     shortFilename = inputfile.split('/')[-1].replace('.root','')

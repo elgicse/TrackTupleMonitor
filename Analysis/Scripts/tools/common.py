@@ -23,22 +23,41 @@ class IOVs2012():
         self.intervals = {
              0 : {'start':'2012-04-01', 'end':'2012-04-17', 'firstrun':111183, 'lastrun':112916},
              1 : {'start':'2012-04-17', 'end':'2012-05-01', 'firstrun':113013, 'lastrun':113146},
-             2 : {'start':'2012-05-01', 'end':'2012-05-12', 'firstrun':114205, 'lastrun':114287},
-             3 : {'start':'2012-05-02', 'end':'2012-05-16', 'firstrun':114316, 'lastrun':115464},
-             4 : {'start':'2012-05-16', 'end':'2012-05-31', 'firstrun':115518, 'lastrun':117103},
-             5 : {'start':'2012-05-31', 'end':'2012-06-11', 'firstrun':117192, 'lastrun':118286},
-             6 : {'start':'2012-06-11', 'end':'2012-07-02', 'firstrun':118326, 'lastrun':118880},
+             2 : {'start':'2012-05-01', 'end':'2012-05-12', 'firstrun':114205, 'lastrun':114275},
+             3 : {'start':'2012-05-02', 'end':'2012-05-16', 'firstrun':114277, 'lastrun':115443},
+             4 : {'start':'2012-05-16', 'end':'2012-05-31', 'firstrun':115454, 'lastrun':117021},
+             5 : {'start':'2012-05-31', 'end':'2012-06-11', 'firstrun':117060, 'lastrun':118244},
+             6 : {'start':'2012-06-11', 'end':'2012-07-02', 'firstrun':118285, 'lastrun':118880},
              7 : {'start':'2012-07-02', 'end':'2012-07-20', 'firstrun':119956, 'lastrun':122520},
-             8 : {'start':'2012-07-20', 'end':'2012-07-25', 'firstrun':122540, 'lastrun':123803},
-             9 : {'start':'2012-07-25', 'end':'2012-08-10', 'firstrun':123910, 'lastrun':125115},
-            10 : {'start':'2012-08-10', 'end':'2012-08-28', 'firstrun':125566, 'lastrun':126680},
-            11 : {'start':'2012-08-28', 'end':'2012-09-15', 'firstrun':126824, 'lastrun':128268},
+             8 : {'start':'2012-07-20', 'end':'2012-07-25', 'firstrun':122540, 'lastrun':123788},
+             9 : {'start':'2012-07-25', 'end':'2012-08-10', 'firstrun':123789, 'lastrun':125097},
+            10 : {'start':'2012-08-10', 'end':'2012-08-28', 'firstrun':125098, 'lastrun':126609},
+            11 : {'start':'2012-08-28', 'end':'2012-09-15', 'firstrun':126660, 'lastrun':128268},
             12 : {'start':'2012-09-15', 'end':'2012-10-12', 'firstrun':128411, 'lastrun':129978},
-            13 : {'start':'2012-10-12', 'end':'2012-10-24', 'firstrun':130316, 'lastrun':130861},
-            14 : {'start':'2012-10-24', 'end':'2012-11-08', 'firstrun':130911, 'lastrun':131940},
-            15 : {'start':'2012-11-08', 'end':'2012-12-03', 'firstrun':131973, 'lastrun':133587},
+            13 : {'start':'2012-10-12', 'end':'2012-10-24', 'firstrun':130316, 'lastrun':130813},
+            14 : {'start':'2012-10-24', 'end':'2012-11-08', 'firstrun':130852, 'lastrun':131896},
+            15 : {'start':'2012-11-08', 'end':'2012-12-03', 'firstrun':131897, 'lastrun':133587},
             16 : {'start':'2012-12-03', 'end':'2012-12-31', 'firstrun':133624, 'lastrun':133785}
         }
+        #self.intervals = {
+        #     0 : {'start':'2012-04-01', 'end':'2012-04-17', 'firstrun':111183, 'lastrun':112916},
+        #     1 : {'start':'2012-04-17', 'end':'2012-05-01', 'firstrun':113013, 'lastrun':113146},
+        #     2 : {'start':'2012-05-01', 'end':'2012-05-12', 'firstrun':114205, 'lastrun':114287},
+        #     3 : {'start':'2012-05-02', 'end':'2012-05-16', 'firstrun':114316, 'lastrun':115464},
+        #     4 : {'start':'2012-05-16', 'end':'2012-05-31', 'firstrun':115518, 'lastrun':117103},
+        #     5 : {'start':'2012-05-31', 'end':'2012-06-11', 'firstrun':117192, 'lastrun':118286},
+        #     6 : {'start':'2012-06-11', 'end':'2012-07-02', 'firstrun':118326, 'lastrun':118880},
+        #     7 : {'start':'2012-07-02', 'end':'2012-07-20', 'firstrun':119956, 'lastrun':122520},
+        #     8 : {'start':'2012-07-20', 'end':'2012-07-25', 'firstrun':122540, 'lastrun':123803},
+        #     9 : {'start':'2012-07-25', 'end':'2012-08-10', 'firstrun':123910, 'lastrun':125115},
+        #    10 : {'start':'2012-08-10', 'end':'2012-08-28', 'firstrun':125566, 'lastrun':126680},
+        #    11 : {'start':'2012-08-28', 'end':'2012-09-15', 'firstrun':126824, 'lastrun':128268},
+        #    12 : {'start':'2012-09-15', 'end':'2012-10-12', 'firstrun':128411, 'lastrun':129978},
+        #    13 : {'start':'2012-10-12', 'end':'2012-10-24', 'firstrun':130316, 'lastrun':130861},
+        #    14 : {'start':'2012-10-24', 'end':'2012-11-08', 'firstrun':130911, 'lastrun':131940},
+        #    15 : {'start':'2012-11-08', 'end':'2012-12-03', 'firstrun':131973, 'lastrun':133587},
+        #    16 : {'start':'2012-12-03', 'end':'2012-12-31', 'firstrun':133624, 'lastrun':133785}
+        #}
     def GetInterval(self,runNumber):
         for i in self.intervals:
             if self.intervals[i]['firstrun'] <= runNumber <= self.intervals[i]['lastrun']:

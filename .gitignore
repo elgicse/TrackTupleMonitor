@@ -3,9 +3,13 @@ TrackMonitors/x86_64*/**
 *~
 **/*~
 **/*.history
+*.pyc
 **/*.pyc
 .svn
 .svn/**
 **/.svn
 **/.svn/**
 **/*.root
+*.root
+*.png
+**/*.png

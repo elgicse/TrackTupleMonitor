@@ -70,8 +70,8 @@ for (itrack, track) in enumerate(t):
 bar.finish()
 # Analyse histos
 shortFilename = 'all2012-muEstimate-Edges-closestState'
-os.system('mkdir ../Out/'+shortFilename+'/%s/%s/PlotsByHalfModule_LastRuns'%('TT', 'HitsOnTrack'))
-os.system('mkdir ../Out/'+shortFilename+'/%s/%s/Histograms_LastRuns'%('TT', 'HitsOnTrack'))
+os.system('mkdir ../Out/'+shortFilename+'/%s/%s/PlotsByHalfModule_LastRuns_correctedIOVs'%('TT', 'HitsOnTrack'))
+os.system('mkdir ../Out/'+shortFilename+'/%s/%s/Histograms_LastRuns_correctedIOVs'%('TT', 'HitsOnTrack'))
 for hm in listOfHM:
     #avg, rms = [], []
     rotations[hm] = {}
@@ -104,7 +104,7 @@ for hm in listOfHM:
             label.AddText(hm+' '+str(runlist[run])); label.Draw('same'); c1.Modified(); c1.Update()
             c1.Modified(); c1.Update() #debug
             if save:
-                c1.SaveAs('../Out/'+shortFilename+'/%s/%s/PlotsByHalfModule_LastRuns/%s-HitZvsTrackY-run%s.png'%('TT', 'HitsOnTrack', hm, runlist[run]))
+                c1.SaveAs('../Out/'+shortFilename+'/%s/%s/PlotsByHalfModule_LastRuns_correctedIOVs/%s-HitZvsTrackY-run%s.png'%('TT', 'HitsOnTrack', hm, runlist[run]))
             c1.Close() #debug
             #print func.GetParameter(0), func.GetParameter(1), func.GetChisquare(), histosByHM[hm]['HitZvsTrackYByIOV-'+str(iov)].GetN(), hm, iov
             histosByHM[hm]['RxByIOV'].SetBinContent(run+1, func.GetParameter(1) ) #fitToTheta( func.GetParameter(1) ))
@@ -118,8 +118,8 @@ for hm in listOfHM:
 r.gStyle.SetPadBottomMargin(0.30)
 r.gROOT.ForceStyle()
 if save:
-    pickle.dump( rotations, open('rotationsByRun_lastRuns.pkl', 'wb') )
-    outfile = r.TFile('../Out/'+shortFilename+'/%s/%s/Histograms_LastRuns/RotationsByRun-LastRuns-%s.root'%('TT', 'HitsOnTrack', 'all2012'), 'recreate')
+    pickle.dump( rotations, open('rotationsByRun_lastRuns_correctedIOVs.pkl', 'wb') )
+    outfile = r.TFile('../Out/'+shortFilename+'/%s/%s/Histograms_LastRuns/RotationsByRun-LastRuns_correctedIOVs-%s.root'%('TT', 'HitsOnTrack', 'all2012'), 'recreate')
     for hm in listOfHM:
         for h in histosByHM[hm].keys():
             if ('Avg' in h) or ('RMS' in h) or ('Rx' in h):
